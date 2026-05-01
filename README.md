@@ -165,7 +165,7 @@ Every server in the index below has been or will be audited against this catalog
 | [swiss-culture-mcp](https://github.com/malkreide/swiss-culture-mcp) | BAK cultural heritage, ISOS, living traditions, RSS | *«UNESCO-listed living traditions in Canton Zürich?»* | ✅ |
 | [swiss-cultural-heritage-mcp](https://github.com/malkreide/swiss-cultural-heritage-mcp) | Heritage inventories, monument lists, archaeological registers | *«Listed Baudenkmäler in Zürich Kreis 6?»* | 🔄 |
 | [bakom-mcp](https://github.com/malkreide/bakom-mcp) | BAKOM telecommunications and media open data | *«Which municipalities still lack 100 Mbit/s broadband?»* | 🔄 |
-| [srgssr-mcp](https://github.com/malkreide/srgssr-mcp) | SRG SSR — weather, video, audio, EPG, Polis | *«Latest SRF news segments on education policy?»* | 🔐 |
+| [srgssr-mcp](https://github.com/malkreide/srgssr-mcp) | SRG SSR — weather, video, audio, EPG, Polis | *«Latest SRF news segments on education policy?»* | ✅ |
 | [news-monitor-mcp](https://github.com/malkreide/news-monitor-mcp) | Aggregated news monitoring across Swiss public media RSS feeds | *«Top three education-policy stories in Swiss media this week?»* | 🔄 |
 
 ### 🏥 Health
