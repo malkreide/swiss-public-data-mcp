@@ -1,226 +1,246 @@
 # swiss-public-data-mcp
 
-![Servers](https://img.shields.io/badge/servers-27-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
+![Aktive Server](https://img.shields.io/badge/aktive%20Server-34-blue)
+![Legacy](https://img.shields.io/badge/legacy-1-lightgrey)
+![Lizenz](https://img.shields.io/badge/license-MIT-green)
 ![Python](https://img.shields.io/badge/python-3.11--3.13-blue)
-![Protocol](https://img.shields.io/badge/protocol-MCP-orange)
-![Data](https://img.shields.io/badge/data-Swiss%20Open%20Data-red)
-![Audit](https://img.shields.io/badge/quality-gegen%20internen%20Katalog%20auditiert-purple)
+![Protokoll](https://img.shields.io/badge/protocol-MCP-orange)
+![Daten](https://img.shields.io/badge/data-Swiss%20Open%20Data-red)
+![Audit](https://img.shields.io/badge/quality-mcp--audit--skill-purple)
 
-> Ein kuratiertes Portfolio von Model-Context-Protocol-(MCP-)Servern, das KI-Agenten mit Schweizer öffentlichen und offenen Daten verbindet — gebaut auf einer reproduzierbaren Qualitätsmethodik, nicht als Sammlung einmaliger Experimente.
+> Ein kuratiertes Portfolio von Model-Context-Protocol-Servern (MCP), die KI-Agenten mit Schweizer öffentlichen und offenen Daten verbinden. Das Portfolio wird als auditierbares Inventar gepflegt, nicht als lose Sammlung von Experimenten.
 
 [🇬🇧 English version](README.md)
 
-> ⚠️ **Disclaimer — Unabhängigkeit dieses Projekts**
+> ⚠️ **Disclaimer - Unabhängigkeit dieses Projekts**
 >
-> Dies ist ein **privates Open-Source-Projekt** von Hayal Oezkan. Es entsteht in privater Funktion, in der Freizeit, mit privater Infrastruktur. Es ist **kein** offizielles Projekt der Stadt Zürich, des Schulamts, der KI-Fachgruppe der Stadtverwaltung Zürich oder einer anderen öffentlichen Institution. Die Verweise auf städtische und eidgenössische Strategien in dieser README sind deskriptiv — sie erläutern, wie das Portfolio sich zu öffentlichen digitalen Agenden verhält. Sie implizieren weder institutionelle Zustimmung noch Auftrag oder Zugehörigkeit. Alle Aussagen in diesem Repository sind privat.
+> Dies ist ein **persönliches Open-Source-Projekt** von Hayal Oezkan. Es wird privat, in privater Zeit und mit privater Infrastruktur entwickelt. Es ist **kein** offizielles Projekt der Stadt Zürich, des Schulamts, der KI-Fachgruppe der Stadtverwaltung Zürich oder einer anderen öffentlichen Institution. Verweise auf kommunale oder eidgenössische Strategien dienen nur als beschreibender Kontext. Sie bedeuten keine Empfehlung, keinen Auftrag, keine Zugehörigkeit und keinen Produktivbetrieb durch eine Institution.
 
 ---
 
-## Wozu das Ganze
+## Aktueller Stand
 
-`opendata.swiss` listet rund 13'600 öffentliche Datensätze. Geo.admin.ch, Fedlex, das SNB-Datenportal, BAFU, BFS PxWeb, swisstopo, der OData-Feed des Parlaments, das Open-Data-Portal der Stadt Zürich — jede Quelle hat ihre eigene API, ihr eigenes Auth-Modell, ihre eigenen Eigenheiten. Für einen KI-Agenten ist diese Landschaft faktisch **unerreichbar**: Jeder Datensatz ist eine eigene Custom-Integration entfernt.
+Zuletzt geprüft: **2026-06-03**
 
-Dieses Portfolio schliesst diese letzte Meile. Jeder Server im Index übersetzt eine Schweizer Open-Data-Quelle in eine Handvoll sauber gestalteter, KI-konsumierbarer Tools. Jeder MCP-kompatible Client (Claude Desktop, VS Code + Continue, Cursor, Windsurf, eigene Agents) kann sie direkt aufrufen.
+| Kennzahl | Aktueller Wert |
+|---|---:|
+| Aktive Portfolio-Server | 34 |
+| Legacy / abgelöste MCP-Server-Repos | 1 |
+| Audit-Tooling-Repos | 1 |
+| `opendata.swiss`-Datensätze | 14'546 via `package_search?rows=0` |
+| Maschinenlesbare Quelle der Wahrheit | [`portfolio.json`](portfolio.json) |
+| Pflicht-Topic für Auffindbarkeit | [`swiss-public-data-mcp`](https://github.com/topics/swiss-public-data-mcp) |
+| MCP-Spec-Baseline für neue Audits | [`2025-11-25`](https://modelcontextprotocol.io/specification/versioning) |
 
-Das Portfolio ist bewusst **synergetisch, nicht nur additiv** angelegt: Verkehr und Strassenmobilität ergeben einen multimodalen Routing-Agent; Statistik und Geodaten ermöglichen räumliche Analyse; Bildung, Recht und Statistik zusammen tragen Politikrecherche.
-
----
-
-## Verhältnis zu öffentlichen Digitalisierungsstrategien
-
-Das Portfolio ist von unten gewachsen — aus dem praktischen Frust einer Person über kaputte Integrationen, nicht aus einem Strategiepapier. Die getroffenen Engineering-Entscheide passen aber sauber zu mehreren öffentlichen digitalen Agenden. Nützlich für die Einordnung; nie die Begründung der Arbeit selbst.
-
-### Stadt Zürich (primärer Rahmen)
-
-Das Portfolio operationalisiert drei Ziele aus den **Strategien Zürich 2040**, Handlungsfeld IV «Leistungsfähige Stadt», Dimension Digitalisierung:
-
-| Strategisches Ziel der Stadt | Was das Portfolio tatsächlich leistet |
-|---|---|
-| SZ 4 — «Open Government Data standardmässig öffentlich zur freien Verfügung» | Schliesst die Lücke zwischen *verfügbar* und *KI-nutzbar*. Daten, die Stadt und Bund bereits publizieren, entfalten ihren vollen Wert erst, wenn Agents sie ohne Custom-Integrationsarbeit konsumieren können. |
-| SZ 1 — «Stadtinterne Prozesse durchgehend digital gedacht» | Server wie `zurich-opendata-mcp`, `zh-education-mcp`, `swiss-statistics-mcp` ermöglichen agentische Workflows auf bestehender Daten-Infrastruktur — ohne sie neu zu bauen. |
-| SZ 5 — «Digitalisierungskompetenzen der städtischen Angestellten» | Open-Source-Code, zweisprachig (DE/EN), öffentlich lesbar, dient als konkretes Lernartefakt. Kein Kurs, sondern etwas zum Lesen und Ausführen. |
-
-Die **Digitalisierungsstrategie der Stadt Zürich (2024)** spiegelt sich an drei Stellen in den Designentscheiden des Portfolios:
-
-| Fokus der Stadtstrategie | Antwort des Portfolios |
-|---|---|
-| Schwerpunkt 1 «Bleibender Mehrwert» / Stossrichtung B «Nutzer*innen im Fokus» | Jeder Server hat genau eine konkrete Anchor-Query, die er beantworten muss. Keine Anchor-Query, kein Server. |
-| Schwerpunkt 3 «Vernetzte Zusammenarbeit» / Stossrichtung E «Informationen teilen» | Open Source vom ersten Tag. Zweisprachige Dokumentation. GitHub-Topic für Portfolio-weite Auffindbarkeit. |
-| Schwerpunkt 4 «Verantwortungsvoller Technologieeinsatz» / Stossrichtung I «Datenbestände nutzen» | No-Auth-First-Architektur ist «Open by Default» in Code übersetzt. |
-
-### Schweizerische Eidgenossenschaft (sekundärer Rahmen)
-
-| Bundesstrategie | Beitrag des Portfolios |
-|---|---|
-| **Strategie Einsatz von KI-Systemen in der Bundesverwaltung**, Handlungsfeld 1 «Kompetenzen aufbauen» | Praxisorientierter, öffentlicher, wiederverwendbarer Kompetenzaufbau — nutzbar als Referenzmaterial für das Kompetenznetzwerk KI (CNAI) des Bundes. |
-| **Strategie Einsatz von KI-Systemen in der Bundesverwaltung**, Handlungsfeld 2 «Vertrauen verdienen» | No-Auth-First plus ausschliesslich Public Open Data ergibt eine inhärent risikoarme Angriffsfläche. Keine Personendaten, keine gespeicherten Credentials, keine intransparent trainierten Modelle. |
-| **Strategie Digitale Schweiz 2026**, Wirkungsbereich Infrastruktur | Erweitert den praktischen Wert der ~13'600 Datensätze auf opendata.swiss, indem es sie über ein gemeinsames Protokoll LLM-konsumierbar macht. |
-| **Strategie Digitale Schweiz 2026**, Wirkungsbereich Bildung & Kompetenzen | Zweisprachige DE/EN-Dokumentation senkt die Einstiegshürde für Lernende digitaler Kompetenzen über Sprachregionen hinweg. |
+Das Portfolio unterscheidet bewusst zwischen **Kernservern für Schweizer öffentliche Daten** und **angrenzenden Kontextservern**. Kontextserver wie globale Bildungsdaten oder Tech-Signal-Monitoring sind in kombinierten Workflows nützlich, werden aber nicht als Schweizer Verwaltungsdaten ausgegeben.
 
 ---
 
-## Qualitätsmethodik — warum diese Server auditierbar sind, nicht nur ausgeliefert
+## Warum es dieses Portfolio gibt
 
-Einen MCP-Server zu bauen, ist einfach. **27 Server** ohne Qualitätsdrift zu bauen, ist das eigentliche Problem. Ein Referenz-Katalog plus ein interner `mcp-audit`-Skill wenden auf jeden Server im Portfolio dasselbe sechsstufige Audit an — statt bei jedem Server die Best Practices neu aus dem Bauch herzuleiten.
+`opendata.swiss` listet rund 14'500 öffentliche Datensätze. Dazu kommt eine breitere Schweizer Datenlandschaft: GeoAdmin, Fedlex, SNB-Datenportal, BAFU, BFS PxWeb, swisstopo, parlamentarisches OData, kantonale Gesetzessammlungen, städtische Open-Data-Portale und sektorspezifische APIs. Für KI-Agenten bleibt diese Landschaft faktisch unerreichbar, solange jede Quelle eine eigene Integration braucht.
 
-### Der Audit-Katalog
+Dieses Portfolio schliesst diese letzte Meile. Jeder Server übersetzt eine öffentliche Datenquelle oder eine kohärente Quellenfamilie in kleine, typisierte und dokumentierte MCP-Tools, die Clients wie Claude Desktop, VS Code + Continue, Cursor, Windsurf oder eigene Agenten direkt aufrufen können.
 
-Jeder Server ist gegen einen versionierten Katalog von rund **65 Checks in acht Kategorien** auditierbar:
+Der Wert liegt in der Kombination: ÖV plus Strassenmobilität wird zur multimodalen Routenplanung; Statistik plus Geodaten ermöglicht räumliche Analyse; Bildung plus Recht plus Parlamentsdaten unterstützt Policy-Recherche.
 
-| Kategorie | Abdeckung | Beispiel-Checks |
-|---|---|---|
-| **ARCH** | Tool-Design, Annotations, Idempotency, Repo-Struktur, Spec-Versionierung | Tool-Naming, Vollständigkeit Input-Schema, Fehler-Semantik |
-| **SDK** | FastMCP / TypeScript / Zod / Lifecycle | Lifespan-Handling, Capability-Deklarationen |
-| **SEC** | Security (grösste Kategorie) | Confused-Deputy / OAuth-Proxy, SSRF, Session-Hijacking, Prompt-Injection-Surface, Secret-Handling |
-| **SCALE** | Transport, Load Balancing, Container, Gateway | Stateless Transport, horizontale Skalierung, Gateway-Kompatibilität |
-| **OBS** | Logging, Errors, SIEM, Tracing | Strukturierte Logs, Error-Envelopes, Trace-Korrelation |
-| **HITL** | Sampling, Human-in-the-Loop | Sampling-Capability, Write-Confirmation-Gates |
-| **CH** | Schweiz-Compliance — DSG / EDÖB | Datenklassifikation, Datenstandort, Einwilligung, Rechtsgrundlage |
-| **OPS** | Test-Strategie, Dokumentation, Phasenarchitektur | Live-Test-Isolation, phasenbasierte Roadmap, README-Vollständigkeit |
+---
 
-### Wie die Methodik funktioniert
+## Strategischer Kontext
 
-Jeder Audit folgt sechs nummerierten Schritten in dieser Reihenfolge:
+Das Portfolio entstand bottom-up aus Integrationsbedarf, nicht top-down aus einem Strategiepapier. Trotzdem passen die technischen Entscheidungen zu mehreren Digitalstrategien:
 
-1. **Profil zuerst** — Sechs Pflichtfelder (Transport, Auth-Modell, Datenklasse, Schreibzugriff, Deployment, Repo-URL) bestimmen, welche Checks für diesen Server überhaupt anwendbar sind.
-2. **Katalog laden** — Der gesamte Check-Katalog wird geparst und nach Kategorie und Severity indexiert.
-3. **Applicability-Filter** — Eine Boolean-Klausel `applies_when` wird gegen das Profil ausgewertet. Irrelevante Checks (z. B. OAuth-Checks für einen stdio-only-Server ohne Auth) fallen vor Audit-Beginn aus dem Set heraus. Typisches Resultat: Ein `Public Open Data`- / `read-only`- / `no-auth`-Server läuft durch ~15–20 der ~65 Checks; ein `Verwaltungsdaten`- / `OAuth-Proxy`- / `Cloud`-Server durch ~45–55.
-4. **Check-Ausführung** — Severity absteigend: `critical` zuerst, dann `high`, `medium`, `low`. Verifikationsmodi je Check: `automated` (grep/AST), `code_review`, `config_check`, `runtime_test`. Jedes Finding braucht Evidenz mit Datei und Zeilennummer — *«ein Finding ohne `path/to/file.py:42` ist eine Meinung, kein Befund.»*
-5. **Finding-Dokumentation** — Pro fehlgeschlagenem Check ein strukturiertes Finding mit beobachtetem vs. erwartetem Verhalten, Evidenz, Risikobeschreibung, Remediation-Diff, Effort-Schätzung (S / M / L / XL).
-6. **Audit-Report** — Executive Summary in drei Sätzen, Profile-Snapshot, Applicability-Übersicht, Findings-Tabelle, Detail-Findings, Remediation-Plan mit Reihenfolge-Vorschlag, Audit-Metadata.
+| Strategie | Beitrag des Portfolios |
+|---|---|
+| [Strategien Zürich 2040](https://www.stadt-zuerich.ch/de/politik-und-verwaltung/politik-und-recht/strategie-politikfelder/zuerich-2040.html) | Macht aus veröffentlichten offenen Daten agenten-nutzbare offene Daten. |
+| [Digitalisierungsstrategie Stadt Zürich 2024](https://www.stadt-zuerich.ch/content/dam/web/de/politik-verwaltung/stadtverwaltung/fd/digitalisierungsstrategie.pdf) | Unterstützt nutzungsorientierte digitale Services, Informationsaustausch und verantwortungsvolle Datennutzung, ohne bestehende APIs neu zu bauen. |
+| [SB021 - Strategie Einsatz von KI-Systemen in der Bundesverwaltung](https://www.bk.admin.ch/bk/de/home/digitale-transformation-ikt-lenkung/vorgaben/sb021-strategie-einsatz-von-ki-systemen-in-der-bundesverwaltung.html) | Bietet ein öffentlich lesbares Kompetenzartefakt mit expliziter Audit- und Risikomethodik. |
+| [Strategie Digitale Schweiz 2026](https://www.eda.admin.ch/de/newnsb/d6evGIoTYTmY4VMGk0-v0) | Erhöht den praktischen Nutzen öffentlicher digitaler Infrastruktur, indem Datenquellen über ein gemeinsames Protokoll LLM-konsumierbar werden. |
 
-### Severity-Disziplin
+Diese Links sind Kontext, keine Autorisierung. Das Repository bleibt ein privates Open-Source-Projekt.
 
-| Stufe | Bedeutung | Konsequenz |
-|---|---|---|
-| `critical` | Sicherheitslücke oder Compliance-Bruch | Blockiert Produktion. Muss vor Release gefixt sein. |
-| `high` | Architektureller Mangel mit signifikantem Risiko | Im laufenden Sprint fixen, max. 1 Sprint Karenz. |
-| `medium` | Best-Practice-Verletzung, kein akutes Risiko | Im nächsten Sprint planen. |
-| `low` | Polish, Optimierung, Stilistik | Backlog. |
+---
 
-> *«`critical` heisst critical. Wer die Stufe inflationiert, hat irgendwann nur noch `critical`.»*
+## Qualität & Audit-Tooling
 
-### Warum das fürs Portfolio zählt
+Die Auditmethodik ist jetzt mit dem öffentlichen [`mcp-audit-skill`](https://github.com/malkreide/mcp-audit-skill) verknüpft, statt als interner Katalog beschrieben zu werden. Der Skill dokumentiert aktuell **68 Checks in acht Kategorien**:
 
-Jeder Server im untenstehenden Index wurde oder wird gegen diesen Katalog auditiert. Die Status-Badges (✅ / ⚠️ / 🔄 / 🔐) widerspiegeln nicht bloss «läuft», sondern «hat ein Audit am angemessenen Severity-Gate bestanden». Genau das macht aus 27 Servern ein kohärentes Portfolio statt einen Friedhof von Wochenend-Projekten.
+| Kategorie | Abdeckung |
+|---|---|
+| `ARCH` | Tool-Design, Annotationen, Idempotenz, Repo-Struktur, Spec-Version |
+| `SDK` | FastMCP / TypeScript / Zod / Lifecycle |
+| `SEC` | OAuth-Proxy-Risiken, Confused-Deputy, SSRF, Session-Hijacking, Prompt-Injection-Flächen, Secrets |
+| `SCALE` | Transport, Statelessness, Containerisierung, Load Balancing, Gateway-Kompatibilität |
+| `OBS` | Logging, Fehler, SIEM, Tracing, Trace-Korrelation |
+| `HITL` | Sampling und Human-in-the-Loop-Verhalten |
+| `CH` | Schweizer DSG / EDÖB / Public-Sector-Compliance |
+| `OPS` | Teststrategie, Dokumentation, Phasenarchitektur, Release-Hygiene |
+
+Der Audit-Skill ist **kein** Vulnerability-Scanner und **kein** Compliance-Zertifikat. Er macht Review-Methodik reproduzierbar. Architektururteile bleiben menschlich.
+
+### Audit-Gate
+
+Das Portfolio trennt jetzt Server-Reife von Audit-Nachweis:
+
+| Feld | Bedeutung |
+|---|---|
+| Status | Laufzeit- und Dokumentationsreife des Servers. |
+| Audit | Veröffentlichter Nachweis für das Audit-Gate. |
+
+Ein Server gilt nicht als audit-grün, solange die Tabelle keinen Auditreport oder kein Auditverzeichnis verlinkt. Ist ein Server stabil, aber der Bericht nicht veröffentlicht, steht im Auditfeld `to publish`.
+
+Jeder veröffentlichte Audit soll Metadaten wie diese enthalten:
+
+```yaml
+audit:
+  server: swiss-transport-mcp
+  repo: https://github.com/malkreide/swiss-transport-mcp
+  audited_commit: "<commit-sha>"
+  audit_skill: https://github.com/malkreide/mcp-audit-skill
+  audit_skill_version: "0.1.x"
+  catalogue_checks: 68
+  mcp_spec_version: "2025-11-25"
+  profile:
+    transport: ["stdio", "streamable-http"]
+    auth_model: "no-auth"
+    data_class: "public-open-data"
+    write_access: false
+    deployment: ["local", "cloud-ready"]
+  gate: "no critical/high findings open"
+  audited_at: "YYYY-MM-DD"
+```
 
 ---
 
 ## Server-Portfolio
 
-**Status-Legende:** ✅ Stabil, Audit am Gate `high`+ bestanden · ⚠️ Findings offen · 🔄 Audit oder PyPI-Publikation ausstehend · 🔐 API-Credentials erforderlich
+**Status-Legende:** ✅ Stabil · ⚠️ bekannte Findings offen · 🔄 Audit oder Veröffentlichung pending · 🔐 API-Credentials nötig · 🧭 angrenzende Kontextquelle · 🗄️ Legacy oder abgelöst
 
-### 🚆 Verkehr & Mobilität
+### 🚆 Transport & Mobilität
 
-| Server | Beschreibung | Anchor-Query | Status |
-|---|---|---|---|
-| [swiss-transport-mcp](https://github.com/malkreide/swiss-transport-mcp) | OJP 2.0 Reiseauskunft, SIRI-SX-Störungen, Auslastung, Tarife, Zugformation | *«Frühester Zug Zürich → Bern morgen um 8 Uhr?»* | ✅ |
-| [swiss-road-mobility-mcp](https://github.com/malkreide/swiss-road-mobility-mcp) | GBFS Shared Mobility, EV-Ladestationen, DATEX II Verkehr, Park & Rail | *«Verfügbare E-Bikes nahe Zürich HB jetzt gerade?»* | ✅ |
-| [sbb-opendata-mcp](https://github.com/malkreide/sbb-opendata-mcp) | SBB Open Data via OpenDataSoft | *«Pünktlichkeitsstatistik der IC-1-Linie im letzten Monat?»* | ✅ |
+| Server | Beschreibung | Anchor Query | Status | Audit |
+|---|---|---|---|---|
+| [swiss-transport-mcp](https://github.com/malkreide/swiss-transport-mcp) | OJP 2.0 Journey Planning, SIRI-SX-Störungen, Auslastung, Tarife, Zugformation | *"Frühester Zug Zürich -> Bern morgen um 8 Uhr?"* | ✅ | [audits/](https://github.com/malkreide/swiss-transport-mcp/tree/main/audits) |
+| [swiss-road-mobility-mcp](https://github.com/malkreide/swiss-road-mobility-mcp) | GBFS Sharing-Mobilität, EV-Ladestationen, DATEX-II-Verkehr, Park & Rail | *"Freie E-Bikes nahe Zürich HB jetzt?"* | ✅ | [audits/](https://github.com/malkreide/swiss-road-mobility-mcp/tree/main/audits) |
+| [sbb-opendata-mcp](https://github.com/malkreide/sbb-opendata-mcp) | SBB Open Data via OpenDataSoft | *"Pünktlichkeitsstatistik für IC 1 im letzten Monat?"* | ✅ | to publish |
+
+### ⚡ Energie & Infrastruktur
+
+| Server | Beschreibung | Anchor Query | Status | Audit |
+|---|---|---|---|---|
+| [swiss-energy-mcp](https://github.com/malkreide/swiss-energy-mcp) | Schweizer Energiedaten via BFE/SFOE und GeoAdmin REST APIs | *"Welche Wasserkraftwerke liegen nahe Wädenswil?"* | 🔄 | pending |
+| [swiss-electricity-mcp](https://github.com/malkreide/swiss_electricity_mcp) | BFE-Energiedashboard, ElCom-Tarife, öffentliche Verbrauchsdaten. Repo heisst aktuell `swiss_electricity_mcp`; Paketname ist `swiss-electricity-mcp`. | *"Wie haben sich ewz-Stromtarife für Kategorie C3 seit 2019 entwickelt?"* | 🔄 | pending |
 
 ### 🌿 Umwelt & Klima
 
-| Server | Beschreibung | Anchor-Query | Status |
-|---|---|---|---|
-| [swiss-environment-mcp](https://github.com/malkreide/swiss-environment-mcp) | BAFU-Umweltdaten, NABEL-Luftqualität, Hydrologie | *«PM2.5-Werte in Zürich in den letzten 7 Tagen?»* | ⚠️ |
-| [wsl-envidat-mcp](https://github.com/malkreide/wsl-envidat-mcp) | WSL / EnviDat Umweltforschungs-Datensätze via CKAN | *«Datensätze zu Permafrost in den Alpen von der WSL?»* | 🔄 |
-| [meteoswiss-mcp](https://github.com/malkreide/meteoswiss-mcp) | MeteoSchweiz Open Data — Wetter, Klimanormwerte, Warnungen | *«War die Bise im letzten Winter in Zürich aussergewöhnlich stark?»* | 🔄 |
+| Server | Beschreibung | Anchor Query | Status | Audit |
+|---|---|---|---|---|
+| [swiss-environment-mcp](https://github.com/malkreide/swiss-environment-mcp) | BAFU-Umweltdaten, NABEL-Luftqualität, Hydrologie | *"PM2.5-Werte in Zürich in den letzten 7 Tagen?"* | ⚠️ | findings open |
+| [wsl-envidat-mcp](https://github.com/malkreide/wsl-envidat-mcp) | WSL / EnviDat-Umweltforschungsdaten via CKAN | *"Datensätze zu alpinem Permafrost von WSL?"* | 🔄 | pending |
+| [meteoswiss-mcp](https://github.com/malkreide/meteoswiss-mcp) | MeteoSwiss Open Data für Wetter, Klimanormwerte, Warnungen | *"War die Bise in Zürich letzten Winter ungewöhnlich stark?"* | 🔄 | pending |
 
-### ⚖️ Recht & Regulierung
+### ⚖️ Recht, Gerichte & Regulierung
 
-| Server | Beschreibung | Anchor-Query | Status |
-|---|---|---|---|
-| [fedlex-mcp](https://github.com/malkreide/fedlex-mcp) | Schweizer Bundesrecht via Fedlex-SPARQL-Endpoint | *«Was sagt Art. 62 BV zum öffentlichen Bildungswesen?»* | ✅ |
-| [register-mcp](https://github.com/malkreide/register-mcp) | Zefix-Handelsregister und UID-Lookup | *«Aktive Firmen in Zürich Kreis 5 im IT-Sektor?»* | 🔄 |
-| [swiss-ip-mcp](https://github.com/malkreide/swiss-ip-mcp) | IGE/IPI Swissreg — Marken, Patente, ESZ | *«Aktive Schweizer Marken mit ‹Zurich› in Klasse 41?»* | 🔐 |
+| Server | Beschreibung | Anchor Query | Status | Audit |
+|---|---|---|---|---|
+| [fedlex-mcp](https://github.com/malkreide/fedlex-mcp) | Bundesrecht via Fedlex SPARQL Endpoint | *"Was sagt Art. 62 BV über öffentliche Bildung?"* | ✅ | [audits/](https://github.com/malkreide/fedlex-mcp/tree/main/audits) |
+| [openlex-mcp](https://github.com/malkreide/openlex-mcp) | Zürcher Gesetzessammlung via ZH-Lex mit Volltextsuche und Artikelextraktion | *"Welche Zürcher Gesetze regeln Schulzuständigkeiten?"* | 🔄 | pending |
+| [swiss-courts-mcp](https://github.com/malkreide/swiss-courts-mcp) | Schweizer Gerichtsentscheide via entscheidsuche.ch, inklusive Bundes- und Kantonsgerichte | *"Neue Bundesgerichtsentscheide zu Schultransport?"* | 🔄 | pending |
+| [register-mcp](https://github.com/malkreide/register-mcp) | Zefix-Handelsregister und UID-Lookup | *"Aktive IT-Firmen in Zürich Kreis 5?"* | 🔄 | pending |
+| [swiss-ip-mcp](https://github.com/malkreide/swiss-ip-mcp) | IGE/IPI Swissreg: Marken, Patente, SPCs | *"Aktive Schweizer Marken mit 'Zurich' in Klasse 41?"* | 🔐 | pending |
 
 ### 📊 Statistik & Geodaten
 
-| Server | Beschreibung | Anchor-Query | Status |
-|---|---|---|---|
-| [swiss-statistics-mcp](https://github.com/malkreide/swiss-statistics-mcp) | BFS STAT-TAB PxWeb-API — offizielle Schweizer Statistik | *«Bevölkerung der Schweizer Gemeinden nach Kanton, 2023?»* | 🔄 |
-| [zurich-opendata-mcp](https://github.com/malkreide/zurich-opendata-mcp) | Stadt Zürich — Wetter, Luftqualität, Parking, Geodaten, Gemeinderat, Tourismus | *«Welche Schulhäuser in Zürich haben noch keinen Glasfaseranschluss?»* | ⚠️ |
+| Server | Beschreibung | Anchor Query | Status | Audit |
+|---|---|---|---|---|
+| [swiss-statistics-mcp](https://github.com/malkreide/swiss-statistics-mcp) | BFS STAT-TAB PxWeb API für amtliche Schweizer Statistik | *"Bevölkerung der Schweizer Gemeinden nach Kanton, 2023?"* | 🔄 | pending |
+| [zurich-opendata-mcp](https://github.com/malkreide/zurich-opendata-mcp) | Stadt Zürich: Wetter, Luftqualität, Parkierung, Geodaten, Gemeinderat, Tourismus | *"Welche Schulgebäude in Zürich haben noch keine Glasfaser?"* | ⚠️ | findings open |
+| [swisstopo-mcp](https://github.com/malkreide/swisstopo-mcp) | Bundesgeodaten: Geocoding, Höhe, STAC, WMTS, ÖREB und mehr | *"Wie sieht das Höhenprofil zwischen Zürich HB und Uetliberg aus?"* | 🔄 | pending |
 
 ### 🎓 Bildung & Forschung
 
-| Server | Beschreibung | Anchor-Query | Status |
-|---|---|---|---|
-| [global-education-mcp](https://github.com/malkreide/global-education-mcp) | UNESCO UIS und OECD Education at a Glance | *«Abschlussquote Sekundarstufe II in der CH vs. OECD-Durchschnitt?»* | ✅ |
-| [zh-education-mcp](https://github.com/malkreide/zh-education-mcp) | Bildungsdaten Kanton und Stadt Zürich — Schulen, Statistiken, Infrastruktur | *«Wie verteilen sich die Schüler*innenzahlen auf die sieben Schulkreise von Zürich?»* | 🔄 |
-| [swiss-academic-libraries-mcp](https://github.com/malkreide/swiss-academic-libraries-mcp) | swisscovery, e-rara, e-periodica, e-manuscripta (SRU/OAI-PMH) | *«Digitalisierte Schweizer Karten aus dem 18. Jahrhundert in e-rara?»* | 🔄 |
-| [eth-library-mcp](https://github.com/malkreide/eth-library-mcp) | ETH-Bibliothek Discovery- und Persons-APIs | *«ETH-Publikationen zu urbanen Hitzeinseln seit 2020?»* | ⚠️ |
+| Server | Beschreibung | Anchor Query | Status | Audit |
+|---|---|---|---|---|
+| [global-education-mcp](https://github.com/malkreide/global-education-mcp) | UNESCO UIS und OECD Education at a Glance. Angrenzende internationale Kontextquelle. | *"Sek-II-Abschlussquoten CH vs. OECD-Durchschnitt?"* | ✅ 🧭 | [audits/](https://github.com/malkreide/global-education-mcp/tree/main/audits) |
+| [zh-education-mcp](https://github.com/malkreide/zh-education-mcp) | Bildungsdaten von Kanton und Stadt Zürich: Schulen, Statistik, Infrastruktur | *"Wie verteilen sich Schülerzahlen auf die sieben Zürcher Schulkreise?"* | 🔄 | pending |
+| [swiss-academic-libraries-mcp](https://github.com/malkreide/swiss-academic-libraries-mcp) | swisscovery, e-rara, e-periodica, e-manuscripta via SRU/OAI-PMH | *"Digitalisierte Schweizer Karten des 18. Jahrhunderts in e-rara?"* | 🔄 | pending |
+| [eth-library-mcp](https://github.com/malkreide/eth-library-mcp) | ETH Library Discovery und Persons APIs | *"ETH-Publikationen zu urbanen Hitzeinseln seit 2020?"* | ⚠️ | findings open |
 
 ### 💰 Wirtschaft & Finanzen
 
-| Server | Beschreibung | Anchor-Query | Status |
-|---|---|---|---|
-| [swiss-snb-mcp](https://github.com/malkreide/swiss-snb-mcp) | SNB-Datenportal — Wechselkurse, Bilanz, Zinssätze, SARON, Geldaggregate | *«Wie hat sich der EUR/CHF-Kurs seit 2015 entwickelt, und wo steht der SNB-Leitzins heute?»* | ✅ |
-| [seco-labor-mcp](https://github.com/malkreide/seco-labor-mcp) | SECO-Arbeitsmarkt — Arbeitslosigkeit, offene Stellen, Beschäftigungsindikatoren | *«Arbeitslosenquote Kanton Zürich vs. Schweizer Durchschnitt in den letzten 12 Monaten?»* | 🔄 |
+| Server | Beschreibung | Anchor Query | Status | Audit |
+|---|---|---|---|---|
+| [swiss-snb-mcp](https://github.com/malkreide/swiss-snb-mcp) | SNB-Datenportal: Wechselkurse, Bilanz, Leitzins, SARON, Geldmengen | *"EUR/CHF seit 2015 und aktueller SNB-Leitzins?"* | ✅ | [audits/](https://github.com/malkreide/swiss-snb-mcp/tree/main/audits) |
+| [seco-labor-mcp](https://github.com/malkreide/seco-labor-mcp) | SECO-Arbeitsmarkt: Arbeitslosigkeit, offene Stellen, Erwerbsindikatoren | *"Arbeitslosenquote Kanton Zürich vs. Schweiz in den letzten 12 Monaten?"* | 🔄 | pending |
 
 ### 🎭 Kultur & Medien
 
-| Server | Beschreibung | Anchor-Query | Status |
-|---|---|---|---|
-| [swiss-culture-mcp](https://github.com/malkreide/swiss-culture-mcp) | BAK Kulturerbe, ISOS, lebendige Traditionen, RSS | *«UNESCO-gelistete lebendige Traditionen im Kanton Zürich?»* | ✅ |
-| [swiss-cultural-heritage-mcp](https://github.com/malkreide/swiss-cultural-heritage-mcp) | Kulturerbe-Inventare, Denkmallisten, archäologische Register | *«Geschützte Baudenkmäler in Zürich Kreis 6?»* | 🔄 |
-| [bakom-mcp](https://github.com/malkreide/bakom-mcp) | BAKOM Telekommunikations- und Medien-Open-Data | *«Welche Gemeinden haben noch kein 100-Mbit/s-Breitband?»* | 🔄 |
-| [srgssr-mcp](https://github.com/malkreide/srgssr-mcp) | SRG SSR — Wetter, Video, Audio, EPG, Polis | *«Aktuellste SRF-Beiträge zur Bildungspolitik?»* | 🔐 |
-| [news-monitor-mcp](https://github.com/malkreide/news-monitor-mcp) | Aggregiertes News-Monitoring über RSS-Feeds Schweizer Medien | *«Top-drei bildungspolitische Geschichten in Schweizer Medien diese Woche?»* | 🔄 |
+| Server | Beschreibung | Anchor Query | Status | Audit |
+|---|---|---|---|---|
+| [swiss-culture-mcp](https://github.com/malkreide/swiss-culture-mcp) | BAK-Kulturerbe, ISOS, lebendige Traditionen, RSS | *"UNESCO-gelistete lebendige Traditionen im Kanton Zürich?"* | ✅ | [audit/](https://github.com/malkreide/swiss-culture-mcp/tree/main/audit) |
+| [swiss-cultural-heritage-mcp](https://github.com/malkreide/swiss-cultural-heritage-mcp) | Kulturerbe-Inventare, Denkmallisten, archäologische Register | *"Geschützte Baudenkmäler in Zürich Kreis 6?"* | 🔄 | pending |
+| [bakom-mcp](https://github.com/malkreide/bakom-mcp) | BAKOM Open Data zu Telekommunikation und Medien | *"Welche Gemeinden haben noch keine 100 Mbit/s Breitbandabdeckung?"* | 🔄 | pending |
+| [srgssr-mcp](https://github.com/malkreide/srgssr-mcp) | SRG SSR: Wetter, Video, Audio, EPG, Polis | *"Neuste SRF-Beiträge zur Bildungspolitik?"* | ✅ | [audits/](https://github.com/malkreide/srgssr-mcp/tree/main/audits) |
+| [news-monitor-mcp](https://github.com/malkreide/news-monitor-mcp) | Aggregiertes News-Monitoring über Schweizer Public-Media-RSS. Angrenzende Kontextquelle. | *"Top drei bildungspolitische Schweizer Medienstories diese Woche?"* | 🔄 🧭 | pending |
 
 ### 🏥 Gesundheit
 
-| Server | Beschreibung | Anchor-Query | Status |
-|---|---|---|---|
-| [bag-health-mcp](https://github.com/malkreide/bag-health-mcp) | BAG Public-Health-Open-Data — Indikatoren, Programme, Statistiken | *«Impfquote nach Kanton in der letzten Berichtsperiode?»* | 🔄 |
-| [bag-epl-mcp](https://github.com/malkreide/bag-epl-mcp) | BAG EPL — Spezialitätenliste, Medikamente und Vergütung | *«Welche Medikamente wurden in den letzten sechs Monaten in die Spezialitätenliste aufgenommen?»* | 🔄 |
+| Server | Beschreibung | Anchor Query | Status | Audit |
+|---|---|---|---|---|
+| [bag-health-mcp](https://github.com/malkreide/bag-health-mcp) | BAG Public-Health Open Data: Indikatoren, Programme, Statistik | *"Impfquote nach Kanton für die letzte Berichtsperiode?"* | 🔄 | pending |
+| [bag-epl-mcp](https://github.com/malkreide/bag-epl-mcp) | BAG EPL: Spezialitätenliste, Medikamente, Vergütungsdaten | *"Welche Medikamente kamen in den letzten sechs Monaten auf die Spezialitätenliste?"* | 🔄 | pending |
 
 ### 🍽️ Lebensmittelsicherheit
 
-| Server | Beschreibung | Anchor-Query | Status |
-|---|---|---|---|
-| [swiss-food-safety-mcp](https://github.com/malkreide/swiss-food-safety-mcp) | BLV Open Data — Lebensmittelsicherheit und Veterinärinspektionen | *«Aktuelle Lebensmittel-Rückrufe in der Schweiz?»* | ✅ |
+| Server | Beschreibung | Anchor Query | Status | Audit |
+|---|---|---|---|---|
+| [swiss-food-safety-mcp](https://github.com/malkreide/swiss-food-safety-mcp) | BLV Open Data zu Lebensmittelsicherheit und Veterinärkontrollen | *"Aktuelle Lebensmittelrückrufe in der Schweiz?"* | ✅ | to publish |
 
-### 🗳️ Demokratie
+### 🗳️ Demokratie & Transparenz
 
-| Server | Beschreibung | Anchor-Query | Status |
-|---|---|---|---|
-| [swiss-democracy-mcp](https://github.com/malkreide/swiss-democracy-mcp) | Parlament OData (Vorstösse, Geschäfte, Sessionen), Abstimmungen, Wahlen | *«Welche hängigen Vorstösse betreffen KI in der Schule?»* | 🔄 |
+| Server | Beschreibung | Anchor Query | Status | Audit |
+|---|---|---|---|---|
+| [swiss-democracy-mcp](https://github.com/malkreide/swiss-democracy-mcp) | Parlaments-OData, Swissvotes, Referenden, Abstimmungsresultate | *"Welche hängigen parlamentarischen Vorstösse betreffen KI in der Bildung?"* | 🔄 | pending |
+| [parlament-mcp](https://github.com/malkreide/parlament-mcp) | Curia-Vista-OData-API des Schweizer Parlaments | *"Welche Vorstösse zu KI in der Schule sind hängig?"* | 🔄 | pending |
+| [lobbywatch-mcp](https://github.com/malkreide/lobbywatch-mcp) | Lobbywatch.ch-Transparenzdaten zu Parlamentsmitgliedern, Interessenbindungen, Zutrittsbadges | *"Welche WBK-Mitglieder haben Bezüge zu privaten Bildungsanbietern?"* | 🔄 🧭 | pending |
 
-### 🛰️ Tech-Intelligence
+### 🛰️ Tech Intelligence
 
-| Server | Beschreibung | Anchor-Query | Status |
-|---|---|---|---|
-| [hn-tech-signal-mcp](https://github.com/malkreide/hn-tech-signal-mcp) | Hacker-News-Signalextraktion zur Beobachtung von Tech-Trends | *«Welche KI-Infrastruktur-Themen werden diese Woche am meisten diskutiert?»* | 🔄 |
+| Server | Beschreibung | Anchor Query | Status | Audit |
+|---|---|---|---|---|
+| [hn-tech-signal-mcp](https://github.com/malkreide/hn-tech-signal-mcp) | Hacker-News-Signalextraktion für Technologie-Trendmonitoring. Angrenzende Kontextquelle. | *"Welche AI-Infrastrukturthemen werden diese Woche am meisten diskutiert?"* | 🔄 🧭 | pending |
+
+### 🗄️ Legacy / Abgelöst
+
+| Server | Behandlung | Grund |
+|---|---|---|
+| [MCP-Server-for-patent-research-](https://github.com/malkreide/MCP-Server-for-patent-research-) | Legacy / Migrationskandidat | Älterer Patentrecherche-Server mit breitem EPO/Swissreg-Scope und Namensinkonsistenzen. Auffindbar lassen, aber für das aktuelle Portfolio `swiss-ip-mcp` bevorzugen, solange der alte Repo nicht umbenannt und auditiert ist. |
 
 ---
 
-## Architektur-Prinzipien
+## Architekturprinzipien
 
-**No-Auth-First** — Phase 1 jedes Servers nutzt ausschliesslich offene, nicht-authentifizierte Endpoints. Authentifizierte APIs kommen in späteren Phasen mit Graceful Degradation hinzu, sodass der Server immer auch ohne Credentials nutzbar bleibt.
+**No-Auth-First** - Phase 1 jedes Kernservers soll nur offene, unauthentifizierte Endpunkte verwenden. Authentifizierte APIs können später mit Graceful Degradation ergänzt werden.
 
-**Phasenarchitektur** — Jeder Server ist explizit in Phasen strukturiert (Phase 1: No-Auth → Phase 2: Auth → Phase 3: Advanced). Das erlaubt schnelle Auslieferung nutzbarer Tools und dokumentiert die Roadmap ehrlich.
+**Phasenarchitektur** - Server-READMEs sollen Phase 1 No-Auth, Phase 2 Auth/Advanced und Phase 3 Production Hardening klar unterscheiden.
 
-**Portfolio-Synergie** — Server sind so gestaltet, dass sie sich kombinieren lassen. Siehe *Kombinationsszenarien* unten.
+**Dual Transport** - Server sollen `stdio` für lokale Clients und, wo sinnvoll, Streamable HTTP für Cloud- oder Gateway-Deployment unterstützen.
 
-**Dual Transport** — Alle Server unterstützen `stdio` (Claude Desktop, lokale IDEs) und `Streamable HTTP` (Cloud-Deployment auf Render.com / Railway).
+**Standard-Stack** - Python-Server nutzen FastMCP, Pydantic v2, httpx, hatchling, `src/`-Layout, pytest mit `@pytest.mark.live`-Isolation, GitHub Actions CI für Python 3.11-3.13 und möglichst `uvx`-fähige Pakete.
 
-**Standard-Stack** — FastMCP · Pydantic v2 · httpx · hatchling · `src/`-Layout · `pyproject.toml` · pytest mit `@pytest.mark.live`-Isolation · GitHub Actions CI (Python 3.11–3.13) · `uvx`-fähiges Packaging · PyPI-Publikation via OIDC Trusted Publisher.
+**Zweisprachige Dokumentation** - Kernserver sollen `README.md` und `README.de.md` verlinkt aktuell halten.
 
-**Zweisprachige Dokumentation** — Jeder Server hat `README.md` (Englisch, primär) und `README.de.md` (Deutsch), gegenseitig verlinkt mit Flag-Emoji. Inklusive `CONTRIBUTING.md`, `CHANGELOG.md` (Keep-a-Changelog), Portfolio-Banner, Badges, Architektur-ASCII-Diagramm, bekannte Limitierungen.
-
-**Audit-getriebene Qualität** — Siehe *Qualitätsmethodik* oben. Jeder Server durchläuft dasselbe sechsstufige Audit, bevor sich der Status von 🔄 auf ✅ ändert.
+**Audit-getriebene Qualität** - Ein grünes Audit-Gate braucht veröffentlichten Nachweis. Stabiler Laufzeitstatus allein ist kein Audit-Zertifikat.
 
 ---
 
 ## Quickstart
 
-Jeder Server ist unabhängig installierbar via `uvx` (empfohlen) oder `pip`. Konfigurationsdetails siehe README des einzelnen Servers.
+Jeder Server ist unabhängig via `uvx` oder `pip` installierbar, sofern veröffentlicht. Exakte Paketnamen und Konfiguration stehen im jeweiligen Server-README.
 
-**Beispiel — `swiss-transport-mcp` zu Claude Desktop hinzufügen:**
+Beispiel: `swiss-transport-mcp` in Claude Desktop eintragen:
 
 ```json
-// ~/Library/Application Support/Claude/claude_desktop_config.json
 {
   "mcpServers": {
     "swiss-transport": {
@@ -231,7 +251,7 @@ Jeder Server ist unabhängig installierbar via `uvx` (empfohlen) oder `pip`. Kon
 }
 ```
 
-Für Server, die noch nicht auf PyPI sind (Status 🔄), das Repository klonen und ausführen:
+Für Server, die noch nicht auf PyPI liegen:
 
 ```bash
 git clone https://github.com/malkreide/<server-name>
@@ -243,45 +263,52 @@ uv run mcp dev src/<package>/server.py
 
 ## Kombinationsszenarien
 
-Der eigentliche Wert liegt nicht im einzelnen Server — er liegt in den Kombinationen. Sechs konkrete Beispiele:
-
-| Szenario | Beteiligte Server | Beispielfrage |
+| Szenario | Benötigte Server | Beispielquery |
 |---|---|---|
-| **Makroökonomischer Kontext** | swiss-snb-mcp + swiss-statistics-mcp + seco-labor-mcp | *«CHF/EUR-Kursverlauf seit 2015 zusammen mit Schweizer BIP, LIK und Arbeitslosigkeit?»* |
-| **Multimodaler Pendelplaner** | swiss-transport-mcp + swiss-road-mobility-mcp + sbb-opendata-mcp | *«Zug von Wädenswil nach Zürich HB, dann E-Bike zur ETH. Beste Variante um 8:15, inkl. Pünktlichkeits-Historie?»* |
-| **Schulinfrastruktur-Audit** | zh-education-mcp + zurich-opendata-mcp + swiss-statistics-mcp | *«Zürcher Schulen ohne Glasfaser im Vergleich zur kantonalen Breitband-Abdeckung und Schüler*innenverteilung pro Schulkreis?»* |
-| **Bildungspolitische Recherche** | global-education-mcp + fedlex-mcp + swiss-statistics-mcp + swiss-democracy-mcp | *«Wie steht die CH-Abschlussquote Sek II im OECD-Vergleich, was schreibt das Bundesrecht vor und welche Vorstösse sind im Parlament hängig?»* |
-| **Umwelt-Briefing** | swiss-environment-mcp + meteoswiss-mcp + wsl-envidat-mcp | *«Aktuelle Luftqualität und Wetter in Zürich, plus aktuelle WSL-Studien zu urbanen Hitzeinseln?»* |
-| **Gesundheitspolitik-Loop** | bag-health-mcp + bag-epl-mcp + fedlex-mcp + swiss-democracy-mcp | *«Aktuelle Aufnahmen in die Spezialitätenliste, Impfquoten nach Kanton und die jeweilige Rechtsgrundlage?»* |
+| Makroökonomischer Kontext | swiss-snb-mcp + swiss-statistics-mcp + seco-labor-mcp | *"CHF/EUR seit 2015 zusammen mit Schweizer BIP, CPI und Arbeitslosigkeit?"* |
+| Multimodaler Pendelplaner | swiss-transport-mcp + swiss-road-mobility-mcp + sbb-opendata-mcp | *"Zug von Wädenswil nach Zürich HB, dann E-Bike zur ETH. Beste Option um 8:15 inklusive Pünktlichkeitsverlauf?"* |
+| Schul-Infrastruktur-Audit | zh-education-mcp + zurich-opendata-mcp + swiss-statistics-mcp + swiss-electricity-mcp | *"Zürcher Schulen ohne Glasfaser, Schülerlast pro Schulkreis und Stromtarif-Exposition?"* |
+| Bildungspolitische Recherche | global-education-mcp + fedlex-mcp + openlex-mcp + parlament-mcp + lobbywatch-mcp | *"Wie steht die Schweizer Sek-II-Quote im OECD-Vergleich, was verlangt das Recht, und welche parlamentarischen Akteure sind beteiligt?"* |
+| Umweltbriefing | swiss-environment-mcp + meteoswiss-mcp + wsl-envidat-mcp + swisstopo-mcp | *"Aktuelle Luftqualität und Wetter in Zürich, plus Geodaten und WSL-Studien zu urbanen Hitzeinseln?"* |
+| Gesundheitspolitischer Loop | bag-health-mcp + bag-epl-mcp + fedlex-mcp + swiss-democracy-mcp | *"Neue Einträge in der Spezialitätenliste, Impfquote nach Kanton und gesetzliche Grundlage für beides?"* |
+| Energie-Standortkontext | swiss-energy-mcp + swiss-electricity-mcp + swisstopo-mcp + swiss-statistics-mcp | *"Welche Gemeinden verbinden hohes Solarpotenzial, Stromtarifdruck und Bevölkerungswachstum?"* |
 
 ---
 
-## Repository-Karte
+## Repository-Map
 
-Alle Server tragen den GitHub-Topic [`swiss-public-data-mcp`](https://github.com/topics/swiss-public-data-mcp) — damit ist das vollständige Portfolio auf GitHub auffindbar.
+Alle aktiven Server sollen den GitHub-Topic [`swiss-public-data-mcp`](https://github.com/topics/swiss-public-data-mcp) tragen. Das maschinenlesbare Inventar in [`portfolio.json`](portfolio.json) ist die kanonische Liste.
 
-```
+```text
 malkreide/
-├── swiss-public-data-mcp                 ← Dieser Index (du bist hier)
+├── swiss-public-data-mcp                 ← dieser Index
+├── mcp-audit-skill                       ← Auditmethodik, kein Server
 │
-├── Verkehr & Mobilität
+├── Transport & Mobilität
 │   ├── swiss-transport-mcp
 │   ├── swiss-road-mobility-mcp
 │   └── sbb-opendata-mcp
+│
+├── Energie & Infrastruktur
+│   ├── swiss-energy-mcp
+│   └── swiss_electricity_mcp
 │
 ├── Umwelt & Klima
 │   ├── swiss-environment-mcp
 │   ├── wsl-envidat-mcp
 │   └── meteoswiss-mcp
 │
-├── Recht & Regulierung
+├── Recht, Gerichte & Regulierung
 │   ├── fedlex-mcp
+│   ├── openlex-mcp
+│   ├── swiss-courts-mcp
 │   ├── register-mcp
 │   └── swiss-ip-mcp
 │
 ├── Statistik & Geodaten
 │   ├── swiss-statistics-mcp
-│   └── zurich-opendata-mcp
+│   ├── zurich-opendata-mcp
+│   └── swisstopo-mcp
 │
 ├── Bildung & Forschung
 │   ├── global-education-mcp
@@ -307,38 +334,44 @@ malkreide/
 ├── Lebensmittelsicherheit
 │   └── swiss-food-safety-mcp
 │
-├── Demokratie
-│   └── swiss-democracy-mcp
+├── Demokratie & Transparenz
+│   ├── swiss-democracy-mcp
+│   ├── parlament-mcp
+│   └── lobbywatch-mcp
 │
-└── Tech-Intelligence
-    └── hn-tech-signal-mcp
+├── Tech Intelligence
+│   └── hn-tech-signal-mcp
+│
+└── Legacy / Abgelöst
+    └── MCP-Server-for-patent-research-
 ```
 
 ---
 
-## Roadmap
+## Maintenance-Roadmap
 
-Konkrete nächste Schritte fürs Portfolio als Ganzes (Roadmaps einzelner Server liegen in deren jeweiligen Repos):
+Die früheren Roadmap-Punkte für Zürcher kantonales Recht, Schweizer Gerichte und tiefere swisstopo-Geodaten sind ins Inventar gewandert, weil `openlex-mcp`, `swiss-courts-mcp` und `swisstopo-mcp` inzwischen existieren.
 
-- **Kantonale Rechtsschicht für Zürich** — `fedlex-mcp`-Muster ausweiten auf kantonales Recht (ZH-Lex, OS, ABl).
-- **Swiss Courts MCP** — Bundesgerichts- und kantonale Gerichtsentscheide, anonymisiert.
-- **Tiefere swisstopo-Geodaten** — über die in `zurich-opendata-mcp` enthaltenen WMS/WFS-Basics hinaus.
-- **Wikidata- / semantische Schicht** — Entity Linking über Server hinweg (eine Bundesrätin in `swiss-democracy-mcp` ist dieselbe Person wie in den Fedlex-Debatten und der SRG-Berichterstattung).
-- **Historische Zeitreihen-Integration** — die jetzigen Server sind weitgehend «gegenwartsorientiert»; Langzeit-Vergleiche sind lückenhaft.
+Aktuelle Portfolio-Prioritäten:
+
+- Auditberichte für alle Server mit `pending` oder `to publish` veröffentlichen.
+- `mcp-audit-skill` und künftige Berichte auf MCP-Spec `2025-11-25` ausrichten; ältere Spec-Versionen in Audit-Metadaten erhalten.
+- Entscheiden, ob `parlament-mcp` als spezialisierter Server bleibt oder in `swiss-democracy-mcp` aufgeht.
+- Entscheiden, ob `MCP-Server-for-patent-research-` umbenannt, archiviert oder in `swiss-ip-mcp` migriert wird.
+- `swiss_electricity_mcp` in `swiss-electricity-mcp` umbenennen, sofern Linkstabilität und PyPI-Naming erhalten bleiben; bis dahin verlinkt das Portfolio auf den tatsächlichen Repo-Namen.
+- README-Tabellen in einem späteren Automationsschritt aus `portfolio.json` generieren.
 
 ---
 
 ## Mitwirken
 
-Bug-Reports und Feature-Wünsche bitte direkt in den jeweiligen Server-Repositories. Wenn du selbst einen MCP-Server für Schweizer Open Data baust und ihn im Index gelistet haben möchtest, eröffne ein Issue mit kurzer Beschreibung und Link.
-
-Der interne Audit-Katalog ist derzeit nicht offen publiziert, die Methodik ist aber oben beschrieben. Wer einen ähnlichen Ansatz auf das eigene MCP-Portfolio anwenden möchte, kann mit den sechs Schritten eigenständig arbeiten.
+Bugreports und Feature Requests sind auf den jeweiligen Server-Repositories willkommen. Wer einen neuen MCP-Server für Schweizer offene Daten baut und hier listen möchte, sollte einen Issue mit kurzer Beschreibung, Repo-Link, Datenquellen und geplantem Auditprofil eröffnen.
 
 ---
 
 ## Lizenz
 
-MIT-Lizenz — siehe [LICENSE](LICENSE)
+MIT License - siehe [LICENSE](LICENSE)
 
 ---
 
@@ -346,4 +379,4 @@ MIT-Lizenz — siehe [LICENSE](LICENSE)
 
 **Hayal Oezkan** · [github.com/malkreide](https://github.com/malkreide)
 
-> *Erinnerung — dies ist ein privates Open-Source-Projekt. Affiliationen, die in anderen öffentlichen Profilen des Autors erwähnt sind, haben für dieses Repository keine Relevanz. Der Abschnitt zur strategischen Einordnung oben ist deskriptive Analyse, keine institutionelle Aussage.*
+> Erinnerung: Dies ist ein privates Open-Source-Projekt. Institutionelle Zugehörigkeiten in anderen öffentlichen Profilen des Autors sind für dieses Repository nicht relevant.
