@@ -91,7 +91,7 @@ The portfolio now separates server maturity from audit evidence:
 | Status | Runtime/documentation maturity of the server. |
 | Audit | Published evidence for the audit gate. |
 
-A server is listed as production ready only after at least one audit has been completed. If the table links to an audit report or audit directory, the evidence is public; if the table says `audited`, the audit has run but the report is not linked from this portfolio yet.
+Every active server row now links to the corresponding GitHub audit directory in the `Audit` column. Most repositories use `audits/`; `swiss-culture-mcp` uses `audit/`, and `bag-epl-mcp` plus `swiss-food-safety-mcp` use `docs/audit/`. The archived legacy patent repository remains listed separately as a migration candidate.
 
 Every published audit should include metadata like this:
 
@@ -126,93 +126,93 @@ audit:
 |---|---|---|---|---|
 | [swiss-transport-mcp](https://github.com/malkreide/swiss-transport-mcp) | OJP 2.0 journey planning, SIRI-SX disruptions, occupancy, fares, train formation | *"Earliest train Zurich -> Bern tomorrow at 8 am?"* | ✅ | [audits/](https://github.com/malkreide/swiss-transport-mcp/tree/main/audits) |
 | [swiss-road-mobility-mcp](https://github.com/malkreide/swiss-road-mobility-mcp) | GBFS shared mobility, EV charging, DATEX II traffic, Park & Rail | *"Available e-bikes near Zurich HB right now?"* | ✅ | [audits/](https://github.com/malkreide/swiss-road-mobility-mcp/tree/main/audits) |
-| [sbb-opendata-mcp](https://github.com/malkreide/sbb-opendata-mcp) | SBB Open Data via OpenDataSoft | *"Punctuality statistics for IC 1 line last month?"* | ✅ | audited |
+| [sbb-opendata-mcp](https://github.com/malkreide/sbb-opendata-mcp) | SBB Open Data via OpenDataSoft | *"Punctuality statistics for IC 1 line last month?"* | ✅ | [audits/](https://github.com/malkreide/sbb-opendata-mcp/tree/main/audits) |
 
 ### ⚡ Energy & Infrastructure
 
 | Server | Description | Anchor query | Status | Audit |
 |---|---|---|---|---|
-| [swiss-energy-mcp](https://github.com/malkreide/swiss-energy-mcp) | Swiss energy data via SFOE/BFE and GeoAdmin REST APIs | *"Which hydroelectric power plants are near Wädenswil?"* | ✅ | audited |
-| [swiss-electricity-mcp](https://github.com/malkreide/swiss_electricity_mcp) | BFE energy dashboard, ElCom tariffs, public consumption data. Repo name is currently `swiss_electricity_mcp`; package name is `swiss-electricity-mcp`. | *"How did ewz electricity tariffs for category C3 develop since 2019?"* | ✅ | audited |
+| [swiss-energy-mcp](https://github.com/malkreide/swiss-energy-mcp) | Swiss energy data via SFOE/BFE and GeoAdmin REST APIs | *"Which hydroelectric power plants are near Wädenswil?"* | ✅ | [audits/](https://github.com/malkreide/swiss-energy-mcp/tree/main/audits) |
+| [swiss-electricity-mcp](https://github.com/malkreide/swiss_electricity_mcp) | BFE energy dashboard, ElCom tariffs, public consumption data. Repo name is currently `swiss_electricity_mcp`; package name is `swiss-electricity-mcp`. | *"How did ewz electricity tariffs for category C3 develop since 2019?"* | ✅ | [audits/](https://github.com/malkreide/swiss_electricity_mcp/tree/main/audits) |
 
 ### 🌿 Environment & Climate
 
 | Server | Description | Anchor query | Status | Audit |
 |---|---|---|---|---|
-| [swiss-environment-mcp](https://github.com/malkreide/swiss-environment-mcp) | BAFU environmental data, NABEL air quality, hydrology | *"PM2.5 levels in Zurich over the last 7 days?"* | ✅ | audited |
-| [wsl-envidat-mcp](https://github.com/malkreide/wsl-envidat-mcp) | WSL / EnviDat environmental research datasets via CKAN | *"Datasets on Alpine permafrost from WSL?"* | ✅ | audited |
-| [meteoswiss-mcp](https://github.com/malkreide/meteoswiss-mcp) | MeteoSwiss Open Data for weather, climate normals, warnings | *"Was the Bise unusually strong in Zurich last winter?"* | ✅ | audited |
+| [swiss-environment-mcp](https://github.com/malkreide/swiss-environment-mcp) | BAFU environmental data, NABEL air quality, hydrology | *"PM2.5 levels in Zurich over the last 7 days?"* | ✅ | [audits/](https://github.com/malkreide/swiss-environment-mcp/tree/main/audits) |
+| [wsl-envidat-mcp](https://github.com/malkreide/wsl-envidat-mcp) | WSL / EnviDat environmental research datasets via CKAN | *"Datasets on Alpine permafrost from WSL?"* | ✅ | [audits/](https://github.com/malkreide/wsl-envidat-mcp/tree/main/audits) |
+| [meteoswiss-mcp](https://github.com/malkreide/meteoswiss-mcp) | MeteoSwiss Open Data for weather, climate normals, warnings | *"Was the Bise unusually strong in Zurich last winter?"* | ✅ | [audits/](https://github.com/malkreide/meteoswiss-mcp/tree/main/audits) |
 
 ### ⚖️ Legal, Courts & Regulatory
 
 | Server | Description | Anchor query | Status | Audit |
 |---|---|---|---|---|
 | [fedlex-mcp](https://github.com/malkreide/fedlex-mcp) | Swiss federal law via Fedlex SPARQL endpoint | *"What does Art. 62 BV say about public education?"* | ✅ | [audits/](https://github.com/malkreide/fedlex-mcp/tree/main/audits) |
-| [openlex-mcp](https://github.com/malkreide/openlex-mcp) | Canton Zurich legislation via ZH-Lex with full-text search and article extraction | *"Which Zurich laws regulate school responsibilities?"* | ✅ | audited |
-| [swiss-courts-mcp](https://github.com/malkreide/swiss-courts-mcp) | Swiss court decisions via entscheidsuche.ch, including federal and cantonal courts | *"Recent Federal Supreme Court cases on school transport?"* | ✅ | audited |
-| [register-mcp](https://github.com/malkreide/register-mcp) | Zefix commercial register and UID lookup | *"Active companies in Zurich Kreis 5 in the IT sector?"* | ✅ | audited |
-| [swiss-ip-mcp](https://github.com/malkreide/swiss-ip-mcp) | IGE/IPI Swissreg trademarks, patents, SPCs | *"Active Swiss trademarks containing 'Zurich' in class 41?"* | ✅ 🔐 | audited |
+| [openlex-mcp](https://github.com/malkreide/openlex-mcp) | Canton Zurich legislation via ZH-Lex with full-text search and article extraction | *"Which Zurich laws regulate school responsibilities?"* | ✅ | [audits/](https://github.com/malkreide/openlex-mcp/tree/master/audits) |
+| [swiss-courts-mcp](https://github.com/malkreide/swiss-courts-mcp) | Swiss court decisions via entscheidsuche.ch, including federal and cantonal courts | *"Recent Federal Supreme Court cases on school transport?"* | ✅ | [audits/](https://github.com/malkreide/swiss-courts-mcp/tree/master/audits) |
+| [register-mcp](https://github.com/malkreide/register-mcp) | Zefix commercial register and UID lookup | *"Active companies in Zurich Kreis 5 in the IT sector?"* | ✅ | [audits/](https://github.com/malkreide/register-mcp/tree/main/audits) |
+| [swiss-ip-mcp](https://github.com/malkreide/swiss-ip-mcp) | IGE/IPI Swissreg trademarks, patents, SPCs | *"Active Swiss trademarks containing 'Zurich' in class 41?"* | ✅ 🔐 | [audits/](https://github.com/malkreide/swiss-ip-mcp/tree/main/audits) |
 
 ### 📊 Statistics & Geodata
 
 | Server | Description | Anchor query | Status | Audit |
 |---|---|---|---|---|
-| [swiss-statistics-mcp](https://github.com/malkreide/swiss-statistics-mcp) | BFS STAT-TAB PxWeb API for official Swiss statistics | *"Population of Swiss municipalities by canton, 2023?"* | ✅ | audited |
-| [zurich-opendata-mcp](https://github.com/malkreide/zurich-opendata-mcp) | City of Zurich weather, air quality, parking, geodata, Gemeinderat, tourism | *"Which school buildings in Zurich do not yet have fibre?"* | ✅ | audited |
-| [swisstopo-mcp](https://github.com/malkreide/swisstopo-mcp) | Swiss federal geodata: geocoding, height, STAC, WMTS, OEREB and more | *"What is the elevation profile between Zurich HB and Uetliberg?"* | ✅ | audited |
+| [swiss-statistics-mcp](https://github.com/malkreide/swiss-statistics-mcp) | BFS STAT-TAB PxWeb API for official Swiss statistics | *"Population of Swiss municipalities by canton, 2023?"* | ✅ | [audits/](https://github.com/malkreide/swiss-statistics-mcp/tree/main/audits) |
+| [zurich-opendata-mcp](https://github.com/malkreide/zurich-opendata-mcp) | City of Zurich weather, air quality, parking, geodata, Gemeinderat, tourism | *"Which school buildings in Zurich do not yet have fibre?"* | ✅ | [audits/](https://github.com/malkreide/zurich-opendata-mcp/tree/main/audits) |
+| [swisstopo-mcp](https://github.com/malkreide/swisstopo-mcp) | Swiss federal geodata: geocoding, height, STAC, WMTS, OEREB and more | *"What is the elevation profile between Zurich HB and Uetliberg?"* | ✅ | [audits/](https://github.com/malkreide/swisstopo-mcp/tree/master/audits) |
 
 ### 🎓 Education & Research
 
 | Server | Description | Anchor query | Status | Audit |
 |---|---|---|---|---|
 | [global-education-mcp](https://github.com/malkreide/global-education-mcp) | UNESCO UIS and OECD Education at a Glance. Adjacent international context source. | *"Upper secondary attainment rates in CH vs. OECD average?"* | ✅ 🧭 | [audits/](https://github.com/malkreide/global-education-mcp/tree/main/audits) |
-| [zh-education-mcp](https://github.com/malkreide/zh-education-mcp) | Canton and City of Zurich education data: schools, statistics, infrastructure | *"How are pupil numbers distributed across Zurich's seven Schulkreise?"* | ✅ | audited |
-| [swiss-academic-libraries-mcp](https://github.com/malkreide/swiss-academic-libraries-mcp) | swisscovery, e-rara, e-periodica, e-manuscripta via SRU/OAI-PMH | *"Digitised 18th-century Swiss maps in e-rara?"* | ✅ | audited |
-| [eth-library-mcp](https://github.com/malkreide/eth-library-mcp) | ETH Library Discovery and Persons APIs | *"ETH publications on urban heat islands since 2020?"* | ✅ | audited |
+| [zh-education-mcp](https://github.com/malkreide/zh-education-mcp) | Canton and City of Zurich education data: schools, statistics, infrastructure | *"How are pupil numbers distributed across Zurich's seven Schulkreise?"* | ✅ | [audits/](https://github.com/malkreide/zh-education-mcp/tree/main/audits) |
+| [swiss-academic-libraries-mcp](https://github.com/malkreide/swiss-academic-libraries-mcp) | swisscovery, e-rara, e-periodica, e-manuscripta via SRU/OAI-PMH | *"Digitised 18th-century Swiss maps in e-rara?"* | ✅ | [audits/](https://github.com/malkreide/swiss-academic-libraries-mcp/tree/main/audits) |
+| [eth-library-mcp](https://github.com/malkreide/eth-library-mcp) | ETH Library Discovery and Persons APIs | *"ETH publications on urban heat islands since 2020?"* | ✅ | [audits/](https://github.com/malkreide/eth-library-mcp/tree/main/audits) |
 
 ### 💰 Economics & Finance
 
 | Server | Description | Anchor query | Status | Audit |
 |---|---|---|---|---|
 | [swiss-snb-mcp](https://github.com/malkreide/swiss-snb-mcp) | SNB data portal: exchange rates, balance sheet, policy rates, SARON, monetary aggregates | *"EUR/CHF trend since 2015 and current SNB policy rate?"* | ✅ | [audits/](https://github.com/malkreide/swiss-snb-mcp/tree/main/audits) |
-| [seco-labor-mcp](https://github.com/malkreide/seco-labor-mcp) | SECO labour market: unemployment, vacancies, workforce indicators | *"Unemployment rate in Canton Zurich vs. Swiss average over the last 12 months?"* | ✅ | audited |
+| [seco-labor-mcp](https://github.com/malkreide/seco-labor-mcp) | SECO labour market: unemployment, vacancies, workforce indicators | *"Unemployment rate in Canton Zurich vs. Swiss average over the last 12 months?"* | ✅ | [audits/](https://github.com/malkreide/seco-labor-mcp/tree/main/audits) |
 
 ### 🎭 Culture & Media
 
 | Server | Description | Anchor query | Status | Audit |
 |---|---|---|---|---|
 | [swiss-culture-mcp](https://github.com/malkreide/swiss-culture-mcp) | BAK cultural heritage, ISOS, living traditions, RSS | *"UNESCO-listed living traditions in Canton Zurich?"* | ✅ | [audit/](https://github.com/malkreide/swiss-culture-mcp/tree/main/audit) |
-| [swiss-cultural-heritage-mcp](https://github.com/malkreide/swiss-cultural-heritage-mcp) | Heritage inventories, monument lists, archaeological registers | *"Listed Baudenkmäler in Zurich Kreis 6?"* | ✅ | audited |
-| [bakom-mcp](https://github.com/malkreide/bakom-mcp) | BAKOM telecommunications and media open data | *"Which municipalities still lack 100 Mbit/s broadband?"* | ✅ | audited |
+| [swiss-cultural-heritage-mcp](https://github.com/malkreide/swiss-cultural-heritage-mcp) | Heritage inventories, monument lists, archaeological registers | *"Listed Baudenkmäler in Zurich Kreis 6?"* | ✅ | [audits/](https://github.com/malkreide/swiss-cultural-heritage-mcp/tree/main/audits) |
+| [bakom-mcp](https://github.com/malkreide/bakom-mcp) | BAKOM telecommunications and media open data | *"Which municipalities still lack 100 Mbit/s broadband?"* | ✅ | [audits/](https://github.com/malkreide/bakom-mcp/tree/main/audits) |
 | [srgssr-mcp](https://github.com/malkreide/srgssr-mcp) | SRG SSR weather, video, audio, EPG, Polis | *"Latest SRF news segments on education policy?"* | ✅ | [audits/](https://github.com/malkreide/srgssr-mcp/tree/main/audits) |
-| [news-monitor-mcp](https://github.com/malkreide/news-monitor-mcp) | Aggregated news monitoring across Swiss public media RSS feeds. Adjacent context source. | *"Top three education-policy stories in Swiss media this week?"* | ✅ 🧭 | audited |
+| [news-monitor-mcp](https://github.com/malkreide/news-monitor-mcp) | Aggregated news monitoring across Swiss public media RSS feeds. Adjacent context source. | *"Top three education-policy stories in Swiss media this week?"* | ✅ 🧭 | [audits/](https://github.com/malkreide/news-monitor-mcp/tree/main/audits) |
 
 ### 🏥 Health
 
 | Server | Description | Anchor query | Status | Audit |
 |---|---|---|---|---|
-| [bag-health-mcp](https://github.com/malkreide/bag-health-mcp) | BAG public-health open data: indicators, programmes, statistics | *"Vaccination coverage by canton for the last reporting period?"* | ✅ | audited |
-| [bag-epl-mcp](https://github.com/malkreide/bag-epl-mcp) | BAG EPL: Spezialitätenliste, medication and reimbursement data | *"Which medications were added to the Spezialitätenliste in the last six months?"* | ✅ | audited |
+| [bag-health-mcp](https://github.com/malkreide/bag-health-mcp) | BAG public-health open data: indicators, programmes, statistics | *"Vaccination coverage by canton for the last reporting period?"* | ✅ | [audits/](https://github.com/malkreide/bag-health-mcp/tree/main/audits) |
+| [bag-epl-mcp](https://github.com/malkreide/bag-epl-mcp) | BAG EPL: Spezialitätenliste, medication and reimbursement data | *"Which medications were added to the Spezialitätenliste in the last six months?"* | ✅ | [docs/audit/](https://github.com/malkreide/bag-epl-mcp/tree/main/docs/audit) |
 
 ### 🍽️ Food Safety
 
 | Server | Description | Anchor query | Status | Audit |
 |---|---|---|---|---|
-| [swiss-food-safety-mcp](https://github.com/malkreide/swiss-food-safety-mcp) | BLV open data for food safety and veterinary inspections | *"Recent food recall notices in Switzerland?"* | ✅ | audited |
+| [swiss-food-safety-mcp](https://github.com/malkreide/swiss-food-safety-mcp) | BLV open data for food safety and veterinary inspections | *"Recent food recall notices in Switzerland?"* | ✅ | [docs/audit/](https://github.com/malkreide/swiss-food-safety-mcp/tree/main/docs/audit) |
 
 ### 🗳️ Democracy & Transparency
 
 | Server | Description | Anchor query | Status | Audit |
 |---|---|---|---|---|
-| [swiss-democracy-mcp](https://github.com/malkreide/swiss-democracy-mcp) | Parliament OData, Swissvotes, referendums, voting results | *"Which pending parliamentary motions concern AI in education?"* | ✅ | audited |
-| [parlament-mcp](https://github.com/malkreide/parlament-mcp) | Swiss Federal Parliament Curia Vista OData API | *"Welche Vorstösse zu KI in der Schule sind hängig?"* | ✅ | audited |
-| [lobbywatch-mcp](https://github.com/malkreide/lobbywatch-mcp) | Lobbywatch.ch transparency data on parliamentarians, interests, access badges | *"Which education-commission members have ties to private education providers?"* | ✅ 🧭 | audited |
+| [swiss-democracy-mcp](https://github.com/malkreide/swiss-democracy-mcp) | Parliament OData, Swissvotes, referendums, voting results | *"Which pending parliamentary motions concern AI in education?"* | ✅ | [audits/](https://github.com/malkreide/swiss-democracy-mcp/tree/main/audits) |
+| [parlament-mcp](https://github.com/malkreide/parlament-mcp) | Swiss Federal Parliament Curia Vista OData API | *"Welche Vorstösse zu KI in der Schule sind hängig?"* | ✅ | [audits/](https://github.com/malkreide/parlament-mcp/tree/main/audits) |
+| [lobbywatch-mcp](https://github.com/malkreide/lobbywatch-mcp) | Lobbywatch.ch transparency data on parliamentarians, interests, access badges | *"Which education-commission members have ties to private education providers?"* | ✅ 🧭 | [audits/](https://github.com/malkreide/lobbywatch-mcp/tree/main/audits) |
 
 ### 🛰️ Tech Intelligence
 
 | Server | Description | Anchor query | Status | Audit |
 |---|---|---|---|---|
-| [hn-tech-signal-mcp](https://github.com/malkreide/hn-tech-signal-mcp) | Hacker News signal extraction for technology trend monitoring. Adjacent context source. | *"What are this week's most-discussed AI-infrastructure topics?"* | ✅ 🧭 | audited |
+| [hn-tech-signal-mcp](https://github.com/malkreide/hn-tech-signal-mcp) | Hacker News signal extraction for technology trend monitoring. Adjacent context source. | *"What are this week's most-discussed AI-infrastructure topics?"* | ✅ 🧭 | [audits/](https://github.com/malkreide/hn-tech-signal-mcp/tree/main/audits) |
 
 ### 🗄️ Legacy / Superseded
 
@@ -234,7 +234,7 @@ audit:
 
 **Bilingual documentation** - Core servers should keep `README.md` and `README.de.md` cross-linked.
 
-**Audit-driven quality** - Production-ready status requires at least one completed audit. Linked reports provide public evidence; unlinked audits remain recorded as `audited` until reports are published.
+**Audit-driven quality** - Production-ready status requires at least one completed audit. Active server rows link directly to their audit evidence directory.
 
 ---
 
@@ -358,7 +358,8 @@ The previous roadmap items for Zurich cantonal law, Swiss courts, and deeper swi
 
 Current portfolio maintenance priorities:
 
-- Publish or link audit reports for all servers currently marked `audited` without a report URL.
+- Keep all linked audit directories current with report metadata, findings, and remediation notes.
+- If the archived legacy patent repository is unarchived, add an `audits/` directory there or migrate its audit evidence into `swiss-ip-mcp`.
 - Align `mcp-audit-skill` and all future reports with MCP spec `2025-11-25`, while retaining older spec versions in report metadata where applicable.
 - Decide whether `parlament-mcp` remains a specialised server or is folded into `swiss-democracy-mcp`.
 - Decide whether `MCP-Server-for-patent-research-` is renamed, archived, or migrated into `swiss-ip-mcp`.
