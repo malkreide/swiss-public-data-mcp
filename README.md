@@ -377,6 +377,8 @@ Bug reports and feature requests are welcome on the individual server repositori
 
 When changing the inventory, edit [`portfolio.json`](portfolio.json) and run `python scripts/generate_readme.py` to refresh the generated README sections. CI verifies the READMEs stay in sync via `python scripts/generate_readme.py --check`.
 
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the full contribution guide and [`SECURITY.md`](SECURITY.md) for how to report vulnerabilities.
+
 ---
 
 ## License

@@ -377,6 +377,8 @@ Bugreports und Feature Requests sind auf den jeweiligen Server-Repositories will
 
 Beim Ändern des Inventars [`portfolio.json`](portfolio.json) bearbeiten und `python scripts/generate_readme.py` ausführen, um die generierten README-Abschnitte zu aktualisieren. CI prüft die Synchronität via `python scripts/generate_readme.py --check`.
 
+Siehe [`CONTRIBUTING.md`](CONTRIBUTING.md) für den vollständigen Contribution-Guide und [`SECURITY.md`](SECURITY.md) für das Melden von Sicherheitslücken.
+
 ---
 
 ## Lizenz
