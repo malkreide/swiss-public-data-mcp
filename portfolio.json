@@ -53,6 +53,73 @@
       "description": "Claude skill for systematic MCP server audits. It is methodology tooling, not a portfolio server."
     }
   ],
+  "display_categories": [
+    {
+      "label": "Transport & Mobility",
+      "label_de": "Transport & Mobilität",
+      "emoji": "🚆"
+    },
+    {
+      "label": "Energy & Infrastructure",
+      "label_de": "Energie & Infrastruktur",
+      "emoji": "⚡"
+    },
+    {
+      "label": "Environment & Climate",
+      "label_de": "Umwelt & Klima",
+      "emoji": "🌿"
+    },
+    {
+      "label": "Legal, Courts & Regulatory",
+      "label_de": "Recht, Gerichte & Regulierung",
+      "emoji": "⚖️"
+    },
+    {
+      "label": "Statistics & Geodata",
+      "label_de": "Statistik & Geodaten",
+      "emoji": "📊"
+    },
+    {
+      "label": "Education & Research",
+      "label_de": "Bildung & Forschung",
+      "emoji": "🎓"
+    },
+    {
+      "label": "Economics & Finance",
+      "label_de": "Wirtschaft & Finanzen",
+      "emoji": "💰"
+    },
+    {
+      "label": "Culture & Media",
+      "label_de": "Kultur & Medien",
+      "emoji": "🎭"
+    },
+    {
+      "label": "Health",
+      "label_de": "Gesundheit",
+      "emoji": "🏥"
+    },
+    {
+      "label": "Food Safety",
+      "label_de": "Lebensmittelsicherheit",
+      "emoji": "🍽️"
+    },
+    {
+      "label": "Democracy & Transparency",
+      "label_de": "Demokratie & Transparenz",
+      "emoji": "🗳️"
+    },
+    {
+      "label": "Tech Intelligence",
+      "label_de": "Tech Intelligence",
+      "emoji": "🛰️"
+    },
+    {
+      "label": "Legacy / Superseded",
+      "label_de": "Legacy / Abgelöst",
+      "emoji": "🗄️"
+    }
+  ],
   "servers": [
     {
       "id": "swiss-transport-mcp",
@@ -64,7 +131,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/swiss-transport-mcp/tree/main/audits",
       "description": "OJP 2.0 journey planning, SIRI-SX disruptions, occupancy, fares, train formation",
-      "anchor_query": "Earliest train Zurich -> Bern tomorrow at 8 am?"
+      "anchor_query": "Earliest train Zurich -> Bern tomorrow at 8 am?",
+      "description_de": "OJP 2.0 Journey Planning, SIRI-SX-Störungen, Auslastung, Tarife, Zugformation",
+      "anchor_query_de": "Frühester Zug Zürich -> Bern morgen um 8 Uhr?",
+      "requires_credentials": false
     },
     {
       "id": "swiss-road-mobility-mcp",
@@ -76,7 +146,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/swiss-road-mobility-mcp/tree/main/audits",
       "description": "GBFS shared mobility, EV charging, DATEX II traffic, Park & Rail",
-      "anchor_query": "Available e-bikes near Zurich HB right now?"
+      "anchor_query": "Available e-bikes near Zurich HB right now?",
+      "description_de": "GBFS Sharing-Mobilität, EV-Ladestationen, DATEX-II-Verkehr, Park & Rail",
+      "anchor_query_de": "Freie E-Bikes nahe Zürich HB jetzt?",
+      "requires_credentials": false
     },
     {
       "id": "sbb-opendata-mcp",
@@ -88,7 +161,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/sbb-opendata-mcp/tree/main/audits",
       "description": "SBB Open Data via OpenDataSoft",
-      "anchor_query": "Punctuality statistics for IC 1 line last month?"
+      "anchor_query": "Punctuality statistics for IC 1 line last month?",
+      "description_de": "SBB Open Data via OpenDataSoft",
+      "anchor_query_de": "Pünktlichkeitsstatistik für IC 1 im letzten Monat?",
+      "requires_credentials": false
     },
     {
       "id": "swiss-energy-mcp",
@@ -100,7 +176,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/swiss-energy-mcp/tree/main/audits",
       "description": "Swiss energy data via SFOE/BFE and GeoAdmin REST APIs",
-      "anchor_query": "Which hydroelectric power plants are near Waedenswil?"
+      "anchor_query": "Which hydroelectric power plants are near Wädenswil?",
+      "description_de": "Schweizer Energiedaten via BFE/SFOE und GeoAdmin REST APIs",
+      "anchor_query_de": "Welche Wasserkraftwerke liegen nahe Wädenswil?",
+      "requires_credentials": false
     },
     {
       "id": "swiss-electricity-mcp",
@@ -112,7 +191,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/swiss-electricity-mcp/tree/main/audits",
       "description": "BFE energy dashboard, ElCom tariffs, public consumption data",
-      "anchor_query": "How did ewz electricity tariffs for category C3 develop since 2019?"
+      "anchor_query": "How did ewz electricity tariffs for category C3 develop since 2019?",
+      "description_de": "BFE-Energiedashboard, ElCom-Tarife, öffentliche Verbrauchsdaten",
+      "anchor_query_de": "Wie haben sich ewz-Stromtarife für Kategorie C3 seit 2019 entwickelt?",
+      "requires_credentials": false
     },
     {
       "id": "swiss-environment-mcp",
@@ -124,7 +206,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/swiss-environment-mcp/tree/main/audits",
       "description": "BAFU environmental data, NABEL air quality, hydrology",
-      "anchor_query": "PM2.5 levels in Zurich over the last 7 days?"
+      "anchor_query": "PM2.5 levels in Zurich over the last 7 days?",
+      "description_de": "BAFU-Umweltdaten, NABEL-Luftqualität, Hydrologie",
+      "anchor_query_de": "PM2.5-Werte in Zürich in den letzten 7 Tagen?",
+      "requires_credentials": false
     },
     {
       "id": "wsl-envidat-mcp",
@@ -136,7 +221,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/wsl-envidat-mcp/tree/main/audits",
       "description": "WSL / EnviDat environmental research datasets via CKAN",
-      "anchor_query": "Datasets on Alpine permafrost from WSL?"
+      "anchor_query": "Datasets on Alpine permafrost from WSL?",
+      "description_de": "WSL / EnviDat-Umweltforschungsdaten via CKAN",
+      "anchor_query_de": "Datensätze zu alpinem Permafrost von WSL?",
+      "requires_credentials": false
     },
     {
       "id": "meteoswiss-mcp",
@@ -148,7 +236,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/meteoswiss-mcp/tree/main/audits",
       "description": "MeteoSwiss Open Data for weather, climate normals, warnings",
-      "anchor_query": "Was the Bise unusually strong in Zurich last winter?"
+      "anchor_query": "Was the Bise unusually strong in Zurich last winter?",
+      "description_de": "MeteoSwiss Open Data für Wetter, Klimanormwerte, Warnungen",
+      "anchor_query_de": "War die Bise in Zürich letzten Winter ungewöhnlich stark?",
+      "requires_credentials": false
     },
     {
       "id": "fedlex-mcp",
@@ -160,7 +251,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/fedlex-mcp/tree/main/audits",
       "description": "Swiss federal law via Fedlex SPARQL endpoint",
-      "anchor_query": "What does Art. 62 BV say about public education?"
+      "anchor_query": "What does Art. 62 BV say about public education?",
+      "description_de": "Bundesrecht via Fedlex SPARQL Endpoint",
+      "anchor_query_de": "Was sagt Art. 62 BV über öffentliche Bildung?",
+      "requires_credentials": false
     },
     {
       "id": "openlex-mcp",
@@ -172,7 +266,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/openlex-mcp/tree/master/audits",
       "description": "Canton Zurich legislation via ZH-Lex with full-text search and article extraction",
-      "anchor_query": "Which Zurich laws regulate school responsibilities?"
+      "anchor_query": "Which Zurich laws regulate school responsibilities?",
+      "description_de": "Zürcher Gesetzessammlung via ZH-Lex mit Volltextsuche und Artikelextraktion",
+      "anchor_query_de": "Welche Zürcher Gesetze regeln Schulzuständigkeiten?",
+      "requires_credentials": false
     },
     {
       "id": "swiss-courts-mcp",
@@ -184,7 +281,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/swiss-courts-mcp/tree/master/audits",
       "description": "Swiss court decisions via entscheidsuche.ch, including federal and cantonal courts",
-      "anchor_query": "Recent Federal Supreme Court cases on school transport?"
+      "anchor_query": "Recent Federal Supreme Court cases on school transport?",
+      "description_de": "Schweizer Gerichtsentscheide via entscheidsuche.ch, inklusive Bundes- und Kantonsgerichte",
+      "anchor_query_de": "Neue Bundesgerichtsentscheide zu Schultransport?",
+      "requires_credentials": false
     },
     {
       "id": "register-mcp",
@@ -196,7 +296,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/register-mcp/tree/main/audits",
       "description": "Zefix commercial register and UID lookup",
-      "anchor_query": "Active companies in Zurich Kreis 5 in the IT sector?"
+      "anchor_query": "Active companies in Zurich Kreis 5 in the IT sector?",
+      "description_de": "Zefix-Handelsregister und UID-Lookup",
+      "anchor_query_de": "Aktive IT-Firmen in Zürich Kreis 5?",
+      "requires_credentials": false
     },
     {
       "id": "swiss-ip-mcp",
@@ -208,7 +311,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/swiss-ip-mcp/tree/main/audits",
       "description": "IGE/IPI Swissreg trademarks, patents, SPCs",
-      "anchor_query": "Active Swiss trademarks containing Zurich in class 41?"
+      "anchor_query": "Active Swiss trademarks containing 'Zurich' in class 41?",
+      "description_de": "IGE/IPI Swissreg: Marken, Patente, SPCs",
+      "anchor_query_de": "Aktive Schweizer Marken mit 'Zurich' in Klasse 41?",
+      "requires_credentials": true
     },
     {
       "id": "swiss-statistics-mcp",
@@ -220,7 +326,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/swiss-statistics-mcp/tree/main/audits",
       "description": "BFS STAT-TAB PxWeb API for official Swiss statistics",
-      "anchor_query": "Population of Swiss municipalities by canton, 2023?"
+      "anchor_query": "Population of Swiss municipalities by canton, 2023?",
+      "description_de": "BFS STAT-TAB PxWeb API für amtliche Schweizer Statistik",
+      "anchor_query_de": "Bevölkerung der Schweizer Gemeinden nach Kanton, 2023?",
+      "requires_credentials": false
     },
     {
       "id": "zurich-opendata-mcp",
@@ -232,7 +341,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/zurich-opendata-mcp/tree/main/audits",
       "description": "City of Zurich weather, air quality, parking, geodata, Gemeinderat, tourism",
-      "anchor_query": "Which school buildings in Zurich do not yet have fibre?"
+      "anchor_query": "Which school buildings in Zurich do not yet have fibre?",
+      "description_de": "Stadt Zürich: Wetter, Luftqualität, Parkierung, Geodaten, Gemeinderat, Tourismus",
+      "anchor_query_de": "Welche Schulgebäude in Zürich haben noch keine Glasfaser?",
+      "requires_credentials": false
     },
     {
       "id": "swisstopo-mcp",
@@ -244,7 +356,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/swisstopo-mcp/tree/master/audits",
       "description": "Swiss federal geodata: geocoding, height, STAC, WMTS, OEREB and more",
-      "anchor_query": "What is the elevation profile between Zurich HB and Uetliberg?"
+      "anchor_query": "What is the elevation profile between Zurich HB and Uetliberg?",
+      "description_de": "Bundesgeodaten: Geocoding, Höhe, STAC, WMTS, ÖREB und mehr",
+      "anchor_query_de": "Wie sieht das Höhenprofil zwischen Zürich HB und Uetliberg aus?",
+      "requires_credentials": false
     },
     {
       "id": "global-education-mcp",
@@ -256,7 +371,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/global-education-mcp/tree/main/audits",
       "description": "UNESCO UIS and OECD Education at a Glance",
-      "anchor_query": "Upper secondary attainment rates in CH vs. OECD average?"
+      "anchor_query": "Upper secondary attainment rates in CH vs. OECD average?",
+      "description_de": "UNESCO UIS und OECD Education at a Glance",
+      "anchor_query_de": "Sek-II-Abschlussquoten CH vs. OECD-Durchschnitt?",
+      "requires_credentials": false
     },
     {
       "id": "zh-education-mcp",
@@ -268,7 +386,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/zh-education-mcp/tree/main/audits",
       "description": "Canton and City of Zurich education data: schools, statistics, infrastructure",
-      "anchor_query": "How are pupil numbers distributed across Zurich's seven Schulkreise?"
+      "anchor_query": "How are pupil numbers distributed across Zurich's seven Schulkreise?",
+      "description_de": "Bildungsdaten von Kanton und Stadt Zürich: Schulen, Statistik, Infrastruktur",
+      "anchor_query_de": "Wie verteilen sich Schülerzahlen auf die sieben Zürcher Schulkreise?",
+      "requires_credentials": false
     },
     {
       "id": "swiss-academic-libraries-mcp",
@@ -280,7 +401,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/swiss-academic-libraries-mcp/tree/main/audits",
       "description": "swisscovery, e-rara, e-periodica, e-manuscripta via SRU/OAI-PMH",
-      "anchor_query": "Digitised 18th-century Swiss maps in e-rara?"
+      "anchor_query": "Digitised 18th-century Swiss maps in e-rara?",
+      "description_de": "swisscovery, e-rara, e-periodica, e-manuscripta via SRU/OAI-PMH",
+      "anchor_query_de": "Digitalisierte Schweizer Karten des 18. Jahrhunderts in e-rara?",
+      "requires_credentials": false
     },
     {
       "id": "eth-library-mcp",
@@ -292,7 +416,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/eth-library-mcp/tree/main/audits",
       "description": "ETH Library Discovery and Persons APIs",
-      "anchor_query": "ETH publications on urban heat islands since 2020?"
+      "anchor_query": "ETH publications on urban heat islands since 2020?",
+      "description_de": "ETH Library Discovery und Persons APIs",
+      "anchor_query_de": "ETH-Publikationen zu urbanen Hitzeinseln seit 2020?",
+      "requires_credentials": false
     },
     {
       "id": "swiss-snb-mcp",
@@ -304,7 +431,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/swiss-snb-mcp/tree/main/audits",
       "description": "SNB data portal: exchange rates, balance sheet, policy rates, SARON, monetary aggregates",
-      "anchor_query": "EUR/CHF trend since 2015 and current SNB policy rate?"
+      "anchor_query": "EUR/CHF trend since 2015 and current SNB policy rate?",
+      "description_de": "SNB-Datenportal: Wechselkurse, Bilanz, Leitzins, SARON, Geldmengen",
+      "anchor_query_de": "EUR/CHF seit 2015 und aktueller SNB-Leitzins?",
+      "requires_credentials": false
     },
     {
       "id": "seco-labor-mcp",
@@ -316,7 +446,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/seco-labor-mcp/tree/main/audits",
       "description": "SECO labour market: unemployment, vacancies, workforce indicators",
-      "anchor_query": "Unemployment rate in Canton Zurich vs. Swiss average over the last 12 months?"
+      "anchor_query": "Unemployment rate in Canton Zurich vs. Swiss average over the last 12 months?",
+      "description_de": "SECO-Arbeitsmarkt: Arbeitslosigkeit, offene Stellen, Erwerbsindikatoren",
+      "anchor_query_de": "Arbeitslosenquote Kanton Zürich vs. Schweiz in den letzten 12 Monaten?",
+      "requires_credentials": false
     },
     {
       "id": "swiss-culture-mcp",
@@ -328,7 +461,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/swiss-culture-mcp/tree/main/audit",
       "description": "BAK cultural heritage, ISOS, living traditions, RSS",
-      "anchor_query": "UNESCO-listed living traditions in Canton Zurich?"
+      "anchor_query": "UNESCO-listed living traditions in Canton Zurich?",
+      "description_de": "BAK-Kulturerbe, ISOS, lebendige Traditionen, RSS",
+      "anchor_query_de": "UNESCO-gelistete lebendige Traditionen im Kanton Zürich?",
+      "requires_credentials": false
     },
     {
       "id": "swiss-cultural-heritage-mcp",
@@ -340,7 +476,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/swiss-cultural-heritage-mcp/tree/main/audits",
       "description": "Heritage inventories, monument lists, archaeological registers",
-      "anchor_query": "Listed Baudenkmaeler in Zurich Kreis 6?"
+      "anchor_query": "Listed Baudenkmäler in Zurich Kreis 6?",
+      "description_de": "Kulturerbe-Inventare, Denkmallisten, archäologische Register",
+      "anchor_query_de": "Geschützte Baudenkmäler in Zürich Kreis 6?",
+      "requires_credentials": false
     },
     {
       "id": "bakom-mcp",
@@ -352,7 +491,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/bakom-mcp/tree/main/audits",
       "description": "BAKOM telecommunications and media open data",
-      "anchor_query": "Which municipalities still lack 100 Mbit/s broadband?"
+      "anchor_query": "Which municipalities still lack 100 Mbit/s broadband?",
+      "description_de": "BAKOM Open Data zu Telekommunikation und Medien",
+      "anchor_query_de": "Welche Gemeinden haben noch keine 100 Mbit/s Breitbandabdeckung?",
+      "requires_credentials": false
     },
     {
       "id": "srgssr-mcp",
@@ -364,7 +506,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/srgssr-mcp/tree/main/audits",
       "description": "SRG SSR weather, video, audio, EPG, Polis",
-      "anchor_query": "Latest SRF news segments on education policy?"
+      "anchor_query": "Latest SRF news segments on education policy?",
+      "description_de": "SRG SSR: Wetter, Video, Audio, EPG, Polis",
+      "anchor_query_de": "Neuste SRF-Beiträge zur Bildungspolitik?",
+      "requires_credentials": false
     },
     {
       "id": "news-monitor-mcp",
@@ -376,7 +521,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/news-monitor-mcp/tree/main/audits",
       "description": "Aggregated news monitoring across Swiss public media RSS feeds",
-      "anchor_query": "Top three education-policy stories in Swiss media this week?"
+      "anchor_query": "Top three education-policy stories in Swiss media this week?",
+      "description_de": "Aggregiertes News-Monitoring über Schweizer Public-Media-RSS",
+      "anchor_query_de": "Top drei bildungspolitische Schweizer Medienstories diese Woche?",
+      "requires_credentials": false
     },
     {
       "id": "bag-health-mcp",
@@ -388,7 +536,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/bag-health-mcp/tree/main/audits",
       "description": "BAG public-health open data: indicators, programmes, statistics",
-      "anchor_query": "Vaccination coverage by canton for the last reporting period?"
+      "anchor_query": "Vaccination coverage by canton for the last reporting period?",
+      "description_de": "BAG Public-Health Open Data: Indikatoren, Programme, Statistik",
+      "anchor_query_de": "Impfquote nach Kanton für die letzte Berichtsperiode?",
+      "requires_credentials": false
     },
     {
       "id": "bag-epl-mcp",
@@ -399,8 +550,11 @@
       "status": "production_ready",
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/bag-epl-mcp/tree/main/docs/audit",
-      "description": "BAG EPL: Spezialitaetenliste, medication and reimbursement data",
-      "anchor_query": "Which medications were added to the Spezialitaetenliste in the last six months?"
+      "description": "BAG EPL: Spezialitätenliste, medication and reimbursement data",
+      "anchor_query": "Which medications were added to the Spezialitätenliste in the last six months?",
+      "description_de": "BAG EPL: Spezialitätenliste, Medikamente, Vergütungsdaten",
+      "anchor_query_de": "Welche Medikamente kamen in den letzten sechs Monaten auf die Spezialitätenliste?",
+      "requires_credentials": false
     },
     {
       "id": "swiss-food-safety-mcp",
@@ -412,7 +566,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/swiss-food-safety-mcp/tree/main/docs/audit",
       "description": "BLV open data for food safety and veterinary inspections",
-      "anchor_query": "Recent food recall notices in Switzerland?"
+      "anchor_query": "Recent food recall notices in Switzerland?",
+      "description_de": "BLV Open Data zu Lebensmittelsicherheit und Veterinärkontrollen",
+      "anchor_query_de": "Aktuelle Lebensmittelrückrufe in der Schweiz?",
+      "requires_credentials": false
     },
     {
       "id": "swiss-democracy-mcp",
@@ -424,7 +581,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/swiss-democracy-mcp/tree/main/audits",
       "description": "Parliament OData, Swissvotes, referendums, voting results",
-      "anchor_query": "Which pending parliamentary motions concern AI in education?"
+      "anchor_query": "Which pending parliamentary motions concern AI in education?",
+      "description_de": "Parlaments-OData, Swissvotes, Referenden, Abstimmungsresultate",
+      "anchor_query_de": "Welche hängigen parlamentarischen Vorstösse betreffen KI in der Bildung?",
+      "requires_credentials": false
     },
     {
       "id": "parlament-mcp",
@@ -436,7 +596,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/parlament-mcp/tree/main/audits",
       "description": "Swiss Federal Parliament Curia Vista OData API",
-      "anchor_query": "Welche Vorstoesse zu KI in der Schule sind haengig?"
+      "anchor_query": "Welche Vorstösse zu KI in der Schule sind hängig?",
+      "description_de": "Curia-Vista-OData-API des Schweizer Parlaments",
+      "anchor_query_de": "Welche Vorstösse zu KI in der Schule sind hängig?",
+      "requires_credentials": false
     },
     {
       "id": "lobbywatch-mcp",
@@ -448,7 +611,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/lobbywatch-mcp/tree/main/audits",
       "description": "Lobbywatch.ch transparency data on parliamentarians, interests, access badges",
-      "anchor_query": "Which education-commission members have ties to private education providers?"
+      "anchor_query": "Which education-commission members have ties to private education providers?",
+      "description_de": "Lobbywatch.ch-Transparenzdaten zu Parlamentsmitgliedern, Interessenbindungen, Zutrittsbadges",
+      "anchor_query_de": "Welche WBK-Mitglieder haben Bezüge zu privaten Bildungsanbietern?",
+      "requires_credentials": false
     },
     {
       "id": "hn-tech-signal-mcp",
@@ -460,7 +626,10 @@
       "audit": "published",
       "audit_evidence": "https://github.com/malkreide/hn-tech-signal-mcp/tree/main/audits",
       "description": "Hacker News signal extraction for technology trend monitoring",
-      "anchor_query": "What are this week's most-discussed AI-infrastructure topics?"
+      "anchor_query": "What are this week's most-discussed AI-infrastructure topics?",
+      "description_de": "Hacker-News-Signalextraktion für Technologie-Trendmonitoring",
+      "anchor_query_de": "Welche AI-Infrastrukturthemen werden diese Woche am meisten diskutiert?",
+      "requires_credentials": false
     },
     {
       "id": "MCP-Server-for-patent-research-",
@@ -472,7 +641,11 @@
       "audit": "audited",
       "audit_evidence": null,
       "description": "Older audited broad patent research server. Keep discoverable, but prefer swiss-ip-mcp for the current portfolio unless renamed and aligned with current portfolio conventions.",
-      "anchor_query": null
+      "anchor_query": null,
+      "legacy_treatment": "Production-ready legacy / migration candidate",
+      "legacy_treatment_de": "Production-ready Legacy / Migrationskandidat",
+      "legacy_reason": "Older audited patent research server with broad EPO/Swissreg scope and naming inconsistencies. Keep discoverable, but prefer `swiss-ip-mcp` for the current portfolio unless the old repo is renamed and aligned with the current portfolio conventions.",
+      "legacy_reason_de": "Älterer auditierter Patentrecherche-Server mit breitem EPO/Swissreg-Scope und Namensinkonsistenzen. Auffindbar lassen, aber für das aktuelle Portfolio `swiss-ip-mcp` bevorzugen, solange der alte Repo nicht umbenannt und an die aktuellen Portfolio-Konventionen angepasst ist."
     }
   ]
 }

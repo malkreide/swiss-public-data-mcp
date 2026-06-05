@@ -1,0 +1,21 @@
+name: README sync
+
+# Fails if README.md / README.de.md drift from portfolio.json (the source of
+# truth). Regenerate locally with: python scripts/generate_readme.py
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Validate portfolio.json
+        run: python -c "import json; json.load(open('portfolio.json'))"
+      - name: Check READMEs are in sync with portfolio.json
+        run: python scripts/generate_readme.py --check
