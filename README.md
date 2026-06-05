@@ -118,6 +118,7 @@ audit:
 
 ## Server Portfolio
 
+<!-- BEGIN GENERATED: server-portfolio -->
 **Status legend:** ✅ Production ready and audited at least once · 🔐 Requires API credentials · 🧭 Adjacent/context source · 🗄️ Legacy or superseded
 
 ### 🚆 Transport & Mobility
@@ -165,7 +166,7 @@ audit:
 
 | Server | Description | Anchor query | Status | Audit |
 |---|---|---|---|---|
-| [global-education-mcp](https://github.com/malkreide/global-education-mcp) | UNESCO UIS and OECD Education at a Glance. Adjacent international context source. | *"Upper secondary attainment rates in CH vs. OECD average?"* | ✅ 🧭 | [audits/](https://github.com/malkreide/global-education-mcp/tree/main/audits) |
+| [global-education-mcp](https://github.com/malkreide/global-education-mcp) | UNESCO UIS and OECD Education at a Glance | *"Upper secondary attainment rates in CH vs. OECD average?"* | ✅ 🧭 | [audits/](https://github.com/malkreide/global-education-mcp/tree/main/audits) |
 | [zh-education-mcp](https://github.com/malkreide/zh-education-mcp) | Canton and City of Zurich education data: schools, statistics, infrastructure | *"How are pupil numbers distributed across Zurich's seven Schulkreise?"* | ✅ | [audits/](https://github.com/malkreide/zh-education-mcp/tree/main/audits) |
 | [swiss-academic-libraries-mcp](https://github.com/malkreide/swiss-academic-libraries-mcp) | swisscovery, e-rara, e-periodica, e-manuscripta via SRU/OAI-PMH | *"Digitised 18th-century Swiss maps in e-rara?"* | ✅ | [audits/](https://github.com/malkreide/swiss-academic-libraries-mcp/tree/main/audits) |
 | [eth-library-mcp](https://github.com/malkreide/eth-library-mcp) | ETH Library Discovery and Persons APIs | *"ETH publications on urban heat islands since 2020?"* | ✅ | [audits/](https://github.com/malkreide/eth-library-mcp/tree/main/audits) |
@@ -185,7 +186,7 @@ audit:
 | [swiss-cultural-heritage-mcp](https://github.com/malkreide/swiss-cultural-heritage-mcp) | Heritage inventories, monument lists, archaeological registers | *"Listed Baudenkmäler in Zurich Kreis 6?"* | ✅ | [audits/](https://github.com/malkreide/swiss-cultural-heritage-mcp/tree/main/audits) |
 | [bakom-mcp](https://github.com/malkreide/bakom-mcp) | BAKOM telecommunications and media open data | *"Which municipalities still lack 100 Mbit/s broadband?"* | ✅ | [audits/](https://github.com/malkreide/bakom-mcp/tree/main/audits) |
 | [srgssr-mcp](https://github.com/malkreide/srgssr-mcp) | SRG SSR weather, video, audio, EPG, Polis | *"Latest SRF news segments on education policy?"* | ✅ | [audits/](https://github.com/malkreide/srgssr-mcp/tree/main/audits) |
-| [news-monitor-mcp](https://github.com/malkreide/news-monitor-mcp) | Aggregated news monitoring across Swiss public media RSS feeds. Adjacent context source. | *"Top three education-policy stories in Swiss media this week?"* | ✅ 🧭 | [audits/](https://github.com/malkreide/news-monitor-mcp/tree/main/audits) |
+| [news-monitor-mcp](https://github.com/malkreide/news-monitor-mcp) | Aggregated news monitoring across Swiss public media RSS feeds | *"Top three education-policy stories in Swiss media this week?"* | ✅ 🧭 | [audits/](https://github.com/malkreide/news-monitor-mcp/tree/main/audits) |
 
 ### 🏥 Health
 
@@ -212,13 +213,14 @@ audit:
 
 | Server | Description | Anchor query | Status | Audit |
 |---|---|---|---|---|
-| [hn-tech-signal-mcp](https://github.com/malkreide/hn-tech-signal-mcp) | Hacker News signal extraction for technology trend monitoring. Adjacent context source. | *"What are this week's most-discussed AI-infrastructure topics?"* | ✅ 🧭 | [audits/](https://github.com/malkreide/hn-tech-signal-mcp/tree/main/audits) |
+| [hn-tech-signal-mcp](https://github.com/malkreide/hn-tech-signal-mcp) | Hacker News signal extraction for technology trend monitoring | *"What are this week's most-discussed AI-infrastructure topics?"* | ✅ 🧭 | [audits/](https://github.com/malkreide/hn-tech-signal-mcp/tree/main/audits) |
 
 ### 🗄️ Legacy / Superseded
 
 | Server | Current treatment | Reason |
 |---|---|---|
 | [MCP-Server-for-patent-research-](https://github.com/malkreide/MCP-Server-for-patent-research-) | Production-ready legacy / migration candidate | Older audited patent research server with broad EPO/Swissreg scope and naming inconsistencies. Keep discoverable, but prefer `swiss-ip-mcp` for the current portfolio unless the old repo is renamed and aligned with the current portfolio conventions. |
+<!-- END GENERATED: server-portfolio -->
 
 ---
 
@@ -283,6 +285,7 @@ uv run mcp dev src/<package>/server.py
 
 All active servers should carry the GitHub topic [`swiss-public-data-mcp`](https://github.com/topics/swiss-public-data-mcp). The machine-readable inventory in [`portfolio.json`](portfolio.json) is the canonical list.
 
+<!-- BEGIN GENERATED: repository-map -->
 ```text
 malkreide/
 ├── swiss-public-data-mcp                 ← this index
@@ -349,6 +352,7 @@ malkreide/
 └── Legacy / Superseded
     └── MCP-Server-for-patent-research-
 ```
+<!-- END GENERATED: repository-map -->
 
 ---
 
@@ -363,13 +367,15 @@ Current portfolio maintenance priorities:
 - Align `mcp-audit-skill` and all future reports with MCP spec `2025-11-25`, while retaining older spec versions in report metadata where applicable.
 - Decide whether `parlament-mcp` remains a specialised server or is folded into `swiss-democracy-mcp`.
 - Decide whether `MCP-Server-for-patent-research-` is renamed, archived, or migrated into `swiss-ip-mcp`.
-- Generate README tables from `portfolio.json` in a future automation pass.
+- The Server Portfolio tables and Repository Map are generated from `portfolio.json` by [`scripts/generate_readme.py`](scripts/generate_readme.py); a CI check (`--check`) blocks drift such as the electricity rename above.
 
 ---
 
 ## Contributing
 
 Bug reports and feature requests are welcome on the individual server repositories. If you build a new MCP server for Swiss open data and would like it listed here, open an issue with a short description, a repository link, data-source notes, and the intended audit profile.
+
+When changing the inventory, edit [`portfolio.json`](portfolio.json) and run `python scripts/generate_readme.py` to refresh the generated README sections. CI verifies the READMEs stay in sync via `python scripts/generate_readme.py --check`.
 
 ---
 

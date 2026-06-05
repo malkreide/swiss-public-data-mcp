@@ -59,7 +59,7 @@ Das Portfolio entstand bottom-up aus Integrationsbedarf, nicht top-down aus eine
 | [Strategien Zürich 2040](https://www.stadt-zuerich.ch/de/politik-und-verwaltung/politik-und-recht/strategie-politikfelder/zuerich-2040.html) | Macht aus veröffentlichten offenen Daten agenten-nutzbare offene Daten. |
 | [Digitalisierungsstrategie Stadt Zürich 2024](https://www.stadt-zuerich.ch/content/dam/web/de/politik-verwaltung/stadtverwaltung/fd/digitalisierungsstrategie.pdf) | Unterstützt nutzungsorientierte digitale Services, Informationsaustausch und verantwortungsvolle Datennutzung, ohne bestehende APIs neu zu bauen. |
 | [SB021 - Strategie Einsatz von KI-Systemen in der Bundesverwaltung](https://www.bk.admin.ch/bk/de/home/digitale-transformation-ikt-lenkung/vorgaben/sb021-strategie-einsatz-von-ki-systemen-in-der-bundesverwaltung.html) | Bietet ein öffentlich lesbares Kompetenzartefakt mit expliziter Audit- und Risikomethodik. |
-| [Strategie Digitale Schweiz 2026](https://www.eda.admin.ch/de/newnsb/d6evGIoTYTmY4VMGk0-v0) | Erhöht den praktischen Nutzen öffentlicher digitaler Infrastruktur, indem Datenquellen über ein gemeinsames Protokoll LLM-konsumierbar werden. |
+| [Strategie Digitale Schweiz 2026](https://www.admin.ch/de/newnsb/d6evGIoTYTmY4VMGk0-v0) | Erhöht den praktischen Nutzen öffentlicher digitaler Infrastruktur, indem Datenquellen über ein gemeinsames Protokoll LLM-konsumierbar werden. |
 
 Diese Links sind Kontext, keine Autorisierung. Das Repository bleibt ein privates Open-Source-Projekt.
 
@@ -118,6 +118,7 @@ audit:
 
 ## Server-Portfolio
 
+<!-- BEGIN GENERATED: server-portfolio -->
 **Status-Legende:** ✅ Production ready und mindestens einmal auditiert · 🔐 API-Credentials nötig · 🧭 angrenzende Kontextquelle · 🗄️ Legacy oder abgelöst
 
 ### 🚆 Transport & Mobilität
@@ -165,7 +166,7 @@ audit:
 
 | Server | Beschreibung | Anchor Query | Status | Audit |
 |---|---|---|---|---|
-| [global-education-mcp](https://github.com/malkreide/global-education-mcp) | UNESCO UIS und OECD Education at a Glance. Angrenzende internationale Kontextquelle. | *"Sek-II-Abschlussquoten CH vs. OECD-Durchschnitt?"* | ✅ 🧭 | [audits/](https://github.com/malkreide/global-education-mcp/tree/main/audits) |
+| [global-education-mcp](https://github.com/malkreide/global-education-mcp) | UNESCO UIS und OECD Education at a Glance | *"Sek-II-Abschlussquoten CH vs. OECD-Durchschnitt?"* | ✅ 🧭 | [audits/](https://github.com/malkreide/global-education-mcp/tree/main/audits) |
 | [zh-education-mcp](https://github.com/malkreide/zh-education-mcp) | Bildungsdaten von Kanton und Stadt Zürich: Schulen, Statistik, Infrastruktur | *"Wie verteilen sich Schülerzahlen auf die sieben Zürcher Schulkreise?"* | ✅ | [audits/](https://github.com/malkreide/zh-education-mcp/tree/main/audits) |
 | [swiss-academic-libraries-mcp](https://github.com/malkreide/swiss-academic-libraries-mcp) | swisscovery, e-rara, e-periodica, e-manuscripta via SRU/OAI-PMH | *"Digitalisierte Schweizer Karten des 18. Jahrhunderts in e-rara?"* | ✅ | [audits/](https://github.com/malkreide/swiss-academic-libraries-mcp/tree/main/audits) |
 | [eth-library-mcp](https://github.com/malkreide/eth-library-mcp) | ETH Library Discovery und Persons APIs | *"ETH-Publikationen zu urbanen Hitzeinseln seit 2020?"* | ✅ | [audits/](https://github.com/malkreide/eth-library-mcp/tree/main/audits) |
@@ -185,7 +186,7 @@ audit:
 | [swiss-cultural-heritage-mcp](https://github.com/malkreide/swiss-cultural-heritage-mcp) | Kulturerbe-Inventare, Denkmallisten, archäologische Register | *"Geschützte Baudenkmäler in Zürich Kreis 6?"* | ✅ | [audits/](https://github.com/malkreide/swiss-cultural-heritage-mcp/tree/main/audits) |
 | [bakom-mcp](https://github.com/malkreide/bakom-mcp) | BAKOM Open Data zu Telekommunikation und Medien | *"Welche Gemeinden haben noch keine 100 Mbit/s Breitbandabdeckung?"* | ✅ | [audits/](https://github.com/malkreide/bakom-mcp/tree/main/audits) |
 | [srgssr-mcp](https://github.com/malkreide/srgssr-mcp) | SRG SSR: Wetter, Video, Audio, EPG, Polis | *"Neuste SRF-Beiträge zur Bildungspolitik?"* | ✅ | [audits/](https://github.com/malkreide/srgssr-mcp/tree/main/audits) |
-| [news-monitor-mcp](https://github.com/malkreide/news-monitor-mcp) | Aggregiertes News-Monitoring über Schweizer Public-Media-RSS. Angrenzende Kontextquelle. | *"Top drei bildungspolitische Schweizer Medienstories diese Woche?"* | ✅ 🧭 | [audits/](https://github.com/malkreide/news-monitor-mcp/tree/main/audits) |
+| [news-monitor-mcp](https://github.com/malkreide/news-monitor-mcp) | Aggregiertes News-Monitoring über Schweizer Public-Media-RSS | *"Top drei bildungspolitische Schweizer Medienstories diese Woche?"* | ✅ 🧭 | [audits/](https://github.com/malkreide/news-monitor-mcp/tree/main/audits) |
 
 ### 🏥 Gesundheit
 
@@ -212,13 +213,14 @@ audit:
 
 | Server | Beschreibung | Anchor Query | Status | Audit |
 |---|---|---|---|---|
-| [hn-tech-signal-mcp](https://github.com/malkreide/hn-tech-signal-mcp) | Hacker-News-Signalextraktion für Technologie-Trendmonitoring. Angrenzende Kontextquelle. | *"Welche AI-Infrastrukturthemen werden diese Woche am meisten diskutiert?"* | ✅ 🧭 | [audits/](https://github.com/malkreide/hn-tech-signal-mcp/tree/main/audits) |
+| [hn-tech-signal-mcp](https://github.com/malkreide/hn-tech-signal-mcp) | Hacker-News-Signalextraktion für Technologie-Trendmonitoring | *"Welche AI-Infrastrukturthemen werden diese Woche am meisten diskutiert?"* | ✅ 🧭 | [audits/](https://github.com/malkreide/hn-tech-signal-mcp/tree/main/audits) |
 
 ### 🗄️ Legacy / Abgelöst
 
 | Server | Behandlung | Grund |
 |---|---|---|
 | [MCP-Server-for-patent-research-](https://github.com/malkreide/MCP-Server-for-patent-research-) | Production-ready Legacy / Migrationskandidat | Älterer auditierter Patentrecherche-Server mit breitem EPO/Swissreg-Scope und Namensinkonsistenzen. Auffindbar lassen, aber für das aktuelle Portfolio `swiss-ip-mcp` bevorzugen, solange der alte Repo nicht umbenannt und an die aktuellen Portfolio-Konventionen angepasst ist. |
+<!-- END GENERATED: server-portfolio -->
 
 ---
 
@@ -283,6 +285,7 @@ uv run mcp dev src/<package>/server.py
 
 Alle aktiven Server sollen den GitHub-Topic [`swiss-public-data-mcp`](https://github.com/topics/swiss-public-data-mcp) tragen. Das maschinenlesbare Inventar in [`portfolio.json`](portfolio.json) ist die kanonische Liste.
 
+<!-- BEGIN GENERATED: repository-map -->
 ```text
 malkreide/
 ├── swiss-public-data-mcp                 ← dieser Index
@@ -349,6 +352,7 @@ malkreide/
 └── Legacy / Abgelöst
     └── MCP-Server-for-patent-research-
 ```
+<!-- END GENERATED: repository-map -->
 
 ---
 
@@ -363,13 +367,15 @@ Aktuelle Portfolio-Prioritäten:
 - `mcp-audit-skill` und künftige Berichte auf MCP-Spec `2025-11-25` ausrichten; ältere Spec-Versionen in Audit-Metadaten erhalten.
 - Entscheiden, ob `parlament-mcp` als spezialisierter Server bleibt oder in `swiss-democracy-mcp` aufgeht.
 - Entscheiden, ob `MCP-Server-for-patent-research-` umbenannt, archiviert oder in `swiss-ip-mcp` migriert wird.
-- README-Tabellen in einem späteren Automationsschritt aus `portfolio.json` generieren.
+- Server-Portfolio-Tabellen und Repository-Map werden von [`scripts/generate_readme.py`](scripts/generate_readme.py) aus `portfolio.json` generiert; ein CI-Check (`--check`) verhindert Drift wie die obige Electricity-Umbenennung.
 
 ---
 
 ## Mitwirken
 
 Bugreports und Feature Requests sind auf den jeweiligen Server-Repositories willkommen. Wer einen neuen MCP-Server für Schweizer offene Daten baut und hier listen möchte, sollte einen Issue mit kurzer Beschreibung, Repo-Link, Datenquellen und geplantem Auditprofil eröffnen.
+
+Beim Ändern des Inventars [`portfolio.json`](portfolio.json) bearbeiten und `python scripts/generate_readme.py` ausführen, um die generierten README-Abschnitte zu aktualisieren. CI prüft die Synchronität via `python scripts/generate_readme.py --check`.
 
 ---
 
