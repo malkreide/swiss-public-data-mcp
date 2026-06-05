@@ -103,15 +103,15 @@
       "anchor_query": "Which hydroelectric power plants are near Waedenswil?"
     },
     {
-      "id": "swiss_electricity_mcp",
+      "id": "swiss-electricity-mcp",
       "display_name": "swiss-electricity-mcp",
-      "repository": "https://github.com/malkreide/swiss_electricity_mcp",
+      "repository": "https://github.com/malkreide/swiss-electricity-mcp",
       "category": "Energy & Infrastructure",
       "scope": "core",
       "status": "production_ready",
       "audit": "published",
-      "audit_evidence": "https://github.com/malkreide/swiss_electricity_mcp/tree/main/audits",
-      "description": "BFE energy dashboard, ElCom tariffs, public consumption data. Repository currently uses underscores; package name uses hyphens.",
+      "audit_evidence": "https://github.com/malkreide/swiss-electricity-mcp/tree/main/audits",
+      "description": "BFE energy dashboard, ElCom tariffs, public consumption data",
       "anchor_query": "How did ewz electricity tariffs for category C3 develop since 2019?"
     },
     {

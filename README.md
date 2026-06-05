@@ -133,7 +133,7 @@ audit:
 | Server | Description | Anchor query | Status | Audit |
 |---|---|---|---|---|
 | [swiss-energy-mcp](https://github.com/malkreide/swiss-energy-mcp) | Swiss energy data via SFOE/BFE and GeoAdmin REST APIs | *"Which hydroelectric power plants are near Wädenswil?"* | ✅ | [audits/](https://github.com/malkreide/swiss-energy-mcp/tree/main/audits) |
-| [swiss-electricity-mcp](https://github.com/malkreide/swiss_electricity_mcp) | BFE energy dashboard, ElCom tariffs, public consumption data. Repo name is currently `swiss_electricity_mcp`; package name is `swiss-electricity-mcp`. | *"How did ewz electricity tariffs for category C3 develop since 2019?"* | ✅ | [audits/](https://github.com/malkreide/swiss_electricity_mcp/tree/main/audits) |
+| [swiss-electricity-mcp](https://github.com/malkreide/swiss-electricity-mcp) | BFE energy dashboard, ElCom tariffs, public consumption data | *"How did ewz electricity tariffs for category C3 develop since 2019?"* | ✅ | [audits/](https://github.com/malkreide/swiss-electricity-mcp/tree/main/audits) |
 
 ### 🌿 Environment & Climate
 
@@ -295,7 +295,7 @@ malkreide/
 │
 ├── Energy & Infrastructure
 │   ├── swiss-energy-mcp
-│   └── swiss_electricity_mcp
+│   └── swiss-electricity-mcp
 │
 ├── Environment & Climate
 │   ├── swiss-environment-mcp
@@ -363,7 +363,6 @@ Current portfolio maintenance priorities:
 - Align `mcp-audit-skill` and all future reports with MCP spec `2025-11-25`, while retaining older spec versions in report metadata where applicable.
 - Decide whether `parlament-mcp` remains a specialised server or is folded into `swiss-democracy-mcp`.
 - Decide whether `MCP-Server-for-patent-research-` is renamed, archived, or migrated into `swiss-ip-mcp`.
-- Rename `swiss_electricity_mcp` to `swiss-electricity-mcp` if link stability and PyPI naming can be preserved; until then, the portfolio links to the actual repository.
 - Generate README tables from `portfolio.json` in a future automation pass.
 
 ---
