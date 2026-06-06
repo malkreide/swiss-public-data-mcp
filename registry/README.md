@@ -6,6 +6,10 @@ Registry at <https://registry.modelcontextprotocol.io>. Getting listed there is
 the single highest-leverage step for discoverability: it is the index that
 clients (Claude Desktop, VS Code, Cursor, …) and third-party catalogues read.
 
+> For the end-to-end operator walkthrough (install, auth, and running the
+> publishing scripts in order, with Windows + macOS/Linux commands), see
+> [`../RUNBOOK.md`](../RUNBOOK.md).
+
 ```
 registry/<server-id>/server.json
 ```

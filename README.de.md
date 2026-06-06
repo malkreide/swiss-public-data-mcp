@@ -34,6 +34,7 @@ Zuletzt geprüft: **2026-06-04**
 | `opendata.swiss`-Datensätze | 14'551 via `package_search?rows=0` |
 | Maschinenlesbare Quelle der Wahrheit | [`portfolio.json`](portfolio.json) |
 | MCP-Registry-Einträge (generiert) | [`registry/`](registry/) |
+| Publishing-Runbook | [`RUNBOOK.md`](RUNBOOK.md) |
 | Pflicht-Topic für Auffindbarkeit | [`swiss-public-data-mcp`](https://github.com/topics/swiss-public-data-mcp) |
 | MCP-Spec-Baseline für neue Audits | [`2025-11-25`](https://modelcontextprotocol.io/specification/versioning) |
 
