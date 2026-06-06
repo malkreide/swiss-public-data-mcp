@@ -19,8 +19,14 @@
       "runtimeHint": "uvx",
       "environmentVariables": [
         {
-          "name": "API_KEY",
-          "description": "PLACEHOLDER -- replace with the actual credential environment variable documented in the swiss-ip-mcp repository.",
+          "name": "IGE_USERNAME",
+          "description": "Username for the Swiss Federal Institute of Intellectual Property (IGE/IPI) Swissreg API. Issued by IGE after signing the terms of use.",
+          "isRequired": true,
+          "isSecret": true
+        },
+        {
+          "name": "IGE_PASSWORD",
+          "description": "Password for the IGE/IPI Swissreg account.",
           "isRequired": true,
           "isSecret": true
         }

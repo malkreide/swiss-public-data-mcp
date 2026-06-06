@@ -29,18 +29,19 @@ OAuth, so no custom-domain DNS record is needed.
 
 * Reverse-DNS `name`, `description`, and `repository` straight from `portfolio.json`.
 * A `pypi` package launched via the `uvx` runtime hint (`stdio` transport).
+* Credential servers' real `environmentVariables`, taken verbatim from each
+  server's `environment_variables` in `portfolio.json`.
 * Category/scope carried in `_meta` under the publisher-provided namespace.
 
 ## What you MUST reconcile per repo before publishing
 
-Three values cannot be derived from `portfolio.json` and are intentionally left
-as defaults/placeholders:
+Two values cannot be derived from `portfolio.json` and are intentionally left
+as defaults:
 
 | Field | Default in draft | Action |
 |---|---|---|
 | `packages[0].version` and top-level `version` | `0.1.0` | Set to the **actually published PyPI version**. |
 | `packages[0].identifier` | the server id | Confirm the **PyPI distribution name**; fix if it differs from the repo name. |
-| `environmentVariables` (credential servers, e.g. `swiss-ip-mcp`) | `API_KEY` placeholder | Replace with the **real variable name + description** from that server's repo. |
 
 The publish step (and the `mcp-name` ownership check below) is the gate that
 catches a wrong version or identifier, so a bad draft fails loudly rather than
@@ -86,7 +87,7 @@ PyPI package declares the same registry name. Both must line up.
    ```
 
 2. **Copy the draft into the server repo root** as `server.json`, and update
-   `version` / `identifier` / `environmentVariables` as per the table above:
+   `version` / `identifier` as per the table above:
 
    ```bash
    cp registry/<server-id>/server.json /path/to/<server-id>/server.json
@@ -139,8 +140,6 @@ It flags exactly what is missing before a server can publish:
 * **`NOT_ON_PYPI`** — publish the PyPI package first.
 * **`MISSING_MCP_NAME`** — the package's PyPI metadata does not yet declare the
   matching `mcp-name` (step 1 above). Add it and cut a release.
-* **`CREDENTIAL_PLACEHOLDER`** — a credential server still has the `API_KEY`
-  placeholder; replace it with the real variable (or pass `--allow-placeholder`).
 
 `--publish` requires `mcp-publisher` on `PATH` and an active
 `mcp-publisher login github` session, and only ships servers reported `READY`.
