@@ -314,7 +314,21 @@
       "anchor_query": "Active Swiss trademarks containing 'Zurich' in class 41?",
       "description_de": "IGE/IPI Swissreg: Marken, Patente, SPCs",
       "anchor_query_de": "Aktive Schweizer Marken mit 'Zurich' in Klasse 41?",
-      "requires_credentials": true
+      "requires_credentials": true,
+      "environment_variables": [
+        {
+          "name": "IGE_USERNAME",
+          "description": "Username for the Swiss Federal Institute of Intellectual Property (IGE/IPI) Swissreg API. Issued by IGE after signing the terms of use.",
+          "isRequired": true,
+          "isSecret": true
+        },
+        {
+          "name": "IGE_PASSWORD",
+          "description": "Password for the IGE/IPI Swissreg account.",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
     },
     {
       "id": "swiss-statistics-mcp",

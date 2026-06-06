@@ -19,9 +19,10 @@ These are *drafts*: two per-server values cannot be derived from portfolio.json
 and MUST be reconciled against each server's own repository before publishing:
 
   * ``packages[0].version`` -- must match the actually published PyPI version,
-  * the PyPI ``identifier`` -- assumed equal to the server id; fix if it differs,
-  * credential servers' ``environmentVariables`` -- the placeholder name/description
-    must be replaced with the real variable documented in the server repo.
+  * the PyPI ``identifier`` -- assumed equal to the server id; fix if it differs.
+
+Credential servers declare their real environment variables under
+``environment_variables`` in portfolio.json; those are emitted verbatim.
 
 See ``registry/README.md`` for the full publishing workflow (mcp-publisher CLI,
 namespace auth, and the ``mcp-name`` ownership-validation file each repo needs).
@@ -63,7 +64,7 @@ def active_servers(data: dict) -> list[dict]:
 
 
 def build_package(server: dict) -> dict:
-    """A pypi + uvx package entry; adds a credential placeholder when needed."""
+    """A pypi + uvx package entry; declares the server's real credential vars."""
     package: dict = {
         "registryType": "pypi",
         # PyPI distribution name is assumed equal to the server id. Fix here (or
@@ -73,19 +74,23 @@ def build_package(server: dict) -> dict:
         "transport": {"type": "stdio"},
         "runtimeHint": "uvx",
     }
-    if server.get("requires_credentials"):
+    # Credential servers declare their actual variables in portfolio.json; the
+    # registry entry reflects them verbatim (no guessed placeholders).
+    env = server.get("environment_variables") or []
+    if server.get("requires_credentials") and not env:
+        raise SystemExit(
+            f"ERROR: {server['id']} has requires_credentials but no "
+            "environment_variables in portfolio.json"
+        )
+    if env:
         package["environmentVariables"] = [
             {
-                # Placeholder: replace with the real variable name + description
-                # from the server's own repository before publishing.
-                "name": "API_KEY",
-                "description": (
-                    "PLACEHOLDER -- replace with the actual credential environment "
-                    f"variable documented in the {server['id']} repository."
-                ),
-                "isRequired": True,
-                "isSecret": True,
+                "name": var["name"],
+                "description": var["description"],
+                "isRequired": var.get("isRequired", True),
+                "isSecret": var.get("isSecret", True),
             }
+            for var in env
         ]
     return package
 

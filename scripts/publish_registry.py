@@ -13,7 +13,6 @@ For each (selected) server it:
   3. flags **blockers** that would make ``mcp-publisher publish`` fail:
        * the package is not on PyPI yet,
        * the PyPI metadata does not declare the matching ``mcp-name``,
-       * a credential server still has the ``API_KEY`` placeholder,
   4. optionally writes the file into each repo working copy and runs
      ``mcp-publisher publish``.
 
@@ -55,14 +54,12 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 PORTFOLIO = ROOT / "portfolio.json"
 REGISTRY_DIR = ROOT / "registry"
 DEFAULT_OUT = ROOT / "dist" / "registry"
-PLACEHOLDER_ENV_NAME = "API_KEY"  # see generate_server_json.py
 PYPI_JSON = "https://pypi.org/pypi/{identifier}/json"
 
 # Per-server outcome states.
 READY = "READY"
 NOT_ON_PYPI = "NOT_ON_PYPI"
 MISSING_MCP_NAME = "MISSING_MCP_NAME"
-PLACEHOLDER = "CREDENTIAL_PLACEHOLDER"
 LOOKUP_ERROR = "PYPI_LOOKUP_ERROR"
 
 
@@ -117,14 +114,6 @@ def publish_ready(draft: dict, version: str) -> dict:
     return ready
 
 
-def has_placeholder(draft: dict) -> bool:
-    for pkg in draft.get("packages", []):
-        for env in pkg.get("environmentVariables", []):
-            if env.get("name") == PLACEHOLDER_ENV_NAME:
-                return True
-    return False
-
-
 def ensure_repo(repo_dir: pathlib.Path, url: str, clone: bool) -> bool:
     """Make sure the repo is present (clone/refresh when asked). Returns presence."""
     if repo_dir.exists():
@@ -160,8 +149,6 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
                    help=f"where to write publish-ready server.json (default: {DEFAULT_OUT.relative_to(ROOT)})")
     p.add_argument("--publish", action="store_true",
                    help="actually run `mcp-publisher publish` for READY servers (default: dry run)")
-    p.add_argument("--allow-placeholder", action="store_true",
-                   help="do not block credential servers that still have the API_KEY placeholder")
     p.add_argument("--timeout", type=float, default=15.0, help="PyPI request timeout in seconds")
     return p.parse_args(argv)
 
@@ -218,8 +205,6 @@ def main(argv: list[str]) -> int:
         blockers = []
         if not declares_mcp_name(info, name):
             blockers.append(MISSING_MCP_NAME)
-        if has_placeholder(draft) and not args.allow_placeholder:
-            blockers.append(PLACEHOLDER)
         if blockers:
             detail = "; ".join(blockers)
             rows.append((sid, "BLOCKED", detail))
