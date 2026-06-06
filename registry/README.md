@@ -98,6 +98,33 @@ Repeat per server (a small shell loop over the 34 ids works well). New servers
 flow automatically: add them to `portfolio.json`, rerun the generator, and the
 draft appears here.
 
+### Automating across all repos
+
+[`scripts/publish_registry.py`](../scripts/publish_registry.py) drives the loop
+above for the whole portfolio. It does **not** touch the committed drafts (those
+stay pinned to `0.1.0` for CI); it resolves the published PyPI version per
+package, writes a version-pinned **publish-ready** copy to `dist/registry/<id>/`,
+and reports per-server blockers.
+
+```bash
+# Dry run: readiness table for all servers (no publishing, no repo changes).
+python scripts/publish_registry.py
+
+# Clone/refresh each repo as a sibling dir and publish the ready ones.
+python scripts/publish_registry.py --repos-dir ../repos --clone --publish
+```
+
+It flags exactly what is missing before a server can publish:
+
+* **`NOT_ON_PYPI`** — publish the PyPI package first.
+* **`MISSING_MCP_NAME`** — the package's PyPI metadata does not yet declare the
+  matching `mcp-name` (step 1 above). Add it and cut a release.
+* **`CREDENTIAL_PLACEHOLDER`** — a credential server still has the `API_KEY`
+  placeholder; replace it with the real variable (or pass `--allow-placeholder`).
+
+`--publish` requires `mcp-publisher` on `PATH` and an active
+`mcp-publisher login github` session, and only ships servers reported `READY`.
+
 ---
 
 ## After listing — compounding the reach
