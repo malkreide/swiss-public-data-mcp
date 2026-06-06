@@ -1,0 +1,28 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.malkreide/parlament-mcp",
+  "description": "Swiss Federal Parliament Curia Vista OData API",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/malkreide/parlament-mcp",
+    "source": "github"
+  },
+  "websiteUrl": "https://github.com/malkreide/parlament-mcp",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "parlament-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "runtimeHint": "uvx"
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "category": "Democracy & Transparency",
+      "scope": "core"
+    }
+  }
+}

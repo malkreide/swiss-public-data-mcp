@@ -1,7 +1,8 @@
-name: README sync
+name: Portfolio sync
 
-# Fails if README.md / README.de.md drift from portfolio.json (the source of
-# truth). Regenerate locally with: python scripts/generate_readme.py
+# Fails if generated artefacts drift from portfolio.json (the source of truth):
+#   * README.md / README.de.md  -> python scripts/generate_readme.py
+#   * registry/*/server.json    -> python scripts/generate_server_json.py
 on:
   push:
     branches: [main]
@@ -19,3 +20,5 @@ jobs:
         run: python -c "import json; json.load(open('portfolio.json'))"
       - name: Check READMEs are in sync with portfolio.json
         run: python scripts/generate_readme.py --check
+      - name: Check registry server.json files are in sync with portfolio.json
+        run: python scripts/generate_server_json.py --check

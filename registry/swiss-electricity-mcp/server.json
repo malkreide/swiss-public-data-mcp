@@ -1,0 +1,28 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.malkreide/swiss-electricity-mcp",
+  "description": "BFE energy dashboard, ElCom tariffs, public consumption data",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/malkreide/swiss-electricity-mcp",
+    "source": "github"
+  },
+  "websiteUrl": "https://github.com/malkreide/swiss-electricity-mcp",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "swiss-electricity-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "runtimeHint": "uvx"
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "category": "Energy & Infrastructure",
+      "scope": "core"
+    }
+  }
+}

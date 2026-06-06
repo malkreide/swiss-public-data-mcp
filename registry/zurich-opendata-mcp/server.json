@@ -1,0 +1,28 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.malkreide/zurich-opendata-mcp",
+  "description": "City of Zurich weather, air quality, parking, geodata, Gemeinderat, tourism",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/malkreide/zurich-opendata-mcp",
+    "source": "github"
+  },
+  "websiteUrl": "https://github.com/malkreide/zurich-opendata-mcp",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "zurich-opendata-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "runtimeHint": "uvx"
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "category": "Statistics & Geodata",
+      "scope": "core"
+    }
+  }
+}

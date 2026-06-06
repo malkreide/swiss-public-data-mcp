@@ -1,0 +1,28 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.malkreide/swiss-road-mobility-mcp",
+  "description": "GBFS shared mobility, EV charging, DATEX II traffic, Park & Rail",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/malkreide/swiss-road-mobility-mcp",
+    "source": "github"
+  },
+  "websiteUrl": "https://github.com/malkreide/swiss-road-mobility-mcp",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "swiss-road-mobility-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "runtimeHint": "uvx"
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "category": "Transport & Mobility",
+      "scope": "core"
+    }
+  }
+}

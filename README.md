@@ -33,6 +33,7 @@ Last checked: **2026-06-04**
 | Audit tooling repos | 1 |
 | `opendata.swiss` datasets | 14'551 via `package_search?rows=0` |
 | Machine-readable source of truth | [`portfolio.json`](portfolio.json) |
+| MCP Registry entries (generated) | [`registry/`](registry/) |
 | Required discovery topic | [`swiss-public-data-mcp`](https://github.com/topics/swiss-public-data-mcp) |
 | Current MCP spec baseline for new audits | [`2025-11-25`](https://modelcontextprotocol.io/specification/versioning) |
 
