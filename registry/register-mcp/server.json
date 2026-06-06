@@ -1,0 +1,28 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.malkreide/register-mcp",
+  "description": "Zefix commercial register and UID lookup",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/malkreide/register-mcp",
+    "source": "github"
+  },
+  "websiteUrl": "https://github.com/malkreide/register-mcp",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "register-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "runtimeHint": "uvx"
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "category": "Legal, Courts & Regulatory",
+      "scope": "core"
+    }
+  }
+}

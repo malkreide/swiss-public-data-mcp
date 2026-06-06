@@ -1,0 +1,28 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.malkreide/lobbywatch-mcp",
+  "description": "Lobbywatch.ch transparency data on parliamentarians, interests, access badges",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/malkreide/lobbywatch-mcp",
+    "source": "github"
+  },
+  "websiteUrl": "https://github.com/malkreide/lobbywatch-mcp",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "lobbywatch-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "runtimeHint": "uvx"
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "category": "Democracy & Transparency",
+      "scope": "adjacent-context"
+    }
+  }
+}

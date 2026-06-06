@@ -1,0 +1,36 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.malkreide/swiss-ip-mcp",
+  "description": "IGE/IPI Swissreg trademarks, patents, SPCs",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/malkreide/swiss-ip-mcp",
+    "source": "github"
+  },
+  "websiteUrl": "https://github.com/malkreide/swiss-ip-mcp",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "swiss-ip-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "runtimeHint": "uvx",
+      "environmentVariables": [
+        {
+          "name": "API_KEY",
+          "description": "PLACEHOLDER -- replace with the actual credential environment variable documented in the swiss-ip-mcp repository.",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "category": "Legal, Courts & Regulatory",
+      "scope": "core"
+    }
+  }
+}

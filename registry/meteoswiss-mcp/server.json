@@ -1,0 +1,28 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.malkreide/meteoswiss-mcp",
+  "description": "MeteoSwiss Open Data for weather, climate normals, warnings",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/malkreide/meteoswiss-mcp",
+    "source": "github"
+  },
+  "websiteUrl": "https://github.com/malkreide/meteoswiss-mcp",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "meteoswiss-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "runtimeHint": "uvx"
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "category": "Environment & Climate",
+      "scope": "core"
+    }
+  }
+}
