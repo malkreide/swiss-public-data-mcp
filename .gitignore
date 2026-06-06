@@ -1,0 +1,8 @@
+# Publish-ready server.json copies produced by scripts/publish_registry.py.
+# The committed source of truth is registry/*/server.json (pinned to 0.1.0);
+# these are version-resolved build artefacts, not checked in.
+/dist/
+
+# Python
+__pycache__/
+*.pyc
