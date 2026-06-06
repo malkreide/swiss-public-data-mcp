@@ -65,6 +65,14 @@ PyPI package declares the same registry name. Both must line up.
    (Equivalently, ship an `mcp-name: io.github.malkreide/<server-id>` line per the
    current registry docs.) Then build and upload the package as usual.
 
+   This `[project.urls]` edit can be applied across all repos at once with
+   [`scripts/patch_mcp_name.py`](../scripts/patch_mcp_name.py) (idempotent; dry
+   run by default), so only the release builds remain manual:
+
+   ```bash
+   python scripts/patch_mcp_name.py --repos-dir ../repos --clone --write --commit --push
+   ```
+
 2. **Copy the draft into the server repo root** as `server.json`, and update
    `version` / `identifier` / `environmentVariables` as per the table above:
 
