@@ -73,6 +73,18 @@ PyPI package declares the same registry name. Both must line up.
    python scripts/patch_mcp_name.py --repos-dir ../repos --clone --write --commit --push
    ```
 
+   Because PyPI metadata is immutable per version, the `mcp-name` link only
+   reaches the registry via a **new release**. Cut one per repo with
+   [`scripts/release_all.py`](../scripts/release_all.py) — it bumps the version
+   (or tags VCS-versioned projects), builds, runs `twine check`, **verifies the
+   built wheel actually advertises `mcp-name`** before uploading, and is a dry run
+   by default:
+
+   ```bash
+   python scripts/release_all.py --repos-dir ../repos --build              # plan + build locally
+   python scripts/release_all.py --repos-dir ../repos --commit --push --upload
+   ```
+
 2. **Copy the draft into the server repo root** as `server.json`, and update
    `version` / `identifier` / `environmentVariables` as per the table above:
 
