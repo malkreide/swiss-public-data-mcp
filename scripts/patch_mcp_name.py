@@ -1,32 +1,35 @@
 #!/usr/bin/env python3
-"""Insert the MCP Registry ``mcp-name`` link into each server's pyproject.toml.
+"""Declare each server's MCP Registry name for PyPI ownership validation.
 
-The official registry validates package ownership by requiring the PyPI package
-to advertise its registry name. The convention is a project URL labelled
-``mcp-name``:
+The registry verifies PyPI package ownership by reading the package's README
+(its long description on PyPI) and looking for a line:
 
-    [project.urls]
-    "mcp-name" = "io.github.malkreide/<server-id>"
+    mcp-name: io.github.malkreide/<server-id>
 
-``scripts/publish_registry.py`` reports every server as ``MISSING_MCP_NAME``
-until this line exists *and* a fresh release is published. This script applies
-that one edit across all server repos idempotently, so the only remaining manual
-step is cutting the releases.
+PyPI does **not** accept this as a `[project.urls]` entry — values there must be
+valid URLs, so an `mcp-name` URL makes `twine upload` fail with
+``'io.github...' is not a valid url``. The marker therefore belongs in the
+README, written here as an HTML comment so it does not clutter the rendered page:
+
+    <!-- mcp-name: io.github.malkreide/<server-id> -->
+
+This script does two things per server repo, idempotently:
+  1. ensures that marker exists in ``README.md`` (adds/updates as needed), and
+  2. removes any obsolete ``mcp-name`` entry from ``pyproject.toml`` ``[project.urls]``
+     (cleaning up the earlier, rejected approach), dropping the table if it ends
+     up empty.
+
+``scripts/publish_registry.py`` reports a server as ``MISSING_MCP_NAME`` until
+the marker is present in the *published* PyPI description, so after running this
+you still need to cut a release (``scripts/release_all.py``).
 
 The registry name is taken from each committed draft in
-``registry/<id>/server.json`` (the ``name`` field), keeping the namespace in
-sync with the rest of the portfolio tooling.
-
-Idempotent by design:
-  * correct value already present -> skipped,
-  * ``mcp-name`` present with a different value -> updated in place,
-  * ``[project.urls]`` table exists but no ``mcp-name`` -> line inserted,
-  * no ``[project.urls]`` table -> table appended.
+``registry/<id>/server.json`` (the ``name`` field).
 
 Safe by default: with no flags it does a **dry run** (prints the per-repo plan,
 writes nothing). Pass ``--write`` to edit files, ``--commit`` to also commit, and
-``--push`` to push. Each edited file is re-parsed with tomllib before writing, so
-a malformed result is never saved.
+``--push`` to push. Each edited pyproject is re-parsed with tomllib before
+writing, so a malformed result is never saved.
 
 Examples
 --------
@@ -47,23 +50,24 @@ import tomllib
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 REGISTRY_DIR = ROOT / "registry"
 
-COMMIT_MSG = "Add mcp-name to pyproject.toml for MCP Registry ownership"
-# A line like:  "mcp-name" = "..."  /  mcp-name = '...'  (any quoting, any indent).
-MCP_NAME_LINE = re.compile(r"""^[ \t]*['"]?mcp-name['"]?[ \t]*=.*$""", re.MULTILINE)
-# The [project.urls] header and the span up to the next top-level table / EOF.
+COMMIT_MSG = "Declare mcp-name in README for MCP Registry (PyPI ownership)"
+
+# An existing marker anywhere in the README, plain or inside an HTML comment.
+README_MARKER = re.compile(r"""^.*mcp-name:\s*(?P<val>[^\s>]+).*$""", re.MULTILINE)
+# A `"mcp-name" = "..."` line inside pyproject (any quoting / indent).
+PYPROJECT_URL_LINE = re.compile(r"""^[ \t]*['"]?mcp-name['"]?[ \t]*=.*\r?\n""", re.MULTILINE)
+# The [project.urls] header plus its body, up to the next top-level table / EOF.
 URLS_SECTION = re.compile(
     r"^(?P<header>[ \t]*\[project\.urls\][ \t]*\r?\n)(?P<body>.*?)(?=^\[|\Z)",
     re.MULTILINE | re.DOTALL,
 )
 
-# Per-repo outcome states.
-SKIP_OK = "ALREADY_SET"
-UPDATED = "UPDATED"
-INSERTED = "INSERTED"
-APPENDED = "APPENDED_TABLE"
-NO_PYPROJECT = "NO_PYPROJECT"
+# README outcome states.
+README_OK = "README_OK"
+README_ADDED = "README_ADDED"
+README_UPDATED = "README_UPDATED"
+NO_README = "NO_README"
 NO_REPO = "NO_REPO"
-PARSE_ERROR = "PARSE_ERROR"
 
 
 def load_drafts() -> list[tuple[str, str, str]]:
@@ -75,40 +79,46 @@ def load_drafts() -> list[tuple[str, str, str]]:
     return out
 
 
-def current_mcp_name(text: str) -> str | None:
-    """Existing project.urls.mcp-name value, or None if absent/unparseable."""
-    try:
-        data = tomllib.loads(text)
-    except tomllib.TOMLDecodeError:
-        return None
-    return (data.get("project", {}).get("urls", {}) or {}).get("mcp-name")
+def marker_for(name: str) -> str:
+    return f"<!-- mcp-name: {name} -->"
 
 
-def patch_text(text: str, name: str) -> tuple[str, str]:
-    """Return (new_text, state) ensuring project.urls.mcp-name == name."""
-    if current_mcp_name(text) == name:
-        return text, SKIP_OK
-
-    new_line = f'"mcp-name" = "{name}"'
-    section = URLS_SECTION.search(text)
-
-    if section:
-        body = section.group("body")
-        if MCP_NAME_LINE.search(body):
-            new_body = MCP_NAME_LINE.sub(new_line, body, count=1)
-            state = UPDATED
-        else:
-            # Insert right after the header, before the rest of the table.
-            new_body = new_line + "\n" + body
-            state = INSERTED
-        start, end = section.span()
-        new_text = text[:start] + section.group("header") + new_body + text[end:]
-        return new_text, state
-
-    # No [project.urls] table at all: append one (table order is irrelevant in TOML).
+def patch_readme(text: str, name: str) -> tuple[str, str]:
+    """Ensure the README carries `mcp-name: <name>`; return (new_text, state)."""
+    marker = marker_for(name)
+    m = README_MARKER.search(text)
+    if m:
+        if m.group("val") == name:
+            return text, README_OK
+        new_text = README_MARKER.sub(marker, text, count=1)
+        return new_text, README_UPDATED
     sep = "" if text.endswith("\n") else "\n"
-    new_text = f"{text}{sep}\n[project.urls]\n{new_line}\n"
-    return new_text, APPENDED
+    return f"{text}{sep}\n{marker}\n", README_ADDED
+
+
+def clean_pyproject(text: str) -> tuple[str, bool]:
+    """Remove an obsolete mcp-name from [project.urls]; drop the table if empty."""
+    sec = URLS_SECTION.search(text)
+    if not sec or not PYPROJECT_URL_LINE.search(sec.group("body")):
+        return text, False
+    new_body = PYPROJECT_URL_LINE.sub("", sec.group("body"), count=1)
+    start, end = sec.span()
+    if new_body.strip() == "":
+        # Table is now empty: remove header + body, then tidy blank lines.
+        new_text = text[:start] + text[end:]
+        new_text = re.sub(r"\n{3,}", "\n\n", new_text)
+    else:
+        new_text = text[:start] + sec.group("header") + new_body + text[end:]
+    return new_text, True
+
+
+def find_readme(repo_dir: pathlib.Path) -> pathlib.Path | None:
+    primary = repo_dir / "README.md"
+    if primary.exists():
+        return primary
+    for cand in sorted(repo_dir.glob("README*")):
+        return cand
+    return None
 
 
 def ensure_repo(repo_dir: pathlib.Path, url: str, clone: bool) -> bool:
@@ -134,7 +144,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
                    help="directory containing server repos as <id>/ (default: parent of this repo)")
     p.add_argument("--clone", action="store_true", help="git clone missing repos (ff-pull existing)")
     p.add_argument("--write", action="store_true", help="write edits (default: dry run)")
-    p.add_argument("--commit", action="store_true", help="git commit the edit in each repo (implies --write)")
+    p.add_argument("--commit", action="store_true", help="git commit the edits in each repo (implies --write)")
     p.add_argument("--push", action="store_true", help="git push after committing (implies --commit)")
     return p.parse_args(argv)
 
@@ -162,58 +172,72 @@ def main(argv: list[str]) -> int:
         print(f"\n== {sid} ({name})")
         repo_dir = (args.repos_dir / sid).resolve()
         if not ensure_repo(repo_dir, url, args.clone):
-            rows.append((sid, NO_REPO, f"{repo_dir} missing (use --clone)"))
-            print(f"  repo not found: {repo_dir} (use --clone)")
+            rows.append((sid, NO_REPO, f"{repo_dir} (use --clone)"))
+            print(f"  repo not found (use --clone)")
             continue
 
+        readme = find_readme(repo_dir)
+        if readme is None:
+            rows.append((sid, NO_README, "no README* file"))
+            print("  no README found")
+            continue
+
+        # 1. README marker (the part PyPI actually validates).
+        rtext = readme.read_text(encoding="utf-8")
+        new_rtext, rstate = patch_readme(rtext, name)
+
+        # 2. Clean up the obsolete pyproject [project.urls] mcp-name, if any.
         pyproject = repo_dir / "pyproject.toml"
-        if not pyproject.exists():
-            rows.append((sid, NO_PYPROJECT, str(pyproject)))
-            print("  no pyproject.toml")
-            continue
+        url_removed = False
+        new_ptext = None
+        if pyproject.exists():
+            ptext = pyproject.read_text(encoding="utf-8")
+            new_ptext, url_removed = clean_pyproject(ptext)
+            if url_removed:
+                try:
+                    tomllib.loads(new_ptext)  # guard: must still parse
+                except tomllib.TOMLDecodeError:
+                    rows.append((sid, "PARSE_ERROR", "pyproject cleanup would not parse; left untouched"))
+                    print("  ERROR: pyproject cleanup did not validate; skipping repo")
+                    continue
 
-        text = pyproject.read_text(encoding="utf-8")
-        new_text, state = patch_text(text, name)
+        detail = name + ("  (+removed pyproject url)" if url_removed else "")
+        will_change = rstate != README_OK or url_removed
+        print(f"  README: {rstate}" + ("; pyproject mcp-name url removed" if url_removed else ""))
 
-        if state == SKIP_OK:
-            rows.append((sid, SKIP_OK, name))
-            print("  already set")
-            continue
-
-        # Guard: the edited file must still parse and carry the expected value.
-        if current_mcp_name(new_text) != name:
-            rows.append((sid, PARSE_ERROR, "edited file would not parse / value mismatch"))
-            print("  ERROR: edit did not validate; left untouched")
-            continue
-
-        print(f"  {state}: \"mcp-name\" = \"{name}\"")
         if not args.write:
-            rows.append((sid, state + " (dry-run)", name))
+            rows.append((sid, rstate + (" (dry-run)" if will_change else ""), detail))
             continue
 
-        pyproject.write_text(new_text, encoding="utf-8")
-        changed += 1
-        if args.commit:
-            if git(repo_dir, "add", "pyproject.toml") == 0 and git(repo_dir, "commit", "-m", COMMIT_MSG) == 0:
-                print("  committed")
-                if args.push and git(repo_dir, "push") == 0:
-                    print("  pushed")
-        rows.append((sid, state, name))
+        if rstate != README_OK:
+            readme.write_text(new_rtext, encoding="utf-8")
+        if url_removed and new_ptext is not None:
+            pyproject.write_text(new_ptext, encoding="utf-8")
+
+        if will_change:
+            changed += 1
+            if args.commit:
+                git(repo_dir, "add", "-A")
+                if git(repo_dir, "commit", "-m", COMMIT_MSG) == 0:
+                    print("  committed")
+                    if args.push and git(repo_dir, "push") == 0:
+                        print("  pushed")
+        rows.append((sid, rstate, detail))
 
     # Summary.
-    print("\n" + "=" * 64)
+    print("\n" + "=" * 70)
     print(f"{'SERVER':<32} {'STATE':<22} DETAIL")
-    print("-" * 64)
+    print("-" * 70)
     for sid, state, detail in rows:
         print(f"{sid:<32} {state:<22} {detail}")
-    print("-" * 64)
+    print("-" * 70)
     if args.write:
-        print(f"edited {changed} pyproject.toml file(s)"
+        print(f"changed {changed} repo(s)"
               + (" and committed" if args.commit else "")
               + (" and pushed" if args.push else ""))
     else:
         actionable = sum(1 for _, s, _ in rows if s.endswith("(dry-run)"))
-        print(f"dry run: {actionable} file(s) would change. Re-run with --write to apply.")
+        print(f"dry run: {actionable} repo(s) would change. Re-run with --write to apply.")
     return 0
 
 

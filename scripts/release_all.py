@@ -2,19 +2,19 @@
 """Cut a metadata release per server repo so ``mcp-name`` lands on PyPI.
 
 PyPI metadata is immutable per version: once ``scripts/patch_mcp_name.py`` has
-added the ``[project.urls] "mcp-name"`` link, that link only reaches the registry
-after a **new release** is published. This script automates that release across
-all server repos: bump the version, build, verify the built metadata actually
-carries ``mcp-name``, and (optionally) upload to PyPI.
+added the ``mcp-name`` marker to the README, that marker only reaches the
+registry after a **new release** is published. This script automates that
+release across all server repos: bump the version, build, verify the built
+metadata actually carries ``mcp-name``, and (optionally) upload to PyPI.
 
 It is the step between ``patch_mcp_name.py`` and ``publish_registry.py``:
 
-    patch_mcp_name.py --write --commit --push     # mcp-name into pyproject.toml
+    patch_mcp_name.py --write --commit --push     # mcp-name marker into README
     release_all.py    --build --commit --push --upload   # <-- this script
     publish_registry.py --clone --publish         # reads the fresh metadata
 
 The expected registry name is read from ``registry/<id>/server.json`` and is the
-exact value the build must advertise (``Project-URL: mcp-name, <name>``).
+exact value the build must carry (``mcp-name: <name>`` in the README/description).
 
 Versioning modes (auto-detected from pyproject.toml):
   * **static**  -- ``[project].version`` (or ``[tool.poetry].version``): bumped.
@@ -95,8 +95,14 @@ def bump(version: str, part: str) -> str:
     return ".".join(map(str, nums))
 
 
-def has_mcp_name(data: dict, name: str) -> bool:
-    return (data.get("project", {}).get("urls", {}) or {}).get("mcp-name") == name
+def readme_has_mcp_name(repo_dir: pathlib.Path, name: str) -> bool:
+    """Whether a README in the repo declares `mcp-name: <name>` (PyPI ownership)."""
+    primary = repo_dir / "README.md"
+    candidates = [primary] if primary.exists() else sorted(repo_dir.glob("README*"))
+    for path in candidates:
+        if f"mcp-name: {name}" in path.read_text(encoding="utf-8", errors="replace"):
+            return True
+    return False
 
 
 def detect_version(data: dict) -> tuple[str | None, str | None]:
@@ -153,7 +159,12 @@ def git(repo_dir: pathlib.Path, *args: str) -> bool:
 
 
 def mcp_name_in_dist(repo_dir: pathlib.Path, name: str) -> bool:
-    """True if the freshest built wheel advertises Project-URL: mcp-name, <name>."""
+    """True if the freshest built wheel's metadata/description carries `mcp-name: <name>`.
+
+    The marker lives in the README (the long description), which build backends
+    embed in the wheel's METADATA payload, so a substring check over METADATA is
+    sufficient and matches the registry's own README-based validation.
+    """
     wheels = sorted(glob.glob(str(repo_dir / "dist" / "*.whl")), key=lambda p: pathlib.Path(p).stat().st_mtime)
     if not wheels:
         return False
@@ -162,12 +173,7 @@ def mcp_name_in_dist(repo_dir: pathlib.Path, name: str) -> bool:
         if not meta_names:
             return False
         meta = zf.read(meta_names[0]).decode("utf-8", "replace")
-    for line in meta.splitlines():
-        if line.lower().startswith("project-url:"):
-            label, _, value = line[len("project-url:"):].partition(",")
-            if label.strip().lower() == "mcp-name" and value.strip() == name:
-                return True
-    return False
+    return f"mcp-name: {name}" in meta
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
@@ -224,9 +230,9 @@ def main(argv: list[str]) -> int:
             rows.append((sid, NO_PYPROJECT, f"unparseable: {exc}"))
             continue
 
-        if not has_mcp_name(data, name):
+        if not readme_has_mcp_name(repo_dir, name):
             rows.append((sid, BLOCKED, "run patch_mcp_name.py first"))
-            print("  blocked: mcp-name missing (run patch_mcp_name.py)")
+            print("  blocked: mcp-name marker missing from README (run patch_mcp_name.py)")
             continue
 
         mode, current = detect_version(data)
@@ -280,7 +286,7 @@ def main(argv: list[str]) -> int:
             print("  twine check failed")
             continue
         if not mcp_name_in_dist(repo_dir, name):
-            rows.append((sid, VERIFY_FAILED, "Project-URL mcp-name absent from wheel"))
+            rows.append((sid, VERIFY_FAILED, "mcp-name marker absent from built wheel metadata"))
             print("  ERROR: built wheel does not advertise mcp-name; not uploading")
             continue
         built += 1
