@@ -118,13 +118,21 @@ Run everything from `~/code/swiss-public-data-mcp`. **Run each step as a dry run
 first, then for real.** The order is mandatory — step 3 reads the PyPI metadata
 produced by step 2.
 
-### Step 1 — add `mcp-name` to every `pyproject.toml`
+### Step 1 — add the `mcp-name` marker to every README
+
+For PyPI, the ownership marker is a line in the **README** (the package's long
+description), written as an HTML comment — *not* a `[project.urls]` entry (PyPI
+rejects non-URL values there):
+
+```markdown
+<!-- mcp-name: io.github.malkreide/<server-id> -->
+```
 
 ```bash
 # dry run: shows the plan only
 python scripts/patch_mcp_name.py --repos-dir ../repos --clone
 
-# live: edits, commits and pushes in each server repo
+# live: edits README (and removes any old [project.urls] mcp-name), commits, pushes
 python scripts/patch_mcp_name.py --repos-dir ../repos --clone --write --commit --push
 ```
 `--clone` clones missing repos into `../repos` (and `git pull`s existing ones).
@@ -141,8 +149,8 @@ python scripts/release_all.py --repos-dir ../repos --build
 # live: bump/tag, build, verify mcp-name in the wheel, upload to PyPI
 python scripts/release_all.py --repos-dir ../repos --commit --push --upload
 ```
-Only uploads packages whose built wheel actually advertises `mcp-name`. Needs the
-PyPI token.
+Only uploads packages whose built wheel actually carries the `mcp-name` marker.
+Needs the PyPI token.
 
 ### Step 3 — publish to the registry
 
@@ -189,6 +197,10 @@ CI runs both with `--check`. Adding a credential server? Set both
   isn't on PATH — see the install section above.
 - **`tar` missing on Windows:** present on Windows 10 (build 17063+) and 11;
   otherwise extract the `.tar.gz` with 7-Zip and keep `mcp-publisher.exe`.
+- **`twine upload` fails with `'io.github...' is not a valid url`:** the
+  `mcp-name` ended up in `[project.urls]`, where PyPI requires real URLs. The
+  marker belongs in the README (step 1). Re-run `patch_mcp_name.py --write`
+  (it moves the marker to the README and removes the bad URL), then re-release.
 - **Everything stuck on `MISSING_MCP_NAME`:** you skipped step 2 (or the release
   didn't upload). The registry reads `mcp-name` from the *published* PyPI
-  metadata, so a new release must be live first.
+  description, so a new release with the README marker must be live first.

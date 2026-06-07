@@ -93,15 +93,12 @@ def pypi_info(identifier: str, timeout: float) -> dict | None:
 
 
 def declares_mcp_name(info: dict, expected_name: str) -> bool:
-    """Whether the PyPI metadata advertises the registry name (ownership link)."""
-    meta = info.get("info", {})
-    urls = meta.get("project_urls") or {}
-    # Convention: a project URL labelled 'mcp-name' carries the registry name.
-    for key, val in urls.items():
-        if key.strip().lower() == "mcp-name" and str(val).strip() == expected_name:
-            return True
-    # Fallback: some packages embed `mcp-name: <name>` in the long description.
-    description = meta.get("description") or ""
+    """Whether the published PyPI description carries the `mcp-name: <name>` marker.
+
+    This is the registry's documented PyPI ownership mechanism: the marker lives
+    in the README (the package long description), not in project URLs.
+    """
+    description = info.get("info", {}).get("description") or ""
     return f"mcp-name: {expected_name}" in description
 
 

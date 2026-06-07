@@ -60,30 +60,30 @@ the `io.github.malkreide` namespace (GitHub OAuth) **and** that the referenced
 PyPI package declares the same registry name. Both must line up.
 
 1. **Publish the package to PyPI** (if not already), and embed the registry name
-   so the registry can verify ownership. In each server's `pyproject.toml`:
+   so the registry can verify ownership. For PyPI the marker goes in the
+   **README** (the package's long description) — *not* in `[project.urls]`, whose
+   values must be valid URLs (an `mcp-name` URL makes `twine upload` fail with
+   `'io.github...' is not a valid url`). Add to each server's `README.md`:
 
-   ```toml
-   [project.urls]
-   "mcp-name" = "io.github.malkreide/<server-id>"
+   ```markdown
+   <!-- mcp-name: io.github.malkreide/<server-id> -->
    ```
 
-   (Equivalently, ship an `mcp-name: io.github.malkreide/<server-id>` line per the
-   current registry docs.) Then build and upload the package as usual.
-
-   This `[project.urls]` edit can be applied across all repos at once with
+   This can be applied across all repos at once with
    [`scripts/patch_mcp_name.py`](../scripts/patch_mcp_name.py) (idempotent; dry
-   run by default), so only the release builds remain manual:
+   run by default) — it writes the README marker and cleans up any obsolete
+   `[project.urls]` mcp-name entry:
 
    ```bash
    python scripts/patch_mcp_name.py --repos-dir ../repos --clone --write --commit --push
    ```
 
-   Because PyPI metadata is immutable per version, the `mcp-name` link only
+   Because PyPI metadata is immutable per version, the `mcp-name` marker only
    reaches the registry via a **new release**. Cut one per repo with
    [`scripts/release_all.py`](../scripts/release_all.py) — it bumps the version
    (or tags VCS-versioned projects), builds, runs `twine check`, **verifies the
-   built wheel actually advertises `mcp-name`** before uploading, and is a dry run
-   by default:
+   built wheel actually carries the `mcp-name` marker** before uploading, and is a
+   dry run by default:
 
    ```bash
    python scripts/release_all.py --repos-dir ../repos --build              # plan + build locally
