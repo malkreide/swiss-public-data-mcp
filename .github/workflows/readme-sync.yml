@@ -3,6 +3,7 @@ name: Portfolio sync
 # Fails if generated artefacts drift from portfolio.json (the source of truth):
 #   * README.md / README.de.md  -> python scripts/generate_readme.py
 #   * registry/*/server.json    -> python scripts/generate_server_json.py
+#   * docs/INSTALL.md           -> python scripts/generate_install_snippets.py
 on:
   push:
     branches: [main]
@@ -22,3 +23,5 @@ jobs:
         run: python scripts/generate_readme.py --check
       - name: Check registry server.json files are in sync with portfolio.json
         run: python scripts/generate_server_json.py --check
+      - name: Check install snippets are in sync with portfolio.json
+        run: python scripts/generate_install_snippets.py --check

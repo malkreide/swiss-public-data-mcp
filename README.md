@@ -36,6 +36,7 @@ Last checked: **2026-06-04**
 | MCP Registry entries (generated) | [`registry/`](registry/) |
 | Publishing runbook | [`RUNBOOK.md`](RUNBOOK.md) |
 | Promotion & distribution | [`PROMOTION.md`](PROMOTION.md) |
+| Client install snippets | [`docs/INSTALL.md`](docs/INSTALL.md) |
 | Required discovery topic | [`swiss-public-data-mcp`](https://github.com/topics/swiss-public-data-mcp) |
 | Current MCP spec baseline for new audits | [`2025-11-25`](https://modelcontextprotocol.io/specification/versioning) |
 
