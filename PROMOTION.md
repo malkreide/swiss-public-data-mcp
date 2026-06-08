@@ -125,5 +125,12 @@ submission or claiming to speed it up:
 - Add the discovery topics `mcp` and `model-context-protocol` to each server
   repo (you already require `swiss-public-data-mcp`).
 - Keep copy-paste client install snippets (Claude Desktop / Cursor / VS Code)
-  in each server's README so a catalogue visitor can run it in one step.
+  in each server's README so a catalogue visitor can run it in one step. These
+  are generated in [`docs/INSTALL.md`](docs/INSTALL.md) and can be inserted into
+  every server repo automatically with `scripts/patch_install_readme.py`
+  (idempotent; dry run by default):
+
+  ```bash
+  python scripts/patch_install_readme.py --repos-dir ../repos --clone --write --commit --push
+  ```
 

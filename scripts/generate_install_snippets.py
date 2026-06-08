@@ -38,8 +38,9 @@ server is a PyPI package run via [`uv`](https://docs.astral.sh/uv/)'s `uvx` over
 stdio — no clone or manual install needed.
 
 > Generated from [`portfolio.json`](../portfolio.json) by
-> `scripts/generate_install_snippets.py`. Do not edit by hand. The intended use
-> is to copy a server's block into that server's own README.
+> `scripts/generate_install_snippets.py`. Do not edit by hand. To insert these
+> blocks into the server repos automatically, use
+> `scripts/patch_install_readme.py` (idempotent; dry run by default).
 
 ## Where the config lives
 
