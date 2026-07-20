@@ -1,8 +1,8 @@
 # swiss-public-data-mcp
 
-![Aktive Server](https://img.shields.io/badge/aktive%20Server-34-blue)
-![Production Ready](https://img.shields.io/badge/production--ready-34-brightgreen)
-![Auditierte MCP-Repos](https://img.shields.io/badge/auditierte%20MCP--Repos-35-purple)
+![Aktive Server](https://img.shields.io/badge/aktive%20Server-35-blue)
+![Production Ready](https://img.shields.io/badge/production--ready-35-brightgreen)
+![Auditierte MCP-Repos](https://img.shields.io/badge/auditierte%20MCP--Repos-36-purple)
 ![Legacy](https://img.shields.io/badge/legacy-1-lightgrey)
 ![Lizenz](https://img.shields.io/badge/license-MIT-green)
 ![Python](https://img.shields.io/badge/python-3.11--3.13-blue)
@@ -26,9 +26,9 @@ Zuletzt geprüft: **2026-06-04**
 
 | Kennzahl | Aktueller Wert |
 |---|---:|
-| Aktive Portfolio-Server | 34 |
-| Production-ready aktive Server | 34 |
-| MCP-Server-Repos mit mindestens einem Audit | 35 |
+| Aktive Portfolio-Server | 35 |
+| Production-ready aktive Server | 35 |
+| MCP-Server-Repos mit mindestens einem Audit | 36 |
 | Legacy / abgelöste MCP-Server-Repos | 1 |
 | Audit-Tooling-Repos | 1 |
 | `opendata.swiss`-Datensätze | 14'551 via `package_search?rows=0` |
@@ -153,6 +153,7 @@ audit:
 | Server | Beschreibung | Anchor Query | Status | Audit |
 |---|---|---|---|---|
 | [fedlex-mcp](https://github.com/malkreide/fedlex-mcp) | Bundesrecht via Fedlex SPARQL Endpoint | *"Was sagt Art. 62 BV über öffentliche Bildung?"* | ✅ | [audits/](https://github.com/malkreide/fedlex-mcp/tree/main/audits) |
+| [termdat-mcp](https://github.com/malkreide/termdat-mcp) | Amtliche mehrsprachige Terminologie der Bundesverwaltung (TERMDAT) | *"Wie heissen die für Bildung zuständigen Direktionen der Deutschschweizer Kantone offiziell auf Französisch und Italienisch?"* | ✅ | [audits/](https://github.com/malkreide/termdat-mcp/tree/main/audits) |
 | [openlex-mcp](https://github.com/malkreide/openlex-mcp) | Zürcher Gesetzessammlung via ZH-Lex mit Volltextsuche und Artikelextraktion | *"Welche Zürcher Gesetze regeln Schulzuständigkeiten?"* | ✅ | [audits/](https://github.com/malkreide/openlex-mcp/tree/master/audits) |
 | [swiss-courts-mcp](https://github.com/malkreide/swiss-courts-mcp) | Schweizer Gerichtsentscheide via entscheidsuche.ch, inklusive Bundes- und Kantonsgerichte | *"Neue Bundesgerichtsentscheide zu Schultransport?"* | ✅ | [audits/](https://github.com/malkreide/swiss-courts-mcp/tree/master/audits) |
 | [register-mcp](https://github.com/malkreide/register-mcp) | Zefix-Handelsregister und UID-Lookup | *"Aktive IT-Firmen in Zürich Kreis 5?"* | ✅ | [audits/](https://github.com/malkreide/register-mcp/tree/main/audits) |
@@ -311,6 +312,7 @@ malkreide/
 │
 ├── Recht, Gerichte & Regulierung
 │   ├── fedlex-mcp
+│   ├── termdat-mcp
 │   ├── openlex-mcp
 │   ├── swiss-courts-mcp
 │   ├── register-mcp

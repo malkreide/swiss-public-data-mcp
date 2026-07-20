@@ -1,15 +1,15 @@
 {
   "schema_version": "1.0",
-  "last_checked": "2026-06-04",
+  "last_checked": "2026-07-20",
   "owner": "malkreide",
   "portfolio_repository": "https://github.com/malkreide/swiss-public-data-mcp",
   "required_github_topic": "swiss-public-data-mcp",
   "counts": {
-    "active_servers": 34,
+    "active_servers": 35,
     "legacy_servers": 1,
     "audit_tools": 1,
-    "production_ready_active_servers": 34,
-    "audited_mcp_server_repos": 35
+    "production_ready_active_servers": 35,
+    "audited_mcp_server_repos": 36
   },
   "open_data_reference": {
     "source": "opendata.swiss CKAN package_search?rows=0",
@@ -254,6 +254,21 @@
       "anchor_query": "What does Art. 62 BV say about public education?",
       "description_de": "Bundesrecht via Fedlex SPARQL Endpoint",
       "anchor_query_de": "Was sagt Art. 62 BV über öffentliche Bildung?",
+      "requires_credentials": false
+    },
+    {
+      "id": "termdat-mcp",
+      "display_name": "termdat-mcp",
+      "repository": "https://github.com/malkreide/termdat-mcp",
+      "category": "Legal, Courts & Regulatory",
+      "scope": "core",
+      "status": "production_ready",
+      "audit": "published",
+      "audit_evidence": "https://github.com/malkreide/termdat-mcp/tree/main/audits",
+      "description": "Official multilingual terminology of the Swiss Federal Administration (TERMDAT)",
+      "anchor_query": "What are the official French and Italian names of the education directorates of the German-speaking cantons?",
+      "description_de": "Amtliche mehrsprachige Terminologie der Bundesverwaltung (TERMDAT)",
+      "anchor_query_de": "Wie heissen die für Bildung zuständigen Direktionen der Deutschschweizer Kantone offiziell auf Französisch und Italienisch?",
       "requires_credentials": false
     },
     {
