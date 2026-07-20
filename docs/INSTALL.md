@@ -193,6 +193,25 @@ Swiss federal law via Fedlex SPARQL endpoint.
 
 ---
 
+## termdat-mcp
+
+Official multilingual terminology of the Swiss Federal Administration (TERMDAT).
+
+```json
+{
+  "mcpServers": {
+    "termdat-mcp": {
+      "command": "uvx",
+      "args": [
+        "termdat-mcp"
+      ]
+    }
+  }
+}
+```
+
+---
+
 ## openlex-mcp
 
 Canton Zurich legislation via ZH-Lex with full-text search and article extraction.
