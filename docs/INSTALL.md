@@ -269,6 +269,25 @@ Zefix commercial register and UID lookup.
 
 ---
 
+## amtsblatt-mcp
+
+amtsblattportal.ch (SHAB + cantonal gazettes) — procurement and official notices, person-data rubrics excluded by design.
+
+```json
+{
+  "mcpServers": {
+    "amtsblatt-mcp": {
+      "command": "uvx",
+      "args": [
+        "amtsblatt-mcp"
+      ]
+    }
+  }
+}
+```
+
+---
+
 ## swiss-ip-mcp
 
 IGE/IPI Swissreg trademarks, patents, SPCs.

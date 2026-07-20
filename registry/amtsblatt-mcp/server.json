@@ -1,0 +1,28 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.malkreide/amtsblatt-mcp",
+  "description": "amtsblattportal.ch (SHAB + cantonal gazettes) — procurement and official notices, person-data rubrics excluded by design",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/malkreide/amtsblatt-mcp",
+    "source": "github"
+  },
+  "websiteUrl": "https://github.com/malkreide/amtsblatt-mcp",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "amtsblatt-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "runtimeHint": "uvx"
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "category": "Legal, Courts & Regulatory",
+      "scope": "core"
+    }
+  }
+}
