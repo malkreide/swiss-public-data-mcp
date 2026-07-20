@@ -5,11 +5,11 @@
   "portfolio_repository": "https://github.com/malkreide/swiss-public-data-mcp",
   "required_github_topic": "swiss-public-data-mcp",
   "counts": {
-    "active_servers": 35,
+    "active_servers": 36,
     "legacy_servers": 1,
     "audit_tools": 1,
-    "production_ready_active_servers": 35,
-    "audited_mcp_server_repos": 36
+    "production_ready_active_servers": 36,
+    "audited_mcp_server_repos": 37
   },
   "open_data_reference": {
     "source": "opendata.swiss CKAN package_search?rows=0",
@@ -314,6 +314,21 @@
       "anchor_query": "Active companies in Zurich Kreis 5 in the IT sector?",
       "description_de": "Zefix-Handelsregister und UID-Lookup",
       "anchor_query_de": "Aktive IT-Firmen in Zürich Kreis 5?",
+      "requires_credentials": false
+    },
+    {
+      "id": "amtsblatt-mcp",
+      "display_name": "amtsblatt-mcp",
+      "repository": "https://github.com/malkreide/amtsblatt-mcp",
+      "category": "Legal, Courts & Regulatory",
+      "scope": "core",
+      "status": "production_ready",
+      "audit": "published",
+      "audit_evidence": "https://github.com/malkreide/amtsblatt-mcp/tree/main/audits",
+      "description": "amtsblattportal.ch (SHAB + cantonal gazettes) — procurement and official notices, person-data rubrics excluded by design",
+      "anchor_query": "Which public IT tenders were published in Basel-Stadt in the last three months?",
+      "description_de": "amtsblattportal.ch (SHAB + kantonale Amtsblätter) — Beschaffung und amtliche Bekanntmachungen, Rubriken mit Personendaten bewusst ausgeschlossen",
+      "anchor_query_de": "Welche öffentlichen IT-Ausschreibungen wurden in den letzten drei Monaten in Basel-Stadt publiziert?",
       "requires_credentials": false
     },
     {
