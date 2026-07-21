@@ -1,8 +1,8 @@
 # swiss-public-data-mcp
 
-![Active servers](https://img.shields.io/badge/active%20servers-35-blue)
-![Production ready](https://img.shields.io/badge/production--ready-35-brightgreen)
-![Audited MCP repos](https://img.shields.io/badge/audited%20MCP%20repos-36-purple)
+![Active servers](https://img.shields.io/badge/active%20servers-36-blue)
+![Production ready](https://img.shields.io/badge/production--ready-36-brightgreen)
+![Audited MCP repos](https://img.shields.io/badge/audited%20MCP%20repos-37-purple)
 ![Legacy servers](https://img.shields.io/badge/legacy-1-lightgrey)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Python](https://img.shields.io/badge/python-3.11--3.13-blue)
@@ -22,13 +22,13 @@
 
 ## Current Snapshot
 
-Last checked: **2026-06-04**
+Last checked: **2026-07-20**
 
 | Metric | Current value |
 |---|---:|
-| Active portfolio servers | 35 |
-| Production-ready active servers | 35 |
-| MCP server repos with at least one audit | 36 |
+| Active portfolio servers | 36 |
+| Production-ready active servers | 36 |
+| MCP server repos with at least one audit | 37 |
 | Legacy / superseded MCP server repos | 1 |
 | Audit tooling repos | 1 |
 | `opendata.swiss` datasets | 14'551 via `package_search?rows=0` |
@@ -157,6 +157,7 @@ audit:
 | [openlex-mcp](https://github.com/malkreide/openlex-mcp) | Canton Zurich legislation via ZH-Lex with full-text search and article extraction | *"Which Zurich laws regulate school responsibilities?"* | ✅ | [audits/](https://github.com/malkreide/openlex-mcp/tree/master/audits) |
 | [swiss-courts-mcp](https://github.com/malkreide/swiss-courts-mcp) | Swiss court decisions via entscheidsuche.ch, including federal and cantonal courts | *"Recent Federal Supreme Court cases on school transport?"* | ✅ | [audits/](https://github.com/malkreide/swiss-courts-mcp/tree/master/audits) |
 | [register-mcp](https://github.com/malkreide/register-mcp) | Zefix commercial register and UID lookup | *"Active companies in Zurich Kreis 5 in the IT sector?"* | ✅ | [audits/](https://github.com/malkreide/register-mcp/tree/main/audits) |
+| [amtsblatt-mcp](https://github.com/malkreide/amtsblatt-mcp) | amtsblattportal.ch (SHAB + cantonal gazettes) — procurement and official notices, person-data rubrics excluded by design | *"Which public IT tenders were published in Basel-Stadt in the last three months?"* | ✅ | [audits/](https://github.com/malkreide/amtsblatt-mcp/tree/main/audits) |
 | [swiss-ip-mcp](https://github.com/malkreide/swiss-ip-mcp) | IGE/IPI Swissreg trademarks, patents, SPCs | *"Active Swiss trademarks containing 'Zurich' in class 41?"* | ✅ 🔐 | [audits/](https://github.com/malkreide/swiss-ip-mcp/tree/main/audits) |
 
 ### 📊 Statistics & Geodata
@@ -316,6 +317,7 @@ malkreide/
 │   ├── openlex-mcp
 │   ├── swiss-courts-mcp
 │   ├── register-mcp
+│   ├── amtsblatt-mcp
 │   └── swiss-ip-mcp
 │
 ├── Statistics & Geodata
