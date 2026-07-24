@@ -1,8 +1,8 @@
 # swiss-public-data-mcp
 
-![Aktive Server](https://img.shields.io/badge/aktive%20Server-36-blue)
-![Production Ready](https://img.shields.io/badge/production--ready-36-brightgreen)
-![Auditierte MCP-Repos](https://img.shields.io/badge/auditierte%20MCP--Repos-37-purple)
+![Aktive Server](https://img.shields.io/badge/aktive%20Server-38-blue)
+![Production Ready](https://img.shields.io/badge/production--ready-38-brightgreen)
+![Auditierte MCP-Repos](https://img.shields.io/badge/auditierte%20MCP--Repos-39-purple)
 ![Legacy](https://img.shields.io/badge/legacy-1-lightgrey)
 ![Lizenz](https://img.shields.io/badge/license-MIT-green)
 ![Python](https://img.shields.io/badge/python-3.11--3.13-blue)
@@ -22,13 +22,13 @@
 
 ## Aktueller Stand
 
-Zuletzt geprüft: **2026-07-20**
+Zuletzt geprüft: **2026-07-24**
 
 | Kennzahl | Aktueller Wert |
 |---|---:|
-| Aktive Portfolio-Server | 36 |
-| Production-ready aktive Server | 36 |
-| MCP-Server-Repos mit mindestens einem Audit | 37 |
+| Aktive Portfolio-Server | 38 |
+| Production-ready aktive Server | 38 |
+| MCP-Server-Repos mit mindestens einem Audit | 39 |
 | Legacy / abgelöste MCP-Server-Repos | 1 |
 | Audit-Tooling-Repos | 1 |
 | `opendata.swiss`-Datensätze | 14'551 via `package_search?rows=0` |
@@ -153,12 +153,18 @@ audit:
 | Server | Beschreibung | Anchor Query | Status | Audit |
 |---|---|---|---|---|
 | [fedlex-mcp](https://github.com/malkreide/fedlex-mcp) | Bundesrecht via Fedlex SPARQL Endpoint | *"Was sagt Art. 62 BV über öffentliche Bildung?"* | ✅ | [audits/](https://github.com/malkreide/fedlex-mcp/tree/main/audits) |
-| [termdat-mcp](https://github.com/malkreide/termdat-mcp) | Amtliche mehrsprachige Terminologie der Bundesverwaltung (TERMDAT) | *"Wie heissen die für Bildung zuständigen Direktionen der Deutschschweizer Kantone offiziell auf Französisch und Italienisch?"* | ✅ | [audits/](https://github.com/malkreide/termdat-mcp/tree/main/audits) |
 | [openlex-mcp](https://github.com/malkreide/openlex-mcp) | Zürcher Gesetzessammlung via ZH-Lex mit Volltextsuche und Artikelextraktion | *"Welche Zürcher Gesetze regeln Schulzuständigkeiten?"* | ✅ | [audits/](https://github.com/malkreide/openlex-mcp/tree/master/audits) |
 | [swiss-courts-mcp](https://github.com/malkreide/swiss-courts-mcp) | Schweizer Gerichtsentscheide via entscheidsuche.ch, inklusive Bundes- und Kantonsgerichte | *"Neue Bundesgerichtsentscheide zu Schultransport?"* | ✅ | [audits/](https://github.com/malkreide/swiss-courts-mcp/tree/master/audits) |
 | [register-mcp](https://github.com/malkreide/register-mcp) | Zefix-Handelsregister und UID-Lookup | *"Aktive IT-Firmen in Zürich Kreis 5?"* | ✅ | [audits/](https://github.com/malkreide/register-mcp/tree/main/audits) |
 | [amtsblatt-mcp](https://github.com/malkreide/amtsblatt-mcp) | amtsblattportal.ch (SHAB + kantonale Amtsblätter) — Beschaffung und amtliche Bekanntmachungen, Rubriken mit Personendaten bewusst ausgeschlossen | *"Welche öffentlichen IT-Ausschreibungen wurden in den letzten drei Monaten in Basel-Stadt publiziert?"* | ✅ | [audits/](https://github.com/malkreide/amtsblatt-mcp/tree/main/audits) |
 | [swiss-ip-mcp](https://github.com/malkreide/swiss-ip-mcp) | IGE/IPI Swissreg: Marken, Patente, SPCs | *"Aktive Schweizer Marken mit 'Zurich' in Klasse 41?"* | ✅ 🔐 | [audits/](https://github.com/malkreide/swiss-ip-mcp/tree/main/audits) |
+
+### 🧩 Semantik, Metadaten & Interoperabilität
+
+| Server | Beschreibung | Anchor Query | Status | Audit |
+|---|---|---|---|---|
+| [termdat-mcp](https://github.com/malkreide/termdat-mcp) | Amtliche mehrsprachige Terminologie der Bundesverwaltung (TERMDAT) | *"Wie heissen die für Bildung zuständigen Direktionen der Deutschschweizer Kantone offiziell auf Französisch und Italienisch?"* | ✅ | [audits/](https://github.com/malkreide/termdat-mcp/tree/main/audits) |
+| [i14y-mcp](https://github.com/malkreide/i14y-mcp) | I14Y-Interoperabilitätsplattform, nationaler Metadatenkatalog der Schweiz (DCAT-AP) | *"Welche Datensätze führt der I14Y-Katalog zur Schweizer Bildungsstatistik?"* | ✅ | [audits/](https://github.com/malkreide/i14y-mcp/tree/main/audits) |
 
 ### 📊 Statistik & Geodaten
 
@@ -176,6 +182,7 @@ audit:
 | [zh-education-mcp](https://github.com/malkreide/zh-education-mcp) | Bildungsdaten von Kanton und Stadt Zürich: Schulen, Statistik, Infrastruktur | *"Wie verteilen sich Schülerzahlen auf die sieben Zürcher Schulkreise?"* | ✅ | [audits/](https://github.com/malkreide/zh-education-mcp/tree/main/audits) |
 | [swiss-academic-libraries-mcp](https://github.com/malkreide/swiss-academic-libraries-mcp) | swisscovery, e-rara, e-periodica, e-manuscripta via SRU/OAI-PMH | *"Digitalisierte Schweizer Karten des 18. Jahrhunderts in e-rara?"* | ✅ | [audits/](https://github.com/malkreide/swiss-academic-libraries-mcp/tree/main/audits) |
 | [eth-library-mcp](https://github.com/malkreide/eth-library-mcp) | ETH Library Discovery und Persons APIs | *"ETH-Publikationen zu urbanen Hitzeinseln seit 2020?"* | ✅ | [audits/](https://github.com/malkreide/eth-library-mcp/tree/main/audits) |
+| [swiss-holidays-mcp](https://github.com/malkreide/swiss-holidays-mcp) | openholidaysapi.org: Schul- und öffentliche Feiertage für alle 26 Kantone | *"Wann sind die Herbstferien 2025 im Kanton Zürich?"* | ✅ | [audits/](https://github.com/malkreide/swiss-holidays-mcp/tree/main/audits) |
 
 ### 💰 Wirtschaft & Finanzen
 
@@ -313,12 +320,15 @@ malkreide/
 │
 ├── Recht, Gerichte & Regulierung
 │   ├── fedlex-mcp
-│   ├── termdat-mcp
 │   ├── openlex-mcp
 │   ├── swiss-courts-mcp
 │   ├── register-mcp
 │   ├── amtsblatt-mcp
 │   └── swiss-ip-mcp
+│
+├── Semantik, Metadaten & Interoperabilität
+│   ├── termdat-mcp
+│   └── i14y-mcp
 │
 ├── Statistik & Geodaten
 │   ├── swiss-statistics-mcp
@@ -329,7 +339,8 @@ malkreide/
 │   ├── global-education-mcp
 │   ├── zh-education-mcp
 │   ├── swiss-academic-libraries-mcp
-│   └── eth-library-mcp
+│   ├── eth-library-mcp
+│   └── swiss-holidays-mcp
 │
 ├── Wirtschaft & Finanzen
 │   ├── swiss-snb-mcp

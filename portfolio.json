@@ -1,15 +1,15 @@
 {
   "schema_version": "1.0",
-  "last_checked": "2026-07-20",
+  "last_checked": "2026-07-24",
   "owner": "malkreide",
   "portfolio_repository": "https://github.com/malkreide/swiss-public-data-mcp",
   "required_github_topic": "swiss-public-data-mcp",
   "counts": {
-    "active_servers": 36,
+    "active_servers": 38,
     "legacy_servers": 1,
     "audit_tools": 1,
-    "production_ready_active_servers": 36,
-    "audited_mcp_server_repos": 37
+    "production_ready_active_servers": 38,
+    "audited_mcp_server_repos": 39
   },
   "open_data_reference": {
     "source": "opendata.swiss CKAN package_search?rows=0",
@@ -73,6 +73,11 @@
       "label": "Legal, Courts & Regulatory",
       "label_de": "Recht, Gerichte & Regulierung",
       "emoji": "⚖️"
+    },
+    {
+      "label": "Semantics, Metadata & Interoperability",
+      "label_de": "Semantik, Metadaten & Interoperabilität",
+      "emoji": "🧩"
     },
     {
       "label": "Statistics & Geodata",
@@ -260,7 +265,7 @@
       "id": "termdat-mcp",
       "display_name": "termdat-mcp",
       "repository": "https://github.com/malkreide/termdat-mcp",
-      "category": "Legal, Courts & Regulatory",
+      "category": "Semantics, Metadata & Interoperability",
       "scope": "core",
       "status": "production_ready",
       "audit": "published",
@@ -269,6 +274,21 @@
       "anchor_query": "What are the official French and Italian names of the education directorates of the German-speaking cantons?",
       "description_de": "Amtliche mehrsprachige Terminologie der Bundesverwaltung (TERMDAT)",
       "anchor_query_de": "Wie heissen die für Bildung zuständigen Direktionen der Deutschschweizer Kantone offiziell auf Französisch und Italienisch?",
+      "requires_credentials": false
+    },
+    {
+      "id": "i14y-mcp",
+      "display_name": "i14y-mcp",
+      "repository": "https://github.com/malkreide/i14y-mcp",
+      "category": "Semantics, Metadata & Interoperability",
+      "scope": "core",
+      "status": "production_ready",
+      "audit": "published",
+      "audit_evidence": "https://github.com/malkreide/i14y-mcp/tree/main/audits",
+      "description": "I14Y national interoperability platform and metadata catalogue (DCAT-AP)",
+      "anchor_query": "Which datasets does the I14Y catalogue list for Swiss education statistics?",
+      "description_de": "I14Y-Interoperabilitätsplattform, nationaler Metadatenkatalog der Schweiz (DCAT-AP)",
+      "anchor_query_de": "Welche Datensätze führt der I14Y-Katalog zur Schweizer Bildungsstatistik?",
       "requires_credentials": false
     },
     {
@@ -463,6 +483,21 @@
       "anchor_query": "ETH publications on urban heat islands since 2020?",
       "description_de": "ETH Library Discovery und Persons APIs",
       "anchor_query_de": "ETH-Publikationen zu urbanen Hitzeinseln seit 2020?",
+      "requires_credentials": false
+    },
+    {
+      "id": "swiss-holidays-mcp",
+      "display_name": "swiss-holidays-mcp",
+      "repository": "https://github.com/malkreide/swiss-holidays-mcp",
+      "category": "Education & Research",
+      "scope": "core",
+      "status": "production_ready",
+      "audit": "published",
+      "audit_evidence": "https://github.com/malkreide/swiss-holidays-mcp/tree/main/audits",
+      "description": "openholidaysapi.org school and public holidays for all 26 cantons",
+      "anchor_query": "When are the 2025 autumn school holidays in Canton Zurich?",
+      "description_de": "openholidaysapi.org: Schul- und öffentliche Feiertage für alle 26 Kantone",
+      "anchor_query_de": "Wann sind die Herbstferien 2025 im Kanton Zürich?",
       "requires_credentials": false
     },
     {
