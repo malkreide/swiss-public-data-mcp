@@ -212,6 +212,25 @@ Official multilingual terminology of the Swiss Federal Administration (TERMDAT).
 
 ---
 
+## i14y-mcp
+
+I14Y national interoperability platform and metadata catalogue (DCAT-AP).
+
+```json
+{
+  "mcpServers": {
+    "i14y-mcp": {
+      "command": "uvx",
+      "args": [
+        "i14y-mcp"
+      ]
+    }
+  }
+}
+```
+
+---
+
 ## openlex-mcp
 
 Canton Zurich legislation via ZH-Lex with full-text search and article extraction.
@@ -438,6 +457,25 @@ ETH Library Discovery and Persons APIs.
       "command": "uvx",
       "args": [
         "eth-library-mcp"
+      ]
+    }
+  }
+}
+```
+
+---
+
+## swiss-holidays-mcp
+
+openholidaysapi.org school and public holidays for all 26 cantons.
+
+```json
+{
+  "mcpServers": {
+    "swiss-holidays-mcp": {
+      "command": "uvx",
+      "args": [
+        "swiss-holidays-mcp"
       ]
     }
   }

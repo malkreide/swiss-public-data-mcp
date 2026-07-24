@@ -1,17 +1,17 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.malkreide/termdat-mcp",
-  "description": "Official multilingual terminology of the Swiss Federal Administration (TERMDAT)",
+  "name": "io.github.malkreide/swiss-holidays-mcp",
+  "description": "openholidaysapi.org school and public holidays for all 26 cantons",
   "version": "0.1.0",
   "repository": {
-    "url": "https://github.com/malkreide/termdat-mcp",
+    "url": "https://github.com/malkreide/swiss-holidays-mcp",
     "source": "github"
   },
-  "websiteUrl": "https://github.com/malkreide/termdat-mcp",
+  "websiteUrl": "https://github.com/malkreide/swiss-holidays-mcp",
   "packages": [
     {
       "registryType": "pypi",
-      "identifier": "termdat-mcp",
+      "identifier": "swiss-holidays-mcp",
       "version": "0.1.0",
       "transport": {
         "type": "stdio"
@@ -21,7 +21,7 @@
   ],
   "_meta": {
     "io.modelcontextprotocol.registry/publisher-provided": {
-      "category": "Semantics, Metadata & Interoperability",
+      "category": "Education & Research",
       "scope": "core"
     }
   }
