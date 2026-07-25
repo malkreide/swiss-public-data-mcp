@@ -189,6 +189,7 @@ audit:
 | Server | Beschreibung | Anchor Query | Status | Audit |
 |---|---|---|---|---|
 | [swiss-snb-mcp](https://github.com/malkreide/swiss-snb-mcp) | SNB-Datenportal: Wechselkurse, Bilanz, Leitzins, SARON, Geldmengen | *"EUR/CHF seit 2015 und aktueller SNB-Leitzins?"* | ✅ | [audits/](https://github.com/malkreide/swiss-snb-mcp/tree/main/audits) |
+| [swiss-efv-mcp](https://github.com/malkreide/swiss-efv-mcp) | Schweizer Bundesfinanzen (EFV): Haushalt, Schulden, Prognosen sowie Ausgaben nach Aufgabengebiet und Institution | *"Wie hat sich der Bundessaldo seit der SNB-Zinswende 2022 entwickelt, und in welche Aufgabengebiete floss das Ausgabenwachstum?"* | ✅ | [audits/](https://github.com/malkreide/swiss-efv-mcp/tree/main/audits) |
 | [seco-labor-mcp](https://github.com/malkreide/seco-labor-mcp) | SECO-Arbeitsmarkt: Arbeitslosigkeit, offene Stellen, Erwerbsindikatoren | *"Arbeitslosenquote Kanton Zürich vs. Schweiz in den letzten 12 Monaten?"* | ✅ | [audits/](https://github.com/malkreide/seco-labor-mcp/tree/main/audits) |
 
 ### 🎭 Kultur & Medien
@@ -344,6 +345,7 @@ malkreide/
 │
 ├── Wirtschaft & Finanzen
 │   ├── swiss-snb-mcp
+│   ├── swiss-efv-mcp
 │   └── seco-labor-mcp
 │
 ├── Kultur & Medien

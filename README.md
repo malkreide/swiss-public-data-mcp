@@ -189,6 +189,7 @@ audit:
 | Server | Description | Anchor query | Status | Audit |
 |---|---|---|---|---|
 | [swiss-snb-mcp](https://github.com/malkreide/swiss-snb-mcp) | SNB data portal: exchange rates, balance sheet, policy rates, SARON, monetary aggregates | *"EUR/CHF trend since 2015 and current SNB policy rate?"* | ✅ | [audits/](https://github.com/malkreide/swiss-snb-mcp/tree/main/audits) |
+| [swiss-efv-mcp](https://github.com/malkreide/swiss-efv-mcp) | Swiss federal finances (EFV): budget, debt, forecasts and spending by task and institution | *"How has the federal balance developed since the SNB rate turnaround in 2022, and which task areas absorbed the spending growth?"* | ✅ | [audits/](https://github.com/malkreide/swiss-efv-mcp/tree/main/audits) |
 | [seco-labor-mcp](https://github.com/malkreide/seco-labor-mcp) | SECO labour market: unemployment, vacancies, workforce indicators | *"Unemployment rate in Canton Zurich vs. Swiss average over the last 12 months?"* | ✅ | [audits/](https://github.com/malkreide/seco-labor-mcp/tree/main/audits) |
 
 ### 🎭 Culture & Media
@@ -344,6 +345,7 @@ malkreide/
 │
 ├── Economics & Finance
 │   ├── swiss-snb-mcp
+│   ├── swiss-efv-mcp
 │   └── seco-labor-mcp
 │
 ├── Culture & Media
