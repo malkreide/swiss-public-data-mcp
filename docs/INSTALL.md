@@ -503,6 +503,25 @@ SNB data portal: exchange rates, balance sheet, policy rates, SARON, monetary ag
 
 ---
 
+## swiss-efv-mcp
+
+Swiss federal finances (EFV): budget, debt, forecasts and spending by task and institution.
+
+```json
+{
+  "mcpServers": {
+    "swiss-efv-mcp": {
+      "command": "uvx",
+      "args": [
+        "swiss-efv-mcp"
+      ]
+    }
+  }
+}
+```
+
+---
+
 ## seco-labor-mcp
 
 SECO labour market: unemployment, vacancies, workforce indicators.
