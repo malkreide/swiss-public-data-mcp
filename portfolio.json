@@ -1,15 +1,15 @@
 {
   "schema_version": "1.0",
-  "last_checked": "2026-07-24",
+  "last_checked": "2026-07-25",
   "owner": "malkreide",
   "portfolio_repository": "https://github.com/malkreide/swiss-public-data-mcp",
   "required_github_topic": "swiss-public-data-mcp",
   "counts": {
-    "active_servers": 38,
+    "active_servers": 39,
     "legacy_servers": 1,
     "audit_tools": 1,
-    "production_ready_active_servers": 38,
-    "audited_mcp_server_repos": 39
+    "production_ready_active_servers": 39,
+    "audited_mcp_server_repos": 40
   },
   "open_data_reference": {
     "source": "opendata.swiss CKAN package_search?rows=0",
@@ -513,6 +513,21 @@
       "anchor_query": "EUR/CHF trend since 2015 and current SNB policy rate?",
       "description_de": "SNB-Datenportal: Wechselkurse, Bilanz, Leitzins, SARON, Geldmengen",
       "anchor_query_de": "EUR/CHF seit 2015 und aktueller SNB-Leitzins?",
+      "requires_credentials": false
+    },
+    {
+      "id": "swiss-efv-mcp",
+      "display_name": "swiss-efv-mcp",
+      "repository": "https://github.com/malkreide/swiss-efv-mcp",
+      "category": "Economics & Finance",
+      "scope": "core",
+      "status": "production_ready",
+      "audit": "published",
+      "audit_evidence": "https://github.com/malkreide/swiss-efv-mcp/tree/main/audits",
+      "description": "Swiss federal finances (EFV): budget, debt, forecasts and spending by task and institution",
+      "anchor_query": "How has the federal balance developed since the SNB rate turnaround in 2022, and which task areas absorbed the spending growth?",
+      "description_de": "Schweizer Bundesfinanzen (EFV): Haushalt, Schulden, Prognosen sowie Ausgaben nach Aufgabengebiet und Institution",
+      "anchor_query_de": "Wie hat sich der Bundessaldo seit der SNB-Zinswende 2022 entwickelt, und in welche Aufgabengebiete floss das Ausgabenwachstum?",
       "requires_credentials": false
     },
     {
