@@ -1,8 +1,8 @@
 # swiss-public-data-mcp
 
-![Active servers](https://img.shields.io/badge/active%20servers-38-blue)
-![Production ready](https://img.shields.io/badge/production--ready-38-brightgreen)
-![Audited MCP repos](https://img.shields.io/badge/audited%20MCP%20repos-39-purple)
+![Active servers](https://img.shields.io/badge/active%20servers-39-blue)
+![Production ready](https://img.shields.io/badge/production--ready-39-brightgreen)
+![Audited MCP repos](https://img.shields.io/badge/audited%20MCP%20repos-40-purple)
 ![Legacy servers](https://img.shields.io/badge/legacy-1-lightgrey)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Python](https://img.shields.io/badge/python-3.11--3.13-blue)
@@ -22,13 +22,13 @@
 
 ## Current Snapshot
 
-Last checked: **2026-07-24**
+Last checked: **2026-07-25**
 
 | Metric | Current value |
 |---|---:|
-| Active portfolio servers | 38 |
-| Production-ready active servers | 38 |
-| MCP server repos with at least one audit | 39 |
+| Active portfolio servers | 39 |
+| Production-ready active servers | 39 |
+| MCP server repos with at least one audit | 40 |
 | Legacy / superseded MCP server repos | 1 |
 | Audit tooling repos | 1 |
 | `opendata.swiss` datasets | 14'551 via `package_search?rows=0` |

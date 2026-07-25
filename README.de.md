@@ -1,8 +1,8 @@
 # swiss-public-data-mcp
 
-![Aktive Server](https://img.shields.io/badge/aktive%20Server-38-blue)
-![Production Ready](https://img.shields.io/badge/production--ready-38-brightgreen)
-![Auditierte MCP-Repos](https://img.shields.io/badge/auditierte%20MCP--Repos-39-purple)
+![Aktive Server](https://img.shields.io/badge/aktive%20Server-39-blue)
+![Production Ready](https://img.shields.io/badge/production--ready-39-brightgreen)
+![Auditierte MCP-Repos](https://img.shields.io/badge/auditierte%20MCP--Repos-40-purple)
 ![Legacy](https://img.shields.io/badge/legacy-1-lightgrey)
 ![Lizenz](https://img.shields.io/badge/license-MIT-green)
 ![Python](https://img.shields.io/badge/python-3.11--3.13-blue)
@@ -22,13 +22,13 @@
 
 ## Aktueller Stand
 
-Zuletzt geprüft: **2026-07-24**
+Zuletzt geprüft: **2026-07-25**
 
 | Kennzahl | Aktueller Wert |
 |---|---:|
-| Aktive Portfolio-Server | 38 |
-| Production-ready aktive Server | 38 |
-| MCP-Server-Repos mit mindestens einem Audit | 39 |
+| Aktive Portfolio-Server | 39 |
+| Production-ready aktive Server | 39 |
+| MCP-Server-Repos mit mindestens einem Audit | 40 |
 | Legacy / abgelöste MCP-Server-Repos | 1 |
 | Audit-Tooling-Repos | 1 |
 | `opendata.swiss`-Datensätze | 14'551 via `package_search?rows=0` |
