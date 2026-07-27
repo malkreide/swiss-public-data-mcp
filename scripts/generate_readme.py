@@ -46,7 +46,8 @@ LANGS = {
         "legacy_treatment_key": "legacy_treatment",
         "legacy_reason_key": "legacy_reason",
         "map_index": "← this index",
-        "map_audit": "← audit methodology, not a server",
+        "map_audit": "← audit tooling, not a server",
+        "related_prefix": " · ↔ related: ",
     },
     "de": {
         "readme": ROOT / "README.de.md",
@@ -63,7 +64,8 @@ LANGS = {
         "legacy_treatment_key": "legacy_treatment_de",
         "legacy_reason_key": "legacy_reason_de",
         "map_index": "← dieser Index",
-        "map_audit": "← Auditmethodik, kein Server",
+        "map_audit": "← Audit-Tooling, kein Server",
+        "related_prefix": " · ↔ verwandt: ",
     },
 }
 
@@ -102,6 +104,7 @@ def servers_in(data: dict, category_label: str) -> list[dict]:
 
 def build_server_portfolio(data: dict, lang: dict) -> str:
     out: list[str] = [lang["legend"], ""]
+    repo_by_id = {s["id"]: s["repository"] for s in data["servers"]}
     for cat in data["display_categories"]:
         label = cat[lang["label_key"]]
         out.append(f"### {cat['emoji']} {label}")
@@ -119,9 +122,16 @@ def build_server_portfolio(data: dict, lang: dict) -> str:
             out.append(lang["table_header"])
             out.append(TABLE_SEP)
             for s in servers_in(data, cat["label"]):
+                desc = s[lang["desc_key"]]
+                related = s.get("related") or []
+                if related:
+                    links = ", ".join(
+                        f"[`{r}`]({repo_by_id.get(r, '#')})" for r in related
+                    )
+                    desc = f"{desc}{lang['related_prefix']}{links}"
                 out.append(
                     f"| [{s['display_name']}]({s['repository']}) "
-                    f"| {s[lang['desc_key']]} "
+                    f"| {desc} "
                     f"| *\"{s[lang['query_key']]}\"* "
                     f"| {status_icons(s)} "
                     f"| [{audit_label(s['audit_evidence'])}]({s['audit_evidence']}) |"
@@ -132,8 +142,9 @@ def build_server_portfolio(data: dict, lang: dict) -> str:
 
 def build_repository_map(data: dict, lang: dict) -> str:
     lines = ["```text", "malkreide/"]
-    lines.append(f"├── swiss-public-data-mcp                 {lang['map_index']}")
-    lines.append(f"├── mcp-audit-skill                       {lang['map_audit']}")
+    lines.append(f"├── {'swiss-public-data-mcp':<38}{lang['map_index']}")
+    for tool in data.get("tooling", []):
+        lines.append(f"├── {repo_basename(tool['repository']):<38}{lang['map_audit']}")
     cats = data["display_categories"]
     for i, cat in enumerate(cats):
         last_cat = i == len(cats) - 1

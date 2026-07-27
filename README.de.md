@@ -30,7 +30,7 @@ Zuletzt geprüft: **2026-07-27**
 | Production-ready aktive Server | 43 |
 | MCP-Server-Repos mit mindestens einem Audit | 44 |
 | Legacy / abgelöste MCP-Server-Repos | 1 |
-| Audit-Tooling-Repos | 1 |
+| Audit-Tooling-Repos | 2 |
 | `opendata.swiss`-Datensätze | 14'551 via `package_search?rows=0` |
 | Maschinenlesbare Quelle der Wahrheit | [`portfolio.json`](portfolio.json) |
 | MCP-Registry-Einträge (generiert) | [`registry/`](registry/) |
@@ -71,7 +71,7 @@ Diese Links sind Kontext, keine Autorisierung. Das Repository bleibt ein private
 
 ## Qualität & Audit-Tooling
 
-Die Auditmethodik ist jetzt mit dem öffentlichen [`mcp-audit-skill`](https://github.com/malkreide/mcp-audit-skill) verknüpft, statt als interner Katalog beschrieben zu werden. Der Skill dokumentiert aktuell **68 Checks in acht Kategorien**:
+Die Auditmethodik ist jetzt mit dem öffentlichen [`mcp-audit-skill`](https://github.com/malkreide/mcp-audit-skill) verknüpft, statt als interner Katalog beschrieben zu werden. Ergänzt wird sie durch [`mcp-continuous-auditor`](https://github.com/malkreide/mcp-continuous-auditor), der kontinuierliche CI-Audits gegen MCP-Server ausführt und promptfoo als deterministische Ground Truth nutzt. Der Skill dokumentiert aktuell **68 Checks in acht Kategorien**:
 
 | Kategorie | Abdeckung |
 |---|---|
@@ -156,8 +156,8 @@ audit:
 | [openlex-mcp](https://github.com/malkreide/openlex-mcp) | Zürcher Gesetzessammlung via ZH-Lex mit Volltextsuche und Artikelextraktion | *"Welche Zürcher Gesetze regeln Schulzuständigkeiten?"* | ✅ | [audits/](https://github.com/malkreide/openlex-mcp/tree/master/audits) |
 | [swiss-courts-mcp](https://github.com/malkreide/swiss-courts-mcp) | Schweizer Gerichtsentscheide via entscheidsuche.ch, inklusive Bundes- und Kantonsgerichte | *"Neue Bundesgerichtsentscheide zu Schultransport?"* | ✅ | [audits/](https://github.com/malkreide/swiss-courts-mcp/tree/master/audits) |
 | [register-mcp](https://github.com/malkreide/register-mcp) | Zefix-Handelsregister und UID-Lookup | *"Aktive IT-Firmen in Zürich Kreis 5?"* | ✅ | [audits/](https://github.com/malkreide/register-mcp/tree/main/audits) |
-| [amtsblatt-mcp](https://github.com/malkreide/amtsblatt-mcp) | amtsblattportal.ch (SHAB + kantonale Amtsblätter) — Beschaffung und amtliche Bekanntmachungen, Rubriken mit Personendaten bewusst ausgeschlossen | *"Welche öffentlichen IT-Ausschreibungen wurden in den letzten drei Monaten in Basel-Stadt publiziert?"* | ✅ | [audits/](https://github.com/malkreide/amtsblatt-mcp/tree/main/audits) |
-| [swiss-procurement-mcp](https://github.com/malkreide/swiss-procurement-mcp) | simap.ch Beschaffungs-API: Ausschreibungen und Zuschläge aller Kantone und des Bundes, read-only | *"Welche Schulhaus-Ausschreibungen hat die Stadt Zürich 2026 publiziert, und welche BKP-Kategorien betreffen sie?"* | ✅ | [audits/](https://github.com/malkreide/swiss-procurement-mcp/tree/main/audits) |
+| [amtsblatt-mcp](https://github.com/malkreide/amtsblatt-mcp) | amtsblattportal.ch (SHAB + kantonale Amtsblätter) — Beschaffung und amtliche Bekanntmachungen, Rubriken mit Personendaten bewusst ausgeschlossen · ↔ verwandt: [`swiss-procurement-mcp`](https://github.com/malkreide/swiss-procurement-mcp) | *"Welche öffentlichen IT-Ausschreibungen wurden in den letzten drei Monaten in Basel-Stadt publiziert?"* | ✅ | [audits/](https://github.com/malkreide/amtsblatt-mcp/tree/main/audits) |
+| [swiss-procurement-mcp](https://github.com/malkreide/swiss-procurement-mcp) | simap.ch Beschaffungs-API: Ausschreibungen und Zuschläge aller Kantone und des Bundes, read-only · ↔ verwandt: [`amtsblatt-mcp`](https://github.com/malkreide/amtsblatt-mcp) | *"Welche Schulhaus-Ausschreibungen hat die Stadt Zürich 2026 publiziert, und welche BKP-Kategorien betreffen sie?"* | ✅ | [audits/](https://github.com/malkreide/swiss-procurement-mcp/tree/main/audits) |
 | [swiss-ip-mcp](https://github.com/malkreide/swiss-ip-mcp) | IGE/IPI Swissreg: Marken, Patente, SPCs | *"Aktive Schweizer Marken mit 'Zurich' in Klasse 41?"* | ✅ 🔐 | [audits/](https://github.com/malkreide/swiss-ip-mcp/tree/main/audits) |
 
 ### 🧩 Semantik, Metadaten & Interoperabilität
@@ -174,8 +174,8 @@ audit:
 |---|---|---|---|---|
 | [swiss-statistics-mcp](https://github.com/malkreide/swiss-statistics-mcp) | BFS STAT-TAB PxWeb API für amtliche Schweizer Statistik | *"Bevölkerung der Schweizer Gemeinden nach Kanton, 2023?"* | ✅ | [audits/](https://github.com/malkreide/swiss-statistics-mcp/tree/main/audits) |
 | [zurich-opendata-mcp](https://github.com/malkreide/zurich-opendata-mcp) | Stadt Zürich: Wetter, Luftqualität, Parkierung, Geodaten, Gemeinderat, Tourismus | *"Welche Schulgebäude in Zürich haben noch keine Glasfaser?"* | ✅ | [audits/](https://github.com/malkreide/zurich-opendata-mcp/tree/main/audits) |
-| [swisstopo-mcp](https://github.com/malkreide/swisstopo-mcp) | Bundesgeodaten: Geocoding, Höhe, STAC, WMTS, ÖREB und mehr | *"Wie sieht das Höhenprofil zwischen Zürich HB und Uetliberg aus?"* | ✅ | [audits/](https://github.com/malkreide/swisstopo-mcp/tree/master/audits) |
-| [swiss-geodata-mcp](https://github.com/malkreide/swiss-geodata-mcp) | geo.admin.ch Bundesgeodaten: ~700 Layer, Bauzonen, Höhen, LV95-Koordinatenkonversion | *"In welcher Bauzone liegt der Seilergraben 76 in Zürich, und wie hoch über Meer liegt er?"* | ✅ | [audits/](https://github.com/malkreide/swiss-geodata-mcp/tree/main/audits) |
+| [swisstopo-mcp](https://github.com/malkreide/swisstopo-mcp) | Bundesgeodaten: Geocoding, Höhe, STAC, WMTS, ÖREB und mehr · ↔ verwandt: [`swiss-geodata-mcp`](https://github.com/malkreide/swiss-geodata-mcp) | *"Wie sieht das Höhenprofil zwischen Zürich HB und Uetliberg aus?"* | ✅ | [audits/](https://github.com/malkreide/swisstopo-mcp/tree/master/audits) |
+| [swiss-geodata-mcp](https://github.com/malkreide/swiss-geodata-mcp) | geo.admin.ch Bundesgeodaten: ~700 Layer, Bauzonen, Höhen, LV95-Koordinatenkonversion · ↔ verwandt: [`swisstopo-mcp`](https://github.com/malkreide/swisstopo-mcp) | *"In welcher Bauzone liegt der Seilergraben 76 in Zürich, und wie hoch über Meer liegt er?"* | ✅ | [audits/](https://github.com/malkreide/swiss-geodata-mcp/tree/main/audits) |
 | [swiss-housing-mcp](https://github.com/malkreide/swiss-housing-mcp) | GWR/RegBL eidgenössisches Gebäude- und Wohnungsregister: Gebäude, Wohnungen und Bau-Pipeline | *"Wie viele Wohnungen mit 4+ Zimmern wurden in der Stadt Zürich seit 2020 neu gebaut?"* | ✅ | [audits/](https://github.com/malkreide/swiss-housing-mcp/tree/main/audits) |
 
 ### 🎓 Bildung & Forschung
@@ -307,7 +307,8 @@ Alle aktiven Server sollen den GitHub-Topic [`swiss-public-data-mcp`](https://gi
 ```text
 malkreide/
 ├── swiss-public-data-mcp                 ← dieser Index
-├── mcp-audit-skill                       ← Auditmethodik, kein Server
+├── mcp-audit-skill                       ← Audit-Tooling, kein Server
+├── mcp-continuous-auditor                ← Audit-Tooling, kein Server
 │
 ├── Transport & Mobilität
 │   ├── swiss-transport-mcp

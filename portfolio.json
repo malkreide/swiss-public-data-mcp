@@ -7,7 +7,7 @@
   "counts": {
     "active_servers": 43,
     "legacy_servers": 1,
-    "audit_tools": 1,
+    "audit_tools": 2,
     "production_ready_active_servers": 43,
     "audited_mcp_server_repos": 44
   },
@@ -51,6 +51,12 @@
       "type": "audit-skill",
       "repository": "https://github.com/malkreide/mcp-audit-skill",
       "description": "Claude skill for systematic MCP server audits. It is methodology tooling, not a portfolio server."
+    },
+    {
+      "id": "mcp-continuous-auditor",
+      "type": "continuous-auditor",
+      "repository": "https://github.com/malkreide/mcp-continuous-auditor",
+      "description": "Continuous CI auditor for MCP servers using promptfoo as the deterministic source of truth (red-teaming, schema validation, human-gated PRs). Methodology tooling, not a portfolio server."
     }
   ],
   "display_categories": [
@@ -364,7 +370,10 @@
       "anchor_query": "Which public IT tenders were published in Basel-Stadt in the last three months?",
       "description_de": "amtsblattportal.ch (SHAB + kantonale Amtsblätter) — Beschaffung und amtliche Bekanntmachungen, Rubriken mit Personendaten bewusst ausgeschlossen",
       "anchor_query_de": "Welche öffentlichen IT-Ausschreibungen wurden in den letzten drei Monaten in Basel-Stadt publiziert?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "related": [
+        "swiss-procurement-mcp"
+      ]
     },
     {
       "id": "swiss-procurement-mcp",
@@ -379,7 +388,10 @@
       "anchor_query": "Which school-building tenders did the City of Zurich publish in 2026, and which BKP categories do they concern?",
       "description_de": "simap.ch Beschaffungs-API: Ausschreibungen und Zuschläge aller Kantone und des Bundes, read-only",
       "anchor_query_de": "Welche Schulhaus-Ausschreibungen hat die Stadt Zürich 2026 publiziert, und welche BKP-Kategorien betreffen sie?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "related": [
+        "amtsblatt-mcp"
+      ]
     },
     {
       "id": "swiss-ip-mcp",
@@ -453,7 +465,10 @@
       "anchor_query": "What is the elevation profile between Zurich HB and Uetliberg?",
       "description_de": "Bundesgeodaten: Geocoding, Höhe, STAC, WMTS, ÖREB und mehr",
       "anchor_query_de": "Wie sieht das Höhenprofil zwischen Zürich HB und Uetliberg aus?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "related": [
+        "swiss-geodata-mcp"
+      ]
     },
     {
       "id": "swiss-geodata-mcp",
@@ -468,7 +483,10 @@
       "anchor_query": "In which building zone lies Seilergraben 76 in Zurich, and how high above sea level is it?",
       "description_de": "geo.admin.ch Bundesgeodaten: ~700 Layer, Bauzonen, Höhen, LV95-Koordinatenkonversion",
       "anchor_query_de": "In welcher Bauzone liegt der Seilergraben 76 in Zürich, und wie hoch über Meer liegt er?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "related": [
+        "swisstopo-mcp"
+      ]
     },
     {
       "id": "swiss-housing-mcp",
