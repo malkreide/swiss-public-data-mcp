@@ -1,15 +1,15 @@
 {
   "schema_version": "1.0",
-  "last_checked": "2026-07-25",
+  "last_checked": "2026-07-27",
   "owner": "malkreide",
   "portfolio_repository": "https://github.com/malkreide/swiss-public-data-mcp",
   "required_github_topic": "swiss-public-data-mcp",
   "counts": {
-    "active_servers": 39,
+    "active_servers": 43,
     "legacy_servers": 1,
     "audit_tools": 1,
-    "production_ready_active_servers": 39,
-    "audited_mcp_server_repos": 40
+    "production_ready_active_servers": 43,
+    "audited_mcp_server_repos": 44
   },
   "open_data_reference": {
     "source": "opendata.swiss CKAN package_search?rows=0",
@@ -292,6 +292,21 @@
       "requires_credentials": false
     },
     {
+      "id": "lindas-mcp",
+      "display_name": "lindas-mcp",
+      "repository": "https://github.com/malkreide/lindas-mcp",
+      "category": "Semantics, Metadata & Interoperability",
+      "scope": "core",
+      "status": "production_ready",
+      "audit": "published",
+      "audit_evidence": "https://github.com/malkreide/lindas-mcp/tree/main/audits",
+      "description": "LINDAS linked-data knowledge graph: ~2,000 federal SPARQL data cubes with resolved labels",
+      "anchor_query": "Which statistical data cubes does LINDAS publish on Swiss forest area, and who is the publisher?",
+      "description_de": "LINDAS Linked-Data-Wissensgraph: ~2.000 föderale SPARQL-Datenwürfel mit aufgelösten Labels",
+      "anchor_query_de": "Welche statistischen Datenwürfel veröffentlicht LINDAS zur Schweizer Waldfläche, und wer ist Herausgeber?",
+      "requires_credentials": false
+    },
+    {
       "id": "openlex-mcp",
       "display_name": "openlex-mcp",
       "repository": "https://github.com/malkreide/openlex-mcp",
@@ -349,6 +364,21 @@
       "anchor_query": "Which public IT tenders were published in Basel-Stadt in the last three months?",
       "description_de": "amtsblattportal.ch (SHAB + kantonale Amtsblätter) — Beschaffung und amtliche Bekanntmachungen, Rubriken mit Personendaten bewusst ausgeschlossen",
       "anchor_query_de": "Welche öffentlichen IT-Ausschreibungen wurden in den letzten drei Monaten in Basel-Stadt publiziert?",
+      "requires_credentials": false
+    },
+    {
+      "id": "swiss-procurement-mcp",
+      "display_name": "swiss-procurement-mcp",
+      "repository": "https://github.com/malkreide/swiss-procurement-mcp",
+      "category": "Legal, Courts & Regulatory",
+      "scope": "core",
+      "status": "production_ready",
+      "audit": "published",
+      "audit_evidence": "https://github.com/malkreide/swiss-procurement-mcp/tree/main/audits",
+      "description": "simap.ch public procurement API: tenders and awards across all cantons and the Confederation, read-only",
+      "anchor_query": "Which school-building tenders did the City of Zurich publish in 2026, and which BKP categories do they concern?",
+      "description_de": "simap.ch Beschaffungs-API: Ausschreibungen und Zuschläge aller Kantone und des Bundes, read-only",
+      "anchor_query_de": "Welche Schulhaus-Ausschreibungen hat die Stadt Zürich 2026 publiziert, und welche BKP-Kategorien betreffen sie?",
       "requires_credentials": false
     },
     {
@@ -423,6 +453,36 @@
       "anchor_query": "What is the elevation profile between Zurich HB and Uetliberg?",
       "description_de": "Bundesgeodaten: Geocoding, Höhe, STAC, WMTS, ÖREB und mehr",
       "anchor_query_de": "Wie sieht das Höhenprofil zwischen Zürich HB und Uetliberg aus?",
+      "requires_credentials": false
+    },
+    {
+      "id": "swiss-geodata-mcp",
+      "display_name": "swiss-geodata-mcp",
+      "repository": "https://github.com/malkreide/swiss-geodata-mcp",
+      "category": "Statistics & Geodata",
+      "scope": "core",
+      "status": "production_ready",
+      "audit": "published",
+      "audit_evidence": "https://github.com/malkreide/swiss-geodata-mcp/tree/main/audits",
+      "description": "geo.admin.ch federal geodata: ~700 layers, building zones, heights, LV95 coordinate conversion",
+      "anchor_query": "In which building zone lies Seilergraben 76 in Zurich, and how high above sea level is it?",
+      "description_de": "geo.admin.ch Bundesgeodaten: ~700 Layer, Bauzonen, Höhen, LV95-Koordinatenkonversion",
+      "anchor_query_de": "In welcher Bauzone liegt der Seilergraben 76 in Zürich, und wie hoch über Meer liegt er?",
+      "requires_credentials": false
+    },
+    {
+      "id": "swiss-housing-mcp",
+      "display_name": "swiss-housing-mcp",
+      "repository": "https://github.com/malkreide/swiss-housing-mcp",
+      "category": "Statistics & Geodata",
+      "scope": "core",
+      "status": "production_ready",
+      "audit": "published",
+      "audit_evidence": "https://github.com/malkreide/swiss-housing-mcp/tree/main/audits",
+      "description": "GWR/RegBL federal building and dwelling register: buildings, dwellings and construction pipeline",
+      "anchor_query": "How many dwellings with 4+ rooms were newly built in the City of Zurich since 2020?",
+      "description_de": "GWR/RegBL eidgenössisches Gebäude- und Wohnungsregister: Gebäude, Wohnungen und Bau-Pipeline",
+      "anchor_query_de": "Wie viele Wohnungen mit 4+ Zimmern wurden in der Stadt Zürich seit 2020 neu gebaut?",
       "requires_credentials": false
     },
     {
