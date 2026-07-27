@@ -1,8 +1,8 @@
 # swiss-public-data-mcp
 
-![Aktive Server](https://img.shields.io/badge/aktive%20Server-39-blue)
-![Production Ready](https://img.shields.io/badge/production--ready-39-brightgreen)
-![Auditierte MCP-Repos](https://img.shields.io/badge/auditierte%20MCP--Repos-40-purple)
+![Aktive Server](https://img.shields.io/badge/aktive%20Server-43-blue)
+![Production Ready](https://img.shields.io/badge/production--ready-43-brightgreen)
+![Auditierte MCP-Repos](https://img.shields.io/badge/auditierte%20MCP--Repos-44-purple)
 ![Legacy](https://img.shields.io/badge/legacy-1-lightgrey)
 ![Lizenz](https://img.shields.io/badge/license-MIT-green)
 ![Python](https://img.shields.io/badge/python-3.11--3.13-blue)
@@ -22,13 +22,13 @@
 
 ## Aktueller Stand
 
-Zuletzt geprüft: **2026-07-25**
+Zuletzt geprüft: **2026-07-27**
 
 | Kennzahl | Aktueller Wert |
 |---|---:|
-| Aktive Portfolio-Server | 39 |
-| Production-ready aktive Server | 39 |
-| MCP-Server-Repos mit mindestens einem Audit | 40 |
+| Aktive Portfolio-Server | 43 |
+| Production-ready aktive Server | 43 |
+| MCP-Server-Repos mit mindestens einem Audit | 44 |
 | Legacy / abgelöste MCP-Server-Repos | 1 |
 | Audit-Tooling-Repos | 1 |
 | `opendata.swiss`-Datensätze | 14'551 via `package_search?rows=0` |
@@ -157,6 +157,7 @@ audit:
 | [swiss-courts-mcp](https://github.com/malkreide/swiss-courts-mcp) | Schweizer Gerichtsentscheide via entscheidsuche.ch, inklusive Bundes- und Kantonsgerichte | *"Neue Bundesgerichtsentscheide zu Schultransport?"* | ✅ | [audits/](https://github.com/malkreide/swiss-courts-mcp/tree/master/audits) |
 | [register-mcp](https://github.com/malkreide/register-mcp) | Zefix-Handelsregister und UID-Lookup | *"Aktive IT-Firmen in Zürich Kreis 5?"* | ✅ | [audits/](https://github.com/malkreide/register-mcp/tree/main/audits) |
 | [amtsblatt-mcp](https://github.com/malkreide/amtsblatt-mcp) | amtsblattportal.ch (SHAB + kantonale Amtsblätter) — Beschaffung und amtliche Bekanntmachungen, Rubriken mit Personendaten bewusst ausgeschlossen | *"Welche öffentlichen IT-Ausschreibungen wurden in den letzten drei Monaten in Basel-Stadt publiziert?"* | ✅ | [audits/](https://github.com/malkreide/amtsblatt-mcp/tree/main/audits) |
+| [swiss-procurement-mcp](https://github.com/malkreide/swiss-procurement-mcp) | simap.ch Beschaffungs-API: Ausschreibungen und Zuschläge aller Kantone und des Bundes, read-only | *"Welche Schulhaus-Ausschreibungen hat die Stadt Zürich 2026 publiziert, und welche BKP-Kategorien betreffen sie?"* | ✅ | [audits/](https://github.com/malkreide/swiss-procurement-mcp/tree/main/audits) |
 | [swiss-ip-mcp](https://github.com/malkreide/swiss-ip-mcp) | IGE/IPI Swissreg: Marken, Patente, SPCs | *"Aktive Schweizer Marken mit 'Zurich' in Klasse 41?"* | ✅ 🔐 | [audits/](https://github.com/malkreide/swiss-ip-mcp/tree/main/audits) |
 
 ### 🧩 Semantik, Metadaten & Interoperabilität
@@ -165,6 +166,7 @@ audit:
 |---|---|---|---|---|
 | [termdat-mcp](https://github.com/malkreide/termdat-mcp) | Amtliche mehrsprachige Terminologie der Bundesverwaltung (TERMDAT) | *"Wie heissen die für Bildung zuständigen Direktionen der Deutschschweizer Kantone offiziell auf Französisch und Italienisch?"* | ✅ | [audits/](https://github.com/malkreide/termdat-mcp/tree/main/audits) |
 | [i14y-mcp](https://github.com/malkreide/i14y-mcp) | I14Y-Interoperabilitätsplattform, nationaler Metadatenkatalog der Schweiz (DCAT-AP) | *"Welche Datensätze führt der I14Y-Katalog zur Schweizer Bildungsstatistik?"* | ✅ | [audits/](https://github.com/malkreide/i14y-mcp/tree/main/audits) |
+| [lindas-mcp](https://github.com/malkreide/lindas-mcp) | LINDAS Linked-Data-Wissensgraph: ~2.000 föderale SPARQL-Datenwürfel mit aufgelösten Labels | *"Welche statistischen Datenwürfel veröffentlicht LINDAS zur Schweizer Waldfläche, und wer ist Herausgeber?"* | ✅ | [audits/](https://github.com/malkreide/lindas-mcp/tree/main/audits) |
 
 ### 📊 Statistik & Geodaten
 
@@ -173,6 +175,8 @@ audit:
 | [swiss-statistics-mcp](https://github.com/malkreide/swiss-statistics-mcp) | BFS STAT-TAB PxWeb API für amtliche Schweizer Statistik | *"Bevölkerung der Schweizer Gemeinden nach Kanton, 2023?"* | ✅ | [audits/](https://github.com/malkreide/swiss-statistics-mcp/tree/main/audits) |
 | [zurich-opendata-mcp](https://github.com/malkreide/zurich-opendata-mcp) | Stadt Zürich: Wetter, Luftqualität, Parkierung, Geodaten, Gemeinderat, Tourismus | *"Welche Schulgebäude in Zürich haben noch keine Glasfaser?"* | ✅ | [audits/](https://github.com/malkreide/zurich-opendata-mcp/tree/main/audits) |
 | [swisstopo-mcp](https://github.com/malkreide/swisstopo-mcp) | Bundesgeodaten: Geocoding, Höhe, STAC, WMTS, ÖREB und mehr | *"Wie sieht das Höhenprofil zwischen Zürich HB und Uetliberg aus?"* | ✅ | [audits/](https://github.com/malkreide/swisstopo-mcp/tree/master/audits) |
+| [swiss-geodata-mcp](https://github.com/malkreide/swiss-geodata-mcp) | geo.admin.ch Bundesgeodaten: ~700 Layer, Bauzonen, Höhen, LV95-Koordinatenkonversion | *"In welcher Bauzone liegt der Seilergraben 76 in Zürich, und wie hoch über Meer liegt er?"* | ✅ | [audits/](https://github.com/malkreide/swiss-geodata-mcp/tree/main/audits) |
+| [swiss-housing-mcp](https://github.com/malkreide/swiss-housing-mcp) | GWR/RegBL eidgenössisches Gebäude- und Wohnungsregister: Gebäude, Wohnungen und Bau-Pipeline | *"Wie viele Wohnungen mit 4+ Zimmern wurden in der Stadt Zürich seit 2020 neu gebaut?"* | ✅ | [audits/](https://github.com/malkreide/swiss-housing-mcp/tree/main/audits) |
 
 ### 🎓 Bildung & Forschung
 
@@ -325,16 +329,20 @@ malkreide/
 │   ├── swiss-courts-mcp
 │   ├── register-mcp
 │   ├── amtsblatt-mcp
+│   ├── swiss-procurement-mcp
 │   └── swiss-ip-mcp
 │
 ├── Semantik, Metadaten & Interoperabilität
 │   ├── termdat-mcp
-│   └── i14y-mcp
+│   ├── i14y-mcp
+│   └── lindas-mcp
 │
 ├── Statistik & Geodaten
 │   ├── swiss-statistics-mcp
 │   ├── zurich-opendata-mcp
-│   └── swisstopo-mcp
+│   ├── swisstopo-mcp
+│   ├── swiss-geodata-mcp
+│   └── swiss-housing-mcp
 │
 ├── Bildung & Forschung
 │   ├── global-education-mcp

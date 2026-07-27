@@ -231,6 +231,25 @@ I14Y national interoperability platform and metadata catalogue (DCAT-AP).
 
 ---
 
+## lindas-mcp
+
+LINDAS linked-data knowledge graph: ~2,000 federal SPARQL data cubes with resolved labels.
+
+```json
+{
+  "mcpServers": {
+    "lindas-mcp": {
+      "command": "uvx",
+      "args": [
+        "lindas-mcp"
+      ]
+    }
+  }
+}
+```
+
+---
+
 ## openlex-mcp
 
 Canton Zurich legislation via ZH-Lex with full-text search and article extraction.
@@ -299,6 +318,25 @@ amtsblattportal.ch (SHAB + cantonal gazettes) — procurement and official notic
       "command": "uvx",
       "args": [
         "amtsblatt-mcp"
+      ]
+    }
+  }
+}
+```
+
+---
+
+## swiss-procurement-mcp
+
+simap.ch public procurement API: tenders and awards across all cantons and the Confederation, read-only.
+
+```json
+{
+  "mcpServers": {
+    "swiss-procurement-mcp": {
+      "command": "uvx",
+      "args": [
+        "swiss-procurement-mcp"
       ]
     }
   }
@@ -381,6 +419,44 @@ Swiss federal geodata: geocoding, height, STAC, WMTS, OEREB and more.
       "command": "uvx",
       "args": [
         "swisstopo-mcp"
+      ]
+    }
+  }
+}
+```
+
+---
+
+## swiss-geodata-mcp
+
+geo.admin.ch federal geodata: ~700 layers, building zones, heights, LV95 coordinate conversion.
+
+```json
+{
+  "mcpServers": {
+    "swiss-geodata-mcp": {
+      "command": "uvx",
+      "args": [
+        "swiss-geodata-mcp"
+      ]
+    }
+  }
+}
+```
+
+---
+
+## swiss-housing-mcp
+
+GWR/RegBL federal building and dwelling register: buildings, dwellings and construction pipeline.
+
+```json
+{
+  "mcpServers": {
+    "swiss-housing-mcp": {
+      "command": "uvx",
+      "args": [
+        "swiss-housing-mcp"
       ]
     }
   }

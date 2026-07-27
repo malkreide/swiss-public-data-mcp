@@ -1,0 +1,28 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.malkreide/swiss-geodata-mcp",
+  "description": "geo.admin.ch federal geodata: ~700 layers, building zones, heights, LV95 coordinate conversion",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/malkreide/swiss-geodata-mcp",
+    "source": "github"
+  },
+  "websiteUrl": "https://github.com/malkreide/swiss-geodata-mcp",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "swiss-geodata-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "runtimeHint": "uvx"
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "category": "Statistics & Geodata",
+      "scope": "core"
+    }
+  }
+}

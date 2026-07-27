@@ -1,0 +1,28 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.malkreide/lindas-mcp",
+  "description": "LINDAS linked-data knowledge graph: ~2,000 federal SPARQL data cubes with resolved labels",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/malkreide/lindas-mcp",
+    "source": "github"
+  },
+  "websiteUrl": "https://github.com/malkreide/lindas-mcp",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "lindas-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "runtimeHint": "uvx"
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "category": "Semantics, Metadata & Interoperability",
+      "scope": "core"
+    }
+  }
+}
