@@ -59,8 +59,13 @@ CI fails if the HTML drifts from the inventory. Edit
 re-render — the PNG is a committed bitmap, so `--check` cannot catch a stale
 image on its own.
 
-The same file works as the repository's social preview (**Settings → Social
-preview**), which is worth setting so links to the repo render the same card.
+A second render, [`docs/social-preview.png`](social-preview.png), exists at
+1280×640 for **Settings → Social preview**. GitHub renders social previews at a
+strict 2:1 and letterboxes anything else, so upload that file there rather than
+the 1200×630 one. Setting it means links to the repository — in chat, on
+socials, in the showcase listing — render the same card.
+
+Uploading a social preview is a web-UI action; GitHub exposes no API for it.
 
 ---
 
@@ -143,8 +148,8 @@ disclaimer and the showcase entry must not contradict it.
 
 ## Before submitting — checklist
 
-- [ ] `docs/showcase-card.png` re-rendered if any count changed (`python scripts/generate_showcase_card.py`, then the Chromium command in its docstring).
-- [ ] Repository social preview set to the same card.
+- [ ] Card bitmaps re-rendered if any count changed (`python scripts/generate_showcase_card.py && node scripts/render_showcase_images.mjs`).
+- [ ] Repository social preview set from `docs/social-preview.png` (Settings → Social preview).
 - [ ] `README.md` counts match `portfolio.json` (`python scripts/generate_readme.py --check`).
 - [ ] No active server row points at an archived repository (the same check enforces this).
 - [ ] Every active server repository carries the `swiss-public-data-mcp` topic.
