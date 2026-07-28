@@ -5,6 +5,7 @@ name: Portfolio sync
 #   * registry/*/server.json    -> python scripts/generate_server_json.py
 #   * docs/INSTALL.md           -> python scripts/generate_install_snippets.py
 #   * PROMOTION.md              -> python scripts/generate_promotion.py
+#   * docs/showcase-card.html   -> python scripts/generate_showcase_card.py
 on:
   push:
     branches: [main]
@@ -28,3 +29,5 @@ jobs:
         run: python scripts/generate_install_snippets.py --check
       - name: Check PROMOTION.md is in sync with portfolio.json
         run: python scripts/generate_promotion.py --check
+      - name: Check showcase card HTML is in sync with portfolio.json
+        run: python scripts/generate_showcase_card.py --check
