@@ -102,6 +102,7 @@ Instead:
    python scripts/generate_install_snippets.py  # docs/INSTALL.md
    python scripts/generate_promotion.py         # PROMOTION.md
    python scripts/generate_showcase_card.py     # docs/showcase-card.html
+   node   scripts/render_showcase_images.mjs    # the card bitmaps (not CI-checked)
    ```
 
 3. Verify they are in sync (this is what CI runs):
@@ -159,6 +160,7 @@ python scripts/generate_server_json.py       # registry/*/server.json
 python scripts/generate_install_snippets.py  # docs/INSTALL.md
 python scripts/generate_promotion.py         # PROMOTION.md
 python scripts/generate_showcase_card.py     # docs/showcase-card.html
+node   scripts/render_showcase_images.mjs    # Card-Bitmaps (nicht CI-geprüft)
 ```
 
 Pflichtfelder pro Server: `data_source`, `data_source_de`, `data_source_url`.

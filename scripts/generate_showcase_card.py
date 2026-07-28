@@ -9,22 +9,16 @@ checks it, mirroring `scripts/generate_readme.py`.
 
     docs/showcase-card.tmpl.html   template with {{PLACEHOLDER}} slots (edit this)
     docs/showcase-card.html        generated (do not edit)
-    docs/showcase-card.png         rendered from the HTML, submitted to the form
+    docs/showcase-card.png         1200x630, submitted to the showcase form
+    docs/social-preview.png        1280x640, GitHub social preview
 
-The PNG is rendered with headless Chromium. It is a committed bitmap, so
-``--check`` can verify the HTML but *not* the image — re-render and re-commit
-the PNG whenever the counts change:
+The bitmaps are rendered from that HTML by ``scripts/render_showcase_images.mjs``
+in two sizes -- 1200x630 for the showcase form, 1280x640 for GitHub's social
+preview. They are committed, so ``--check`` verifies the HTML but *not* the
+images; re-render whenever the counts change:
 
-    node -e '
-      const {chromium} = require("playwright");
-      (async () => {
-        const b = await chromium.launch();
-        const p = await b.newPage({viewport: {width: 1200, height: 630}});
-        await p.goto("file://" + process.cwd() + "/docs/showcase-card.html",
-                     {waitUntil: "networkidle"});
-        await p.screenshot({path: "docs/showcase-card.png"});
-        await b.close();
-      })();'
+    python scripts/generate_showcase_card.py
+    node scripts/render_showcase_images.mjs
 
 Usage:
     python scripts/generate_showcase_card.py           # rewrite the HTML
@@ -133,12 +127,12 @@ def main() -> int:
         print(
             "ERROR: docs/showcase-card.html is out of sync with portfolio.json\n"
             "Run: python scripts/generate_showcase_card.py\n"
-            "Then re-render docs/showcase-card.png (see the module docstring).",
+            "Then: node scripts/render_showcase_images.mjs",
             file=sys.stderr,
         )
         return 1
     OUT.write_text(rendered, encoding="utf-8")
-    print("updated docs/showcase-card.html — remember to re-render the PNG")
+    print("updated docs/showcase-card.html — now run: node scripts/render_showcase_images.mjs")
     return 0
 
 

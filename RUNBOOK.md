@@ -185,6 +185,7 @@ python scripts/generate_server_json.py       # updates registry/*/server.json
 python scripts/generate_install_snippets.py  # updates docs/INSTALL.md
 python scripts/generate_promotion.py         # updates PROMOTION.md
 python scripts/generate_showcase_card.py     # updates docs/showcase-card.html
+node   scripts/render_showcase_images.mjs    # re-renders the card bitmaps
 git add -A; git commit -m "…"; git push
 ```
 
