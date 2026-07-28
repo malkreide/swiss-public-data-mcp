@@ -1,14 +1,15 @@
 {
   "schema_version": "1.0",
-  "last_checked": "2026-07-27",
+  "last_checked": "2026-07-28",
   "owner": "malkreide",
   "portfolio_repository": "https://github.com/malkreide/swiss-public-data-mcp",
   "required_github_topic": "swiss-public-data-mcp",
   "counts": {
-    "active_servers": 43,
-    "legacy_servers": 1,
+    "active_servers": 42,
+    "legacy_servers": 2,
+    "archived_servers": 2,
     "audit_tools": 2,
-    "production_ready_active_servers": 43,
+    "production_ready_active_servers": 42,
     "audited_mcp_server_repos": 44
   },
   "open_data_reference": {
@@ -145,7 +146,10 @@
       "anchor_query": "Earliest train Zurich -> Bern tomorrow at 8 am?",
       "description_de": "OJP 2.0 Journey Planning, SIRI-SX-Störungen, Auslastung, Tarife, Zugformation",
       "anchor_query_de": "Frühester Zug Zürich -> Bern morgen um 8 Uhr?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "Open Data Platform Mobility Switzerland",
+      "data_source_url": "https://opentransportdata.swiss/",
+      "data_source_de": "Open Data Platform Mobility Switzerland"
     },
     {
       "id": "swiss-road-mobility-mcp",
@@ -160,7 +164,10 @@
       "anchor_query": "Available e-bikes near Zurich HB right now?",
       "description_de": "GBFS Sharing-Mobilität, EV-Ladestationen, DATEX-II-Verkehr, Park & Rail",
       "anchor_query_de": "Freie E-Bikes nahe Zürich HB jetzt?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "Open Data Platform Mobility Switzerland / ASTRA",
+      "data_source_url": "https://opentransportdata.swiss/",
+      "data_source_de": "Open Data Platform Mobility Switzerland / ASTRA"
     },
     {
       "id": "sbb-opendata-mcp",
@@ -175,7 +182,10 @@
       "anchor_query": "Punctuality statistics for IC 1 line last month?",
       "description_de": "SBB Open Data via OpenDataSoft",
       "anchor_query_de": "Pünktlichkeitsstatistik für IC 1 im letzten Monat?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "SBB Open Data",
+      "data_source_url": "https://data.sbb.ch/",
+      "data_source_de": "SBB Open Data"
     },
     {
       "id": "swiss-energy-mcp",
@@ -190,7 +200,10 @@
       "anchor_query": "Which hydroelectric power plants are near Wädenswil?",
       "description_de": "Schweizer Energiedaten via BFE/SFOE und GeoAdmin REST APIs",
       "anchor_query_de": "Welche Wasserkraftwerke liegen nahe Wädenswil?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "BFE/SFOE via GeoAdmin API",
+      "data_source_url": "https://api3.geo.admin.ch/",
+      "data_source_de": "BFE via GeoAdmin-API"
     },
     {
       "id": "swiss-electricity-mcp",
@@ -205,7 +218,10 @@
       "anchor_query": "How did ewz electricity tariffs for category C3 develop since 2019?",
       "description_de": "BFE-Energiedashboard, ElCom-Tarife, öffentliche Verbrauchsdaten",
       "anchor_query_de": "Wie haben sich ewz-Stromtarife für Kategorie C3 seit 2019 entwickelt?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "BFE Energiedashboard / ElCom",
+      "data_source_url": "https://energiedashboard.admin.ch/",
+      "data_source_de": "BFE Energiedashboard / ElCom"
     },
     {
       "id": "swiss-environment-mcp",
@@ -220,7 +236,10 @@
       "anchor_query": "PM2.5 levels in Zurich over the last 7 days?",
       "description_de": "BAFU-Umweltdaten, NABEL-Luftqualität, Hydrologie",
       "anchor_query_de": "PM2.5-Werte in Zürich in den letzten 7 Tagen?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "BAFU / NABEL",
+      "data_source_url": "https://www.bafu.admin.ch/",
+      "data_source_de": "BAFU / NABEL"
     },
     {
       "id": "wsl-envidat-mcp",
@@ -235,7 +254,10 @@
       "anchor_query": "Datasets on Alpine permafrost from WSL?",
       "description_de": "WSL / EnviDat-Umweltforschungsdaten via CKAN",
       "anchor_query_de": "Datensätze zu alpinem Permafrost von WSL?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "WSL EnviDat",
+      "data_source_url": "https://www.envidat.ch/",
+      "data_source_de": "WSL EnviDat"
     },
     {
       "id": "meteoswiss-mcp",
@@ -250,7 +272,10 @@
       "anchor_query": "Was the Bise unusually strong in Zurich last winter?",
       "description_de": "MeteoSwiss Open Data für Wetter, Klimanormwerte, Warnungen",
       "anchor_query_de": "War die Bise in Zürich letzten Winter ungewöhnlich stark?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "MeteoSwiss Open Data",
+      "data_source_url": "https://opendatadocs.meteoswiss.ch/",
+      "data_source_de": "MeteoSchweiz Open Data"
     },
     {
       "id": "fedlex-mcp",
@@ -265,52 +290,10 @@
       "anchor_query": "What does Art. 62 BV say about public education?",
       "description_de": "Bundesrecht via Fedlex SPARQL Endpoint",
       "anchor_query_de": "Was sagt Art. 62 BV über öffentliche Bildung?",
-      "requires_credentials": false
-    },
-    {
-      "id": "termdat-mcp",
-      "display_name": "termdat-mcp",
-      "repository": "https://github.com/malkreide/termdat-mcp",
-      "category": "Semantics, Metadata & Interoperability",
-      "scope": "core",
-      "status": "production_ready",
-      "audit": "published",
-      "audit_evidence": "https://github.com/malkreide/termdat-mcp/tree/main/audits",
-      "description": "Official multilingual terminology of the Swiss Federal Administration (TERMDAT)",
-      "anchor_query": "What are the official French and Italian names of the education directorates of the German-speaking cantons?",
-      "description_de": "Amtliche mehrsprachige Terminologie der Bundesverwaltung (TERMDAT)",
-      "anchor_query_de": "Wie heissen die für Bildung zuständigen Direktionen der Deutschschweizer Kantone offiziell auf Französisch und Italienisch?",
-      "requires_credentials": false
-    },
-    {
-      "id": "i14y-mcp",
-      "display_name": "i14y-mcp",
-      "repository": "https://github.com/malkreide/i14y-mcp",
-      "category": "Semantics, Metadata & Interoperability",
-      "scope": "core",
-      "status": "production_ready",
-      "audit": "published",
-      "audit_evidence": "https://github.com/malkreide/i14y-mcp/tree/main/audits",
-      "description": "I14Y national interoperability platform and metadata catalogue (DCAT-AP)",
-      "anchor_query": "Which datasets does the I14Y catalogue list for Swiss education statistics?",
-      "description_de": "I14Y-Interoperabilitätsplattform, nationaler Metadatenkatalog der Schweiz (DCAT-AP)",
-      "anchor_query_de": "Welche Datensätze führt der I14Y-Katalog zur Schweizer Bildungsstatistik?",
-      "requires_credentials": false
-    },
-    {
-      "id": "lindas-mcp",
-      "display_name": "lindas-mcp",
-      "repository": "https://github.com/malkreide/lindas-mcp",
-      "category": "Semantics, Metadata & Interoperability",
-      "scope": "core",
-      "status": "production_ready",
-      "audit": "published",
-      "audit_evidence": "https://github.com/malkreide/lindas-mcp/tree/main/audits",
-      "description": "LINDAS linked-data knowledge graph: ~2,000 federal SPARQL data cubes with resolved labels",
-      "anchor_query": "Which statistical data cubes does LINDAS publish on Swiss forest area, and who is the publisher?",
-      "description_de": "LINDAS Linked-Data-Wissensgraph: ~2.000 föderale SPARQL-Datenwürfel mit aufgelösten Labels",
-      "anchor_query_de": "Welche statistischen Datenwürfel veröffentlicht LINDAS zur Schweizer Waldfläche, und wer ist Herausgeber?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "Fedlex",
+      "data_source_url": "https://www.fedlex.admin.ch/",
+      "data_source_de": "Fedlex"
     },
     {
       "id": "openlex-mcp",
@@ -325,7 +308,10 @@
       "anchor_query": "Which Zurich laws regulate school responsibilities?",
       "description_de": "Zürcher Gesetzessammlung via ZH-Lex mit Volltextsuche und Artikelextraktion",
       "anchor_query_de": "Welche Zürcher Gesetze regeln Schulzuständigkeiten?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "Zurich cantonal law (ZH-Lex)",
+      "data_source_url": "https://www.zh.ch/de/politik-staat/gesetze-beschluesse.html",
+      "data_source_de": "Zürcher Gesetzessammlung (ZH-Lex)"
     },
     {
       "id": "swiss-courts-mcp",
@@ -340,7 +326,10 @@
       "anchor_query": "Recent Federal Supreme Court cases on school transport?",
       "description_de": "Schweizer Gerichtsentscheide via entscheidsuche.ch, inklusive Bundes- und Kantonsgerichte",
       "anchor_query_de": "Neue Bundesgerichtsentscheide zu Schultransport?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "entscheidsuche.ch",
+      "data_source_url": "https://entscheidsuche.ch/",
+      "data_source_de": "entscheidsuche.ch"
     },
     {
       "id": "register-mcp",
@@ -355,7 +344,10 @@
       "anchor_query": "Active companies in Zurich Kreis 5 in the IT sector?",
       "description_de": "Zefix-Handelsregister und UID-Lookup",
       "anchor_query_de": "Aktive IT-Firmen in Zürich Kreis 5?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "Zefix commercial register",
+      "data_source_url": "https://www.zefix.admin.ch/",
+      "data_source_de": "Handelsregister (Zefix)"
     },
     {
       "id": "amtsblatt-mcp",
@@ -373,7 +365,10 @@
       "requires_credentials": false,
       "related": [
         "swiss-procurement-mcp"
-      ]
+      ],
+      "data_source": "amtsblattportal.ch (SHAB)",
+      "data_source_url": "https://www.amtsblattportal.ch/",
+      "data_source_de": "amtsblattportal.ch (SHAB)"
     },
     {
       "id": "swiss-procurement-mcp",
@@ -391,7 +386,10 @@
       "requires_credentials": false,
       "related": [
         "amtsblatt-mcp"
-      ]
+      ],
+      "data_source": "simap.ch",
+      "data_source_url": "https://www.simap.ch/",
+      "data_source_de": "simap.ch"
     },
     {
       "id": "swiss-ip-mcp",
@@ -420,7 +418,64 @@
           "isRequired": true,
           "isSecret": true
         }
-      ]
+      ],
+      "data_source": "IGE/IPI Swissreg",
+      "data_source_url": "https://www.swissreg.ch/",
+      "data_source_de": "IGE/IPI Swissreg"
+    },
+    {
+      "id": "termdat-mcp",
+      "display_name": "termdat-mcp",
+      "repository": "https://github.com/malkreide/termdat-mcp",
+      "category": "Semantics, Metadata & Interoperability",
+      "scope": "core",
+      "status": "production_ready",
+      "audit": "published",
+      "audit_evidence": "https://github.com/malkreide/termdat-mcp/tree/main/audits",
+      "description": "Official multilingual terminology of the Swiss Federal Administration (TERMDAT)",
+      "anchor_query": "What are the official French and Italian names of the education directorates of the German-speaking cantons?",
+      "description_de": "Amtliche mehrsprachige Terminologie der Bundesverwaltung (TERMDAT)",
+      "anchor_query_de": "Wie heissen die für Bildung zuständigen Direktionen der Deutschschweizer Kantone offiziell auf Französisch und Italienisch?",
+      "requires_credentials": false,
+      "data_source": "TERMDAT",
+      "data_source_url": "https://www.termdat.bk.admin.ch/",
+      "data_source_de": "TERMDAT"
+    },
+    {
+      "id": "i14y-mcp",
+      "display_name": "i14y-mcp",
+      "repository": "https://github.com/malkreide/i14y-mcp",
+      "category": "Semantics, Metadata & Interoperability",
+      "scope": "core",
+      "status": "production_ready",
+      "audit": "published",
+      "audit_evidence": "https://github.com/malkreide/i14y-mcp/tree/main/audits",
+      "description": "I14Y national interoperability platform and metadata catalogue (DCAT-AP)",
+      "anchor_query": "Which datasets does the I14Y catalogue list for Swiss education statistics?",
+      "description_de": "I14Y-Interoperabilitätsplattform, nationaler Metadatenkatalog der Schweiz (DCAT-AP)",
+      "anchor_query_de": "Welche Datensätze führt der I14Y-Katalog zur Schweizer Bildungsstatistik?",
+      "requires_credentials": false,
+      "data_source": "I14Y Interoperability Platform",
+      "data_source_url": "https://www.i14y.admin.ch/",
+      "data_source_de": "I14Y-Interoperabilitätsplattform"
+    },
+    {
+      "id": "lindas-mcp",
+      "display_name": "lindas-mcp",
+      "repository": "https://github.com/malkreide/lindas-mcp",
+      "category": "Semantics, Metadata & Interoperability",
+      "scope": "core",
+      "status": "production_ready",
+      "audit": "published",
+      "audit_evidence": "https://github.com/malkreide/lindas-mcp/tree/main/audits",
+      "description": "LINDAS linked-data knowledge graph: ~2,000 federal SPARQL data cubes with resolved labels",
+      "anchor_query": "Which statistical data cubes does LINDAS publish on Swiss forest area, and who is the publisher?",
+      "description_de": "LINDAS Linked-Data-Wissensgraph: ~2.000 föderale SPARQL-Datenwürfel mit aufgelösten Labels",
+      "anchor_query_de": "Welche statistischen Datenwürfel veröffentlicht LINDAS zur Schweizer Waldfläche, und wer ist Herausgeber?",
+      "requires_credentials": false,
+      "data_source": "LINDAS Linked Data Service",
+      "data_source_url": "https://lindas.admin.ch/",
+      "data_source_de": "LINDAS Linked Data Service"
     },
     {
       "id": "swiss-statistics-mcp",
@@ -435,7 +490,10 @@
       "anchor_query": "Population of Swiss municipalities by canton, 2023?",
       "description_de": "BFS STAT-TAB PxWeb API für amtliche Schweizer Statistik",
       "anchor_query_de": "Bevölkerung der Schweizer Gemeinden nach Kanton, 2023?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "BFS STAT-TAB (PxWeb)",
+      "data_source_url": "https://www.pxweb.bfs.admin.ch/",
+      "data_source_de": "BFS STAT-TAB (PxWeb)"
     },
     {
       "id": "zurich-opendata-mcp",
@@ -450,7 +508,10 @@
       "anchor_query": "Which school buildings in Zurich do not yet have fibre?",
       "description_de": "Stadt Zürich: Wetter, Luftqualität, Parkierung, Geodaten, Gemeinderat, Tourismus",
       "anchor_query_de": "Welche Schulgebäude in Zürich haben noch keine Glasfaser?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "Open Data Zurich",
+      "data_source_url": "https://data.stadt-zuerich.ch/",
+      "data_source_de": "Open Data Zürich"
     },
     {
       "id": "swisstopo-mcp",
@@ -466,27 +527,9 @@
       "description_de": "Bundesgeodaten: Geocoding, Höhe, STAC, WMTS, ÖREB und mehr",
       "anchor_query_de": "Wie sieht das Höhenprofil zwischen Zürich HB und Uetliberg aus?",
       "requires_credentials": false,
-      "related": [
-        "swiss-geodata-mcp"
-      ]
-    },
-    {
-      "id": "swiss-geodata-mcp",
-      "display_name": "swiss-geodata-mcp",
-      "repository": "https://github.com/malkreide/swiss-geodata-mcp",
-      "category": "Statistics & Geodata",
-      "scope": "core",
-      "status": "production_ready",
-      "audit": "published",
-      "audit_evidence": "https://github.com/malkreide/swiss-geodata-mcp/tree/main/audits",
-      "description": "geo.admin.ch federal geodata: ~700 layers, building zones, heights, LV95 coordinate conversion",
-      "anchor_query": "In which building zone lies Seilergraben 76 in Zurich, and how high above sea level is it?",
-      "description_de": "geo.admin.ch Bundesgeodaten: ~700 Layer, Bauzonen, Höhen, LV95-Koordinatenkonversion",
-      "anchor_query_de": "In welcher Bauzone liegt der Seilergraben 76 in Zürich, und wie hoch über Meer liegt er?",
-      "requires_credentials": false,
-      "related": [
-        "swisstopo-mcp"
-      ]
+      "data_source": "swisstopo / geo.admin.ch",
+      "data_source_url": "https://www.swisstopo.admin.ch/",
+      "data_source_de": "swisstopo / geo.admin.ch"
     },
     {
       "id": "swiss-housing-mcp",
@@ -501,7 +544,10 @@
       "anchor_query": "How many dwellings with 4+ rooms were newly built in the City of Zurich since 2020?",
       "description_de": "GWR/RegBL eidgenössisches Gebäude- und Wohnungsregister: Gebäude, Wohnungen und Bau-Pipeline",
       "anchor_query_de": "Wie viele Wohnungen mit 4+ Zimmern wurden in der Stadt Zürich seit 2020 neu gebaut?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "GWR/RegBL federal register",
+      "data_source_url": "https://www.housing-stat.ch/",
+      "data_source_de": "Eidg. Gebäude- und Wohnungsregister (GWR)"
     },
     {
       "id": "global-education-mcp",
@@ -516,7 +562,10 @@
       "anchor_query": "Upper secondary attainment rates in CH vs. OECD average?",
       "description_de": "UNESCO UIS und OECD Education at a Glance",
       "anchor_query_de": "Sek-II-Abschlussquoten CH vs. OECD-Durchschnitt?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "UNESCO UIS / OECD",
+      "data_source_url": "https://uis.unesco.org/",
+      "data_source_de": "UNESCO UIS / OECD"
     },
     {
       "id": "zh-education-mcp",
@@ -531,7 +580,10 @@
       "anchor_query": "How are pupil numbers distributed across Zurich's seven Schulkreise?",
       "description_de": "Bildungsdaten von Kanton und Stadt Zürich: Schulen, Statistik, Infrastruktur",
       "anchor_query_de": "Wie verteilen sich Schülerzahlen auf die sieben Zürcher Schulkreise?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "Canton Zurich education statistics",
+      "data_source_url": "https://www.zh.ch/de/bildung.html",
+      "data_source_de": "Bildungsstatistik Kanton Zürich"
     },
     {
       "id": "swiss-academic-libraries-mcp",
@@ -546,7 +598,10 @@
       "anchor_query": "Digitised 18th-century Swiss maps in e-rara?",
       "description_de": "swisscovery, e-rara, e-periodica, e-manuscripta via SRU/OAI-PMH",
       "anchor_query_de": "Digitalisierte Schweizer Karten des 18. Jahrhunderts in e-rara?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "swisscovery (SLSP)",
+      "data_source_url": "https://swisscovery.slsp.ch/",
+      "data_source_de": "swisscovery (SLSP)"
     },
     {
       "id": "eth-library-mcp",
@@ -561,7 +616,10 @@
       "anchor_query": "ETH publications on urban heat islands since 2020?",
       "description_de": "ETH Library Discovery und Persons APIs",
       "anchor_query_de": "ETH-Publikationen zu urbanen Hitzeinseln seit 2020?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "ETH Library",
+      "data_source_url": "https://library.ethz.ch/",
+      "data_source_de": "ETH-Bibliothek"
     },
     {
       "id": "swiss-holidays-mcp",
@@ -576,7 +634,10 @@
       "anchor_query": "When are the 2025 autumn school holidays in Canton Zurich?",
       "description_de": "openholidaysapi.org: Schul- und öffentliche Feiertage für alle 26 Kantone",
       "anchor_query_de": "Wann sind die Herbstferien 2025 im Kanton Zürich?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "OpenHolidays API",
+      "data_source_url": "https://www.openholidaysapi.org/",
+      "data_source_de": "OpenHolidays API"
     },
     {
       "id": "swiss-snb-mcp",
@@ -591,7 +652,10 @@
       "anchor_query": "EUR/CHF trend since 2015 and current SNB policy rate?",
       "description_de": "SNB-Datenportal: Wechselkurse, Bilanz, Leitzins, SARON, Geldmengen",
       "anchor_query_de": "EUR/CHF seit 2015 und aktueller SNB-Leitzins?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "SNB data portal",
+      "data_source_url": "https://data.snb.ch/",
+      "data_source_de": "SNB-Datenportal"
     },
     {
       "id": "swiss-efv-mcp",
@@ -606,7 +670,10 @@
       "anchor_query": "How has the federal balance developed since the SNB rate turnaround in 2022, and which task areas absorbed the spending growth?",
       "description_de": "Schweizer Bundesfinanzen (EFV): Haushalt, Schulden, Prognosen sowie Ausgaben nach Aufgabengebiet und Institution",
       "anchor_query_de": "Wie hat sich der Bundessaldo seit der SNB-Zinswende 2022 entwickelt, und in welche Aufgabengebiete floss das Ausgabenwachstum?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "Federal Finance Administration (EFV)",
+      "data_source_url": "https://www.efv.admin.ch/",
+      "data_source_de": "Eidg. Finanzverwaltung (EFV)"
     },
     {
       "id": "seco-labor-mcp",
@@ -621,7 +688,10 @@
       "anchor_query": "Unemployment rate in Canton Zurich vs. Swiss average over the last 12 months?",
       "description_de": "SECO-Arbeitsmarkt: Arbeitslosigkeit, offene Stellen, Erwerbsindikatoren",
       "anchor_query_de": "Arbeitslosenquote Kanton Zürich vs. Schweiz in den letzten 12 Monaten?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "SECO / AMSTAT",
+      "data_source_url": "https://www.amstat.ch/",
+      "data_source_de": "SECO / AMSTAT"
     },
     {
       "id": "swiss-culture-mcp",
@@ -636,7 +706,10 @@
       "anchor_query": "UNESCO-listed living traditions in Canton Zurich?",
       "description_de": "BAK-Kulturerbe, ISOS, lebendige Traditionen, RSS",
       "anchor_query_de": "UNESCO-gelistete lebendige Traditionen im Kanton Zürich?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "Federal Office of Culture (BAK)",
+      "data_source_url": "https://www.bak.admin.ch/",
+      "data_source_de": "Bundesamt für Kultur (BAK)"
     },
     {
       "id": "swiss-cultural-heritage-mcp",
@@ -651,7 +724,10 @@
       "anchor_query": "Listed Baudenkmäler in Zurich Kreis 6?",
       "description_de": "Kulturerbe-Inventare, Denkmallisten, archäologische Register",
       "anchor_query_de": "Geschützte Baudenkmäler in Zürich Kreis 6?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "SIK-ISEA / Swiss National Museum",
+      "data_source_url": "https://www.sik-isea.ch/",
+      "data_source_de": "SIK-ISEA / Schweizerisches Nationalmuseum"
     },
     {
       "id": "bakom-mcp",
@@ -666,7 +742,10 @@
       "anchor_query": "Which municipalities still lack 100 Mbit/s broadband?",
       "description_de": "BAKOM Open Data zu Telekommunikation und Medien",
       "anchor_query_de": "Welche Gemeinden haben noch keine 100 Mbit/s Breitbandabdeckung?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "BAKOM/OFCOM",
+      "data_source_url": "https://www.bakom.admin.ch/",
+      "data_source_de": "BAKOM"
     },
     {
       "id": "srgssr-mcp",
@@ -681,7 +760,10 @@
       "anchor_query": "Latest SRF news segments on education policy?",
       "description_de": "SRG SSR: Wetter, Video, Audio, EPG, Polis",
       "anchor_query_de": "Neuste SRF-Beiträge zur Bildungspolitik?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "SRG SSR Developer Portal",
+      "data_source_url": "https://developer.srgssr.ch/",
+      "data_source_de": "SRG-SSR-Developer-Portal"
     },
     {
       "id": "news-monitor-mcp",
@@ -696,7 +778,10 @@
       "anchor_query": "Top three education-policy stories in Swiss media this week?",
       "description_de": "Aggregiertes News-Monitoring über Schweizer Public-Media-RSS",
       "anchor_query_de": "Top drei bildungspolitische Schweizer Medienstories diese Woche?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "Public-media RSS feeds",
+      "data_source_url": "https://www.srf.ch/",
+      "data_source_de": "RSS-Feeds öffentlicher Medien"
     },
     {
       "id": "bag-health-mcp",
@@ -711,7 +796,10 @@
       "anchor_query": "Vaccination coverage by canton for the last reporting period?",
       "description_de": "BAG Public-Health Open Data: Indikatoren, Programme, Statistik",
       "anchor_query_de": "Impfquote nach Kanton für die letzte Berichtsperiode?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "Federal Office of Public Health (BAG)",
+      "data_source_url": "https://www.bag.admin.ch/",
+      "data_source_de": "Bundesamt für Gesundheit (BAG)"
     },
     {
       "id": "bag-epl-mcp",
@@ -726,7 +814,10 @@
       "anchor_query": "Which medications were added to the Spezialitätenliste in the last six months?",
       "description_de": "BAG EPL: Spezialitätenliste, Medikamente, Vergütungsdaten",
       "anchor_query_de": "Welche Medikamente kamen in den letzten sechs Monaten auf die Spezialitätenliste?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "Spezialitätenliste (BAG)",
+      "data_source_url": "https://www.spezialitaetenliste.ch/",
+      "data_source_de": "Spezialitätenliste (BAG)"
     },
     {
       "id": "swiss-food-safety-mcp",
@@ -741,7 +832,10 @@
       "anchor_query": "Recent food recall notices in Switzerland?",
       "description_de": "BLV Open Data zu Lebensmittelsicherheit und Veterinärkontrollen",
       "anchor_query_de": "Aktuelle Lebensmittelrückrufe in der Schweiz?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "Food Safety and Veterinary Office (BLV)",
+      "data_source_url": "https://www.blv.admin.ch/",
+      "data_source_de": "Bundesamt für Lebensmittelsicherheit (BLV)"
     },
     {
       "id": "swiss-democracy-mcp",
@@ -756,7 +850,10 @@
       "anchor_query": "Which pending parliamentary motions concern AI in education?",
       "description_de": "Parlaments-OData, Swissvotes, Referenden, Abstimmungsresultate",
       "anchor_query_de": "Welche hängigen parlamentarischen Vorstösse betreffen KI in der Bildung?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "Swissvotes",
+      "data_source_url": "https://swissvotes.ch/",
+      "data_source_de": "Swissvotes"
     },
     {
       "id": "parlament-mcp",
@@ -771,7 +868,10 @@
       "anchor_query": "Welche Vorstösse zu KI in der Schule sind hängig?",
       "description_de": "Curia-Vista-OData-API des Schweizer Parlaments",
       "anchor_query_de": "Welche Vorstösse zu KI in der Schule sind hängig?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "Swiss Parliament (Curia Vista)",
+      "data_source_url": "https://www.parlament.ch/",
+      "data_source_de": "Schweizer Parlament (Curia Vista)"
     },
     {
       "id": "lobbywatch-mcp",
@@ -786,7 +886,10 @@
       "anchor_query": "Which education-commission members have ties to private education providers?",
       "description_de": "Lobbywatch.ch-Transparenzdaten zu Parlamentsmitgliedern, Interessenbindungen, Zutrittsbadges",
       "anchor_query_de": "Welche WBK-Mitglieder haben Bezüge zu privaten Bildungsanbietern?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "Lobbywatch.ch",
+      "data_source_url": "https://lobbywatch.ch/",
+      "data_source_de": "Lobbywatch.ch"
     },
     {
       "id": "hn-tech-signal-mcp",
@@ -801,7 +904,34 @@
       "anchor_query": "What are this week's most-discussed AI-infrastructure topics?",
       "description_de": "Hacker-News-Signalextraktion für Technologie-Trendmonitoring",
       "anchor_query_de": "Welche AI-Infrastrukturthemen werden diese Woche am meisten diskutiert?",
-      "requires_credentials": false
+      "requires_credentials": false,
+      "data_source": "Hacker News API",
+      "data_source_url": "https://news.ycombinator.com/",
+      "data_source_de": "Hacker News API"
+    },
+    {
+      "id": "swiss-geodata-mcp",
+      "display_name": "swiss-geodata-mcp",
+      "repository": "https://github.com/malkreide/swiss-geodata-mcp",
+      "category": "Legacy / Superseded",
+      "scope": "legacy",
+      "status": "archived",
+      "audit": "published",
+      "audit_evidence": "https://github.com/malkreide/swiss-geodata-mcp/tree/main/audits",
+      "description": "geo.admin.ch federal geodata: ~700 layers, building zones, heights, LV95 coordinate conversion",
+      "anchor_query": "In which building zone lies Seilergraben 76 in Zurich, and how high above sea level is it?",
+      "description_de": "geo.admin.ch Bundesgeodaten: ~700 Layer, Bauzonen, Höhen, LV95-Koordinatenkonversion",
+      "anchor_query_de": "In welcher Bauzone liegt der Seilergraben 76 in Zürich, und wie hoch über Meer liegt er?",
+      "requires_credentials": false,
+      "data_source": "geo.admin.ch",
+      "data_source_url": "https://www.geo.admin.ch/",
+      "archived": true,
+      "superseded_by": "swisstopo-mcp",
+      "legacy_treatment": "Archived on GitHub (read-only) / superseded",
+      "legacy_treatment_de": "Auf GitHub archiviert (read-only) / abgelöst",
+      "legacy_reason": "Federal geodata coverage was consolidated into `swisstopo-mcp`, which serves the same geo.admin.ch/swisstopo APIs. The repository stays public and audited for reference; use `swisstopo-mcp` for new integrations.",
+      "legacy_reason_de": "Die Abdeckung der Bundesgeodaten wurde in `swisstopo-mcp` konsolidiert, das dieselben geo.admin.ch/swisstopo-APIs bedient. Das Repository bleibt zur Nachvollziehbarkeit öffentlich und auditiert; für neue Integrationen `swisstopo-mcp` verwenden.",
+      "data_source_de": "geo.admin.ch"
     },
     {
       "id": "MCP-Server-for-patent-research-",
@@ -814,10 +944,25 @@
       "audit_evidence": null,
       "description": "Older audited broad patent research server. Keep discoverable, but prefer swiss-ip-mcp for the current portfolio unless renamed and aligned with current portfolio conventions.",
       "anchor_query": null,
-      "legacy_treatment": "Production-ready legacy / migration candidate",
-      "legacy_treatment_de": "Production-ready Legacy / Migrationskandidat",
+      "legacy_treatment": "Archived on GitHub (read-only) / migration candidate",
+      "legacy_treatment_de": "Auf GitHub archiviert (read-only) / Migrationskandidat",
       "legacy_reason": "Older audited patent research server with broad EPO/Swissreg scope and naming inconsistencies. Keep discoverable, but prefer `swiss-ip-mcp` for the current portfolio unless the old repo is renamed and aligned with the current portfolio conventions.",
-      "legacy_reason_de": "Älterer auditierter Patentrecherche-Server mit breitem EPO/Swissreg-Scope und Namensinkonsistenzen. Auffindbar lassen, aber für das aktuelle Portfolio `swiss-ip-mcp` bevorzugen, solange der alte Repo nicht umbenannt und an die aktuellen Portfolio-Konventionen angepasst ist."
+      "legacy_reason_de": "Älterer auditierter Patentrecherche-Server mit breitem EPO/Swissreg-Scope und Namensinkonsistenzen. Auffindbar lassen, aber für das aktuelle Portfolio `swiss-ip-mcp` bevorzugen, solange der alte Repo nicht umbenannt und an die aktuellen Portfolio-Konventionen angepasst ist.",
+      "data_source": "EPO OPS / Espacenet",
+      "data_source_url": "https://www.epo.org/",
+      "archived": true,
+      "superseded_by": "swiss-ip-mcp",
+      "data_source_de": "EPO OPS / Espacenet"
     }
-  ]
+  ],
+  "spotlight": {
+    "id": "zurich",
+    "label": "Zurich focus",
+    "label_de": "Zürich-Fokus",
+    "servers": [
+      "zurich-opendata-mcp",
+      "zh-education-mcp",
+      "openlex-mcp"
+    ]
+  }
 }

@@ -4,6 +4,7 @@
 `portfolio.json` is the single source of truth for the server inventory. This
 script regenerates the two drift-prone, data-driven regions in both READMEs:
 
+  * the **Zurich spotlight** table,
   * the **Server Portfolio** tables, and
   * the **Repository Map** tree.
 
@@ -39,15 +40,19 @@ LANGS = {
         "legend": (
             "**Status legend:** ✅ Production ready and audited at least once · "
             "🔐 Requires API credentials · 🧭 Adjacent/context source · "
-            "🗄️ Legacy or superseded"
+            "🗄️ Legacy, archived on GitHub, or superseded"
         ),
-        "table_header": "| Server | Description | Anchor query | Status | Audit |",
-        "legacy_header": "| Server | Current treatment | Reason |",
+        "table_header": "| Server | Data source | Description | Anchor query | Status | Audit |",
+        "legacy_header": "| Server | Data source | Current treatment | Reason |",
+        "spotlight_header": "| Server | Official data portal | What it covers |",
+        "archived_note": "🗄️ archived on GitHub (read-only)",
+        "superseded_prefix": "Superseded by ",
         "legacy_treatment_key": "legacy_treatment",
         "legacy_reason_key": "legacy_reason",
         "map_index": "← this index",
         "map_audit": "← audit tooling, not a server",
         "related_prefix": " · ↔ related: ",
+        "source_key": "data_source",
     },
     "de": {
         "readme": ROOT / "README.de.md",
@@ -57,20 +62,25 @@ LANGS = {
         "legend": (
             "**Status-Legende:** ✅ Production ready und mindestens einmal auditiert · "
             "🔐 API-Credentials nötig · 🧭 angrenzende Kontextquelle · "
-            "🗄️ Legacy oder abgelöst"
+            "🗄️ Legacy, auf GitHub archiviert oder abgelöst"
         ),
-        "table_header": "| Server | Beschreibung | Anchor Query | Status | Audit |",
-        "legacy_header": "| Server | Behandlung | Grund |",
+        "table_header": "| Server | Datenquelle | Beschreibung | Anchor Query | Status | Audit |",
+        "legacy_header": "| Server | Datenquelle | Behandlung | Grund |",
+        "spotlight_header": "| Server | Offizielles Datenportal | Abdeckung |",
+        "archived_note": "🗄️ auf GitHub archiviert (read-only)",
+        "superseded_prefix": "Abgelöst durch ",
         "legacy_treatment_key": "legacy_treatment_de",
         "legacy_reason_key": "legacy_reason_de",
         "map_index": "← dieser Index",
         "map_audit": "← Audit-Tooling, kein Server",
         "related_prefix": " · ↔ verwandt: ",
+        "source_key": "data_source_de",
     },
 }
 
-TABLE_SEP = "|---|---|---|---|---|"
-LEGACY_SEP = "|---|---|---|"
+TABLE_SEP = "|---|---|---|---|---|---|"
+LEGACY_SEP = "|---|---|---|---|"
+SPOTLIGHT_SEP = "|---|---|---|"
 LEGACY_LABEL = "Legacy / Superseded"  # canonical category id used in server records
 
 
@@ -98,6 +108,12 @@ def status_icons(server: dict) -> str:
     return icons
 
 
+def source_link(server: dict, lang: dict) -> str:
+    """Linked name of the official portal/API the server reads from."""
+    name = server.get(lang["source_key"]) or server["data_source"]
+    return f"[{name}]({server['data_source_url']})"
+
+
 def servers_in(data: dict, category_label: str) -> list[dict]:
     return [s for s in data["servers"] if s["category"] == category_label]
 
@@ -113,10 +129,19 @@ def build_server_portfolio(data: dict, lang: dict) -> str:
             out.append(lang["legacy_header"])
             out.append(LEGACY_SEP)
             for s in servers_in(data, cat["label"]):
+                treatment = s[lang["legacy_treatment_key"]]
+                reason = s[lang["legacy_reason_key"]]
+                successor = s.get("superseded_by")
+                if successor:
+                    reason = (
+                        f"{reason} {lang['superseded_prefix']}"
+                        f"[`{successor}`]({repo_by_id.get(successor, '#')})."
+                    )
                 out.append(
                     f"| [{s['display_name']}]({s['repository']}) "
-                    f"| {s[lang['legacy_treatment_key']]} "
-                    f"| {s[lang['legacy_reason_key']]} |"
+                    f"| {source_link(s, lang)} "
+                    f"| {treatment} "
+                    f"| {reason} |"
                 )
         else:
             out.append(lang["table_header"])
@@ -131,6 +156,7 @@ def build_server_portfolio(data: dict, lang: dict) -> str:
                     desc = f"{desc}{lang['related_prefix']}{links}"
                 out.append(
                     f"| [{s['display_name']}]({s['repository']}) "
+                    f"| {source_link(s, lang)} "
                     f"| {desc} "
                     f"| *\"{s[lang['query_key']]}\"* "
                     f"| {status_icons(s)} "
@@ -138,6 +164,21 @@ def build_server_portfolio(data: dict, lang: dict) -> str:
                 )
         out.append("")
     return "\n".join(out).rstrip("\n")
+
+
+def build_spotlight(data: dict, lang: dict) -> str:
+    """Small featured table so the Zurich servers are visible above the fold."""
+    spotlight = data["spotlight"]
+    by_id = {s["id"]: s for s in data["servers"]}
+    out = [lang["spotlight_header"], SPOTLIGHT_SEP]
+    for sid in spotlight["servers"]:
+        s = by_id[sid]
+        out.append(
+            f"| [{s['display_name']}]({s['repository']}) "
+            f"| {source_link(s, lang)} "
+            f"| {s[lang['desc_key']]} |"
+        )
+    return "\n".join(out)
 
 
 def build_repository_map(data: dict, lang: dict) -> str:
@@ -152,10 +193,14 @@ def build_repository_map(data: dict, lang: dict) -> str:
         child_prefix = "    " if last_cat else "│   "
         lines.append("│")
         lines.append(f"{branch} {cat[lang['label_key']]}")
-        repos = [repo_basename(s["repository"]) for s in servers_in(data, cat["label"])]
-        for j, repo in enumerate(repos):
-            connector = "└──" if j == len(repos) - 1 else "├──"
-            lines.append(f"{child_prefix}{connector} {repo}")
+        entries = [
+            (repo_basename(s["repository"]), bool(s.get("archived")))
+            for s in servers_in(data, cat["label"])
+        ]
+        for j, (repo, archived) in enumerate(entries):
+            connector = "└──" if j == len(entries) - 1 else "├──"
+            suffix = f"{'':<{max(1, 38 - len(repo))}}← {lang['archived_note']}" if archived else ""
+            lines.append(f"{child_prefix}{connector} {repo}{suffix}")
     lines.append("```")
     return "\n".join(lines)
 
@@ -186,15 +231,33 @@ def validate_counts(data: dict) -> None:
         problems.append(
             f"audited_mcp_server_repos {c['audited_mcp_server_repos']} != {len(active) + len(legacy)}"
         )
+    archived = [s for s in data["servers"] if s.get("archived")]
+    if c["archived_servers"] != len(archived):
+        problems.append(f"archived_servers {c['archived_servers']} != {len(archived)}")
     for s in active:
         if s["status"] != "production_ready" or s["audit"] != "published":
             problems.append(f"{s['id']} is not production_ready/published")
+        if s.get("archived"):
+            # An archived GitHub repo is read-only and cannot be an active entry.
+            problems.append(f"{s['id']} is archived but still listed as an active server")
+    for s in data["servers"]:
+        if not s.get("data_source") or not s.get("data_source_de") or not s.get("data_source_url"):
+            problems.append(f"{s['id']} is missing data_source/data_source_de/data_source_url")
+    known = {s["id"] for s in data["servers"]}
+    for s in data["servers"]:
+        for ref in list(s.get("related") or []) + ([s["superseded_by"]] if s.get("superseded_by") else []):
+            if ref not in known:
+                problems.append(f"{s['id']} references unknown server '{ref}'")
+    for sid in data["spotlight"]["servers"]:
+        if sid not in known:
+            problems.append(f"spotlight references unknown server '{sid}'")
     if problems:
         raise SystemExit("ERROR: portfolio.json count validation failed:\n  " + "\n  ".join(problems))
 
 
 def render(data: dict, lang: dict) -> str:
     text = lang["readme"].read_text(encoding="utf-8")
+    text = replace_region(text, "zurich-spotlight", build_spotlight(data, lang))
     text = replace_region(text, "server-portfolio", build_server_portfolio(data, lang))
     text = replace_region(text, "repository-map", build_repository_map(data, lang))
     return text

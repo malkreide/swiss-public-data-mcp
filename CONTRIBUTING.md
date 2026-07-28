@@ -75,6 +75,9 @@ Instead:
      "anchor_query": "A representative English example question?",
      "description_de": "Deutsche Einzeiler-Beschreibung",
      "anchor_query_de": "Eine repräsentative deutsche Beispielfrage?",
+     "data_source": "Official portal or API name (English)",
+     "data_source_de": "Name des Portals bzw. der API (Deutsch)",
+     "data_source_url": "https://official-portal.example.ch/",
      "requires_credentials": false
    }
    ```
@@ -84,26 +87,38 @@ Instead:
      renders 🧭; status/audit icons are derived automatically.
    - The audit-link label (`audits/`, `audit/`, `docs/audit/`) and the `main` vs
      `master` branch are derived from `audit_evidence` — use the real URL.
+   - `data_source*` is mandatory: every row must link the official portal or API
+     the server reads from. The generator refuses to build without it.
+   - When a repository is archived on GitHub, set `"archived": true`, move it to
+     the `Legacy / Superseded` category with `scope: "legacy"` and point
+     `superseded_by` at its successor. The generator fails if an archived
+     repository is still listed as an active server.
 
-2. Regenerate the READMEs:
+2. Regenerate every derived file:
 
    ```bash
-   python scripts/generate_readme.py
+   python scripts/generate_readme.py            # README.md / README.de.md
+   python scripts/generate_server_json.py       # registry/*/server.json
+   python scripts/generate_install_snippets.py  # docs/INSTALL.md
+   python scripts/generate_promotion.py         # PROMOTION.md
    ```
 
 3. Verify they are in sync (this is what CI runs):
 
    ```bash
-   python scripts/generate_readme.py --check
+   for s in readme server_json install_snippets promotion; do
+     python scripts/generate_$s.py --check || break
+   done
    ```
 
-The [`readme-sync`](.github/workflows/readme-sync.yml) workflow runs `--check`
-on every pull request and **fails if the READMEs drift** from `portfolio.json`.
+The [`readme-sync`](.github/workflows/readme-sync.yml) workflow runs every
+`--check` on each pull request and **fails if any generated file drifts** from
+`portfolio.json`.
 
 ## Pull requests
 
 - Keep PRs focused; describe the *why*, not just the *what*.
-- Run `python scripts/generate_readme.py --check` before pushing.
+- Run all four `--check` generators before pushing (see above).
 - Update **both** `README.md` and `README.de.md` for any prose change so the
   bilingual versions stay aligned.
 - By contributing, you agree your contribution is licensed under the project's
@@ -131,18 +146,26 @@ veröffentlichter Audit-Evidence, GitHub-Topic
 [`swiss-public-data-mcp`](https://github.com/topics/swiss-public-data-mcp) sowie
 zweisprachige READMEs.
 
-**Inventar bearbeiten:** `portfolio.json` ist die Quelle der Wahrheit. Die
-Server-Portfolio-Tabellen und die Repository-Map werden daraus generiert —
-**nichts** zwischen den `<!-- BEGIN/END GENERATED -->`-Markern von Hand
-bearbeiten. Stattdessen `portfolio.json` ändern, dann:
+**Inventar bearbeiten:** `portfolio.json` ist die Quelle der Wahrheit. Zürich-
+Spotlight, Server-Portfolio-Tabellen, Repository-Map, Registry-Drafts,
+Install-Snippets und `PROMOTION.md` werden daraus generiert — **nichts**
+zwischen den `<!-- BEGIN/END GENERATED -->`-Markern von Hand bearbeiten.
+Stattdessen `portfolio.json` ändern, dann:
 
 ```bash
-python scripts/generate_readme.py          # READMEs neu generieren
-python scripts/generate_readme.py --check   # Synchronität prüfen (wie in CI)
+python scripts/generate_readme.py            # READMEs
+python scripts/generate_server_json.py       # registry/*/server.json
+python scripts/generate_install_snippets.py  # docs/INSTALL.md
+python scripts/generate_promotion.py         # PROMOTION.md
 ```
 
+Pflichtfelder pro Server: `data_source`, `data_source_de`, `data_source_url`.
+Ist ein Repository auf GitHub archiviert, `"archived": true` setzen, es nach
+`Legacy / Superseded` verschieben (`scope: "legacy"`) und `superseded_by` auf
+den Nachfolger zeigen lassen.
+
 Der CI-Workflow [`readme-sync`](.github/workflows/readme-sync.yml) lässt PRs
-**fehlschlagen**, wenn die READMEs vom Inventar abweichen.
+**fehlschlagen**, wenn eine generierte Datei vom Inventar abweicht.
 
 **Pull Requests:** fokussiert halten, das *Warum* beschreiben, vor dem Push
 `--check` laufen lassen, Prosa immer in `README.md` **und** `README.de.md`
