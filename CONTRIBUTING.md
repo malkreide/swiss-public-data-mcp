@@ -101,12 +101,13 @@ Instead:
    python scripts/generate_server_json.py       # registry/*/server.json
    python scripts/generate_install_snippets.py  # docs/INSTALL.md
    python scripts/generate_promotion.py         # PROMOTION.md
+   python scripts/generate_showcase_card.py     # docs/showcase-card.html
    ```
 
 3. Verify they are in sync (this is what CI runs):
 
    ```bash
-   for s in readme server_json install_snippets promotion; do
+   for s in readme server_json install_snippets promotion showcase_card; do
      python scripts/generate_$s.py --check || break
    done
    ```
@@ -118,7 +119,7 @@ The [`readme-sync`](.github/workflows/readme-sync.yml) workflow runs every
 ## Pull requests
 
 - Keep PRs focused; describe the *why*, not just the *what*.
-- Run all four `--check` generators before pushing (see above).
+- Run every `--check` generator before pushing (see above).
 - Update **both** `README.md` and `README.de.md` for any prose change so the
   bilingual versions stay aligned.
 - By contributing, you agree your contribution is licensed under the project's
@@ -157,6 +158,7 @@ python scripts/generate_readme.py            # READMEs
 python scripts/generate_server_json.py       # registry/*/server.json
 python scripts/generate_install_snippets.py  # docs/INSTALL.md
 python scripts/generate_promotion.py         # PROMOTION.md
+python scripts/generate_showcase_card.py     # docs/showcase-card.html
 ```
 
 Pflichtfelder pro Server: `data_source`, `data_source_de`, `data_source_url`.

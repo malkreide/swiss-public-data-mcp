@@ -16,7 +16,7 @@ paste; nothing here is submitted automatically.
 |---|---|
 | **Title\*** | `swiss-public-data-mcp — Swiss open data for AI assistants` |
 | **Showcase URL\*** | `https://github.com/malkreide/swiss-public-data-mcp` |
-| **Image URL** | `https://opengraph.githubassets.com/1/malkreide/swiss-public-data-mcp` |
+| **Image URL** | `https://raw.githubusercontent.com/malkreide/swiss-public-data-mcp/main/docs/showcase-card.png` |
 | **Type of content\*** | `Application` (DE: *Applikation*) |
 
 ### Short description\* (max. 400 characters)
@@ -47,11 +47,20 @@ Alle Server sind auditiert, MIT-lizenziert und in einer Zeile installierbar.
 ### On the image field
 
 The form accepts an image URL, and showcase cards look noticeably weaker without
-one. `https://opengraph.githubassets.com/1/malkreide/swiss-public-data-mcp` is a
-live PNG rendered by GitHub from the repository's social-preview settings, so it
-needs no asset hosting and updates itself. If you prefer full control, upload a
-custom social preview under **Repository → Settings → Social preview** first —
-the same URL then serves your own image.
+one. [`docs/showcase-card.png`](showcase-card.png) is a purpose-built 1200×630
+card served straight from this repository over `raw.githubusercontent.com`, so
+there is no separate asset hosting to maintain.
+
+It is **generated, not hand-drawn**: the counts it states and the number of
+converging lines come from `portfolio.json` via
+[`scripts/generate_showcase_card.py`](../scripts/generate_showcase_card.py), and
+CI fails if the HTML drifts from the inventory. Edit
+`docs/showcase-card.tmpl.html` for design changes, then regenerate and
+re-render — the PNG is a committed bitmap, so `--check` cannot catch a stale
+image on its own.
+
+The same file works as the repository's social preview (**Settings → Social
+preview**), which is worth setting so links to the repo render the same card.
 
 ---
 
@@ -134,7 +143,8 @@ disclaimer and the showcase entry must not contradict it.
 
 ## Before submitting — checklist
 
-- [ ] Repository social preview set (or accept the GitHub-generated card).
+- [ ] `docs/showcase-card.png` re-rendered if any count changed (`python scripts/generate_showcase_card.py`, then the Chromium command in its docstring).
+- [ ] Repository social preview set to the same card.
 - [ ] `README.md` counts match `portfolio.json` (`python scripts/generate_readme.py --check`).
 - [ ] No active server row points at an archived repository (the same check enforces this).
 - [ ] Every active server repository carries the `swiss-public-data-mcp` topic.

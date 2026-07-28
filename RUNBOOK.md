@@ -16,11 +16,12 @@ and conventions behind the registry entries.
 | `scripts/generate_server_json.py` | **in this repo** | only when you edit `portfolio.json` |
 | `scripts/generate_install_snippets.py` | **in this repo** | only when you edit `portfolio.json` |
 | `scripts/generate_promotion.py` | **in this repo** | only when you edit `portfolio.json` |
+| `scripts/generate_showcase_card.py` | **in this repo** | only when you edit `portfolio.json` |
 | `scripts/patch_mcp_name.py` | **against the server repos** | publishing, step 1 |
 | `scripts/release_all.py` | **against the server repos** | publishing, step 2 |
 | `scripts/publish_registry.py` | **against the server repos** | publishing, step 3 |
 
-The first four are *maintenance* (CI checks they stay in sync with
+The first five are *maintenance* (CI checks they stay in sync with
 `portfolio.json`). The last three are the *publishing pipeline*.
 
 Commands are given for **Windows PowerShell** and **macOS/Linux**. On Windows use
@@ -183,10 +184,11 @@ python scripts/generate_readme.py            # updates README.md / README.de.md
 python scripts/generate_server_json.py       # updates registry/*/server.json
 python scripts/generate_install_snippets.py  # updates docs/INSTALL.md
 python scripts/generate_promotion.py         # updates PROMOTION.md
+python scripts/generate_showcase_card.py     # updates docs/showcase-card.html
 git add -A; git commit -m "…"; git push
 ```
 
-CI runs all four with `--check`. Adding a credential server? Set both
+CI runs all five with `--check`. Adding a credential server? Set both
 `requires_credentials: true` **and** an `environment_variables` list in
 `portfolio.json` — the generator fails loudly if one is missing.
 

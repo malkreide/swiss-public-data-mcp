@@ -1,5 +1,10 @@
 # swiss-public-data-mcp
 
+<p align="center">
+  <img src="docs/showcase-card.png" width="820"
+       alt="swiss-public-data-mcp — 42 Server, mit denen KI-Assistenten offizielle Schweizer Open Data abfragen. 42 Server, 41 Datenquellen, 13 Domänen, 100 % auditiert.">
+</p>
+
 ![Aktive Server](https://img.shields.io/badge/aktive%20Server-42-blue)
 ![Production Ready](https://img.shields.io/badge/production--ready-42-brightgreen)
 ![Auditierte MCP-Repos](https://img.shields.io/badge/auditierte%20MCP--Repos-44-purple)
