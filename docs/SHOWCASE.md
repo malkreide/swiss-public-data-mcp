@@ -71,31 +71,93 @@ Uploading a social preview is a web-UI action; GitHub exposes no API for it.
 
 ## 2. Datasets used
 
-The form autocompletes against existing `opendata.swiss` datasets. Not every
-source in this portfolio is catalogued there (Fedlex, entscheidsuche.ch, ZH-Lex,
-Zefix and the SRG SSR APIs are direct APIs rather than catalogued datasets), so
-select the ones that do resolve. Search these publishers and pick the datasets
-that come up:
+The form autocompletes against real `opendata.swiss` datasets. The mapping below
+was **verified against the CKAN API** (`package_search` filtered by
+`organization:`), not guessed from server descriptions.
 
-| Search term | Covered by |
-|---|---|
-| `Bundesamt für Statistik` / STAT-TAB | `swiss-statistics-mcp` |
-| `Stadt Zürich` | `zurich-opendata-mcp`, `zh-education-mcp` |
-| `MeteoSchweiz` | `meteoswiss-mcp` |
-| `Bundesamt für Umwelt` / NABEL | `swiss-environment-mcp` |
-| `Bundesamt für Energie` / Energiedashboard | `swiss-energy-mcp`, `swiss-electricity-mcp` |
-| `SBB` / Fahrgastfrequenzen | `sbb-opendata-mcp`, `swiss-transport-mcp` |
-| `Bundesamt für Gesundheit` | `bag-health-mcp`, `bag-epl-mcp` |
-| `swisstopo` / geo.admin.ch | `swisstopo-mcp` |
-| `Gebäude- und Wohnungsregister` | `swiss-housing-mcp` |
-| `Lebensmittelsicherheit` / BLV | `swiss-food-safety-mcp` |
-| `BAKOM` | `bakom-mcp` |
-| `EnviDat` / WSL | `wsl-envidat-mcp` |
+An important distinction: opendata.swiss is a *metadata catalogue*. These servers
+call the publishers' APIs directly rather than going through opendata.swiss, so
+the entries below are the catalogue records **for the sources each server reads**
+— that is what the form is asking for. Where a publisher runs several hundred
+datasets, one representative record is named.
 
-Selecting eight to twelve representative datasets is enough; the full,
-authoritative source list is the `Data source` column of the
-[server portfolio](../README.md#server-portfolio), which links every server to
-the exact portal or API it reads.
+### Publishers present on opendata.swiss (26 servers)
+
+| Server | Publisher (datasets) | Representative dataset |
+|---|---|---|
+| `swiss-statistics-mcp` | Bundesamt für Statistik BFS (3292) | [Nationalratswahlen 2023: Panaschierstatistik](https://opendata.swiss/de/dataset/nationalratswahlen-2023-panaschierstatistik-parteien-nach-gemeinden) |
+| `swiss-housing-mcp` | BFS | [Wohnungen und Gebäude nach Bauperiode](https://opendata.swiss/de/dataset/wohnungen-und-gebaude-nach-bauperiode2) |
+| `swiss-democracy-mcp` | BFS | [Eidgenössische Abstimmungsresultate](https://opendata.swiss/de/dataset/eidgenossische-abstimmungsresultate) |
+| `zurich-opendata-mcp` | Stadt Zürich (687) | [Täglich aktualisierte Luftqualitätsmessungen, seit 1983](https://opendata.swiss/de/dataset/taglich-aktualisierte-luftqualitatsmessungen-seit-1983) |
+| `zh-education-mcp` | Bildungsstatistik Kanton Zürich (11) | [Übersicht über alle Lernenden im Kanton Zürich ab 2000](https://opendata.swiss/de/dataset/ubersicht-uber-alle-lernenden-im-kanton-zurich) |
+| `swiss-environment-mcp` | Bundesamt für Umwelt BAFU (361) | [NABEL: Stationen](https://opendata.swiss/de/dataset/nationales-beobachtungsnetz-fur-luftfremdstoffe-nabel-stationen) |
+| `wsl-envidat-mcp` | EnviDat / WSL (585) | [Mountain Permafrost Hydrology](https://opendata.swiss/de/dataset/mountain-permafrost-hydrology) |
+| `meteoswiss-mcp` | MeteoSchweiz (53) | [Totalisator-Niederschlagsstationen – Messwerte](https://opendata.swiss/de/dataset/totalisator-niederschlagsstationen-messwerte) |
+| `swiss-energy-mcp` | Bundesamt für Energie BFE (147) | [Statistik der Wasserkraftanlagen (WASTA)](https://opendata.swiss/de/dataset/statistik-der-wasserkraftanlagen-wasta) |
+| `swiss-electricity-mcp` | BFE | [Elektrizitätsproduktionsanlagen](https://opendata.swiss/de/dataset/elektrizitatsproduktionsanlagen) |
+| `bakom-mcp` | BAKOM (120) | [Abdeckungsgrad der Gebäude mit Breitbanddiensten](https://opendata.swiss/de/dataset/abdeckungsgrad-der-gebaude-mit-breitbanddiensten-nach-gemeinde) |
+| `bag-health-mcp` | Bundesamt für Gesundheit BAG (49) | [COVID-19 Schweiz](https://opendata.swiss/de/dataset/covid-19-schweiz) |
+| `swiss-food-safety-mcp` | BLV (29) | [Lebensmittelkontrolle](https://opendata.swiss/de/dataset/lebensmittelkontrolle) |
+| `swisstopo-mcp` | swisstopo (187) | [swissALTI3D](https://opendata.swiss/de/dataset/swissalti3d) |
+| `lindas-mcp` | swisstopo | [Linked Data Dienst BGDI](https://opendata.swiss/de/dataset/sparql-endpoint-bgdi) |
+| `sbb-opendata-mcp` | SBB (74) | [Ein- und Aussteigende an Bahnhöfen](https://opendata.swiss/de/dataset/passagierfrequenz1) |
+| `swiss-transport-mcp` | Open Data ÖV Schweiz (65) · BAV (25) | [Fahrplan 2026 (NeTEx)](https://opendata.swiss/de/dataset/timetablenetex_2026) · [Haltestellen des öffentlichen Verkehrs](https://opendata.swiss/de/dataset/haltestellen-des-offentlichen-verkehrs) |
+| `swiss-road-mobility-mcp` | ASTRA (26) | [Strassenverkehrszählung – übergeordnetes Netz](https://opendata.swiss/de/dataset/strassenverkehrszahlung-ubergeordnetes-netz) |
+| `swiss-culture-mcp` | Bundesamt für Kultur BAK (5) | [ISOS – Bundesinventar der schützenswerten Ortsbilder](https://opendata.swiss/de/dataset/isos-bundesinventar-der-schutzenswerten-ortsbilder-der-schweiz-von-nationaler-bedeutung) |
+| `swiss-cultural-heritage-mcp` | Schweizerisches Nationalmuseum (10) | [Sammlung «Keramik & Glas»](https://opendata.swiss/de/dataset/reprasentative-auswahl-aus-der-sammlung-keramik-glas-des-schweizerischen-nationalmuseums) |
+| `swiss-academic-libraries-mcp` | Schweizerische Nationalbibliothek (13) | [Bildersammlung Annemarie Schwarzenbach](https://opendata.swiss/de/dataset/bildersammlung-annemarie-schwarzenbach1) |
+| `eth-library-mcp` | ETH-Bibliothek (14) | [Fotos der Documenta Natura (1987–2010)](https://opendata.swiss/de/dataset/fotos-der-documenta-natura-1987-2010) |
+| `swiss-procurement-mcp` | Beschaffungskonferenz des Bundes BKB (4) | [Beschaffungen ab 50 000 Franken der zentralen Bundesverwaltung 2024](https://opendata.swiss/de/dataset/beschaffungen-ab-50-000-franken-der-zentralen-bundesverwaltung-20241) |
+| `swiss-efv-mcp` | Eidg. Finanzverwaltung EFV (7) | [Bundesfinanzen – Institutionen](https://opendata.swiss/de/dataset/bundesfinanzen-institutionen) |
+| `parlament-mcp` | Parlamentsdienste (1) | [Webservices ws-old.parlament.ch](https://opendata.swiss/de/dataset/webservices-httpws-old-parlament-ch) |
+| `srgssr-mcp` | SRG SSR (1) | [Polis API](https://opendata.swiss/de/dataset/polis-api) |
+
+### Sources not catalogued on opendata.swiss (16 servers)
+
+These read APIs that have no publisher entry in the catalogue. Do not invent
+dataset links for them — say so in the description instead, since "42 servers,
+26 catalogued publishers" is a more credible claim than a padded dataset list.
+
+| Server | Source | Why it is absent |
+|---|---|---|
+| `fedlex-mcp` | Fedlex SPARQL | No Federal Office of Justice / Fedlex publisher on opendata.swiss |
+| `openlex-mcp` | ZH-Lex | Cantonal law collection, not catalogued |
+| `swiss-courts-mcp` | entscheidsuche.ch | No court publisher on opendata.swiss |
+| `register-mcp` | Zefix (federal) | Only cantonal Zefix extracts are catalogued, not the federal API |
+| `amtsblatt-mcp` | amtsblattportal.ch | SHAB itself is not catalogued |
+| `swiss-ip-mcp` | IGE/IPI Swissreg | No IGE/IPI publisher |
+| `termdat-mcp` | TERMDAT | No Federal Chancellery publisher |
+| `i14y-mcp` | I14Y | The interoperability platform is a peer catalogue, not a dataset |
+| `swiss-snb-mcp` | SNB data portal | No SNB publisher |
+| `seco-labor-mcp` | SECO / AMSTAT | No SECO publisher (unemployment datasets found are cantonal) |
+| `bag-epl-mcp` | Spezialitätenliste | Not published as open data |
+| `swiss-holidays-mcp` | openholidaysapi.org | International, community-run |
+| `global-education-mcp` | UNESCO UIS / OECD | International |
+| `lobbywatch-mcp` | Lobbywatch.ch | NGO, not a public body |
+| `hn-tech-signal-mcp` | Hacker News | Not Swiss public data (adjacent context server) |
+| `news-monitor-mcp` | Public-media RSS | Feeds, not catalogued datasets |
+
+### Recommended selection for the form
+
+Twelve entries that cover the breadth and match the anchor queries in the README:
+
+```
+swissALTI3D
+Statistik der Wasserkraftanlagen (WASTA)
+Abdeckungsgrad der Gebäude mit Breitbanddiensten nach Gemeinde
+Täglich aktualisierte Luftqualitätsmessungen, seit 1983
+Übersicht über alle Lernenden im Kanton Zürich ab 2000
+Eidgenössische Abstimmungsresultate
+Ein- und Aussteigende an Bahnhöfen
+Fahrplan 2026 (NeTEx)
+Nationales Beobachtungsnetz für Luftfremdstoffe NABEL: Stationen
+ISOS - Bundesinventar der schützenswerten Ortsbilder
+Lebensmittelkontrolle
+Polis API
+```
+
+> Verified against the opendata.swiss CKAN API. Dataset slugs can change when a
+> publisher re-harvests; re-check any link that 404s before submitting.
 
 ---
 
