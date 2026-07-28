@@ -421,8 +421,7 @@ Current portfolio maintenance priorities:
 
 - Keep all linked audit directories current with report metadata, findings, and remediation notes.
 - Migrate the archived repositories' audit evidence into their successors (`swisstopo-mcp`, `swiss-ip-mcp`) so the frozen reports do not become the only record.
-- Add the required discovery topic `swiss-public-data-mcp` to every server repository; `swiss-efv-mcp` is currently the only active server missing it.
-- Publish an explicit `LICENSE` in `amtsblatt-mcp` and `lobbywatch-mcp` — GitHub currently cannot detect a standard licence for either.
+- Keep every server repository carrying the required discovery topic `swiss-public-data-mcp`, and keep `LICENSE` files as unmodified licence templates so GitHub can classify them — appending notices to `LICENSE` silently turns a repository into `NOASSERTION`. Data-source notices belong in `NOTICE.md`.
 - Align `mcp-audit-skill` and all future reports with MCP spec `2025-11-25`, while retaining older spec versions in report metadata where applicable.
 - Decide whether `parlament-mcp` remains a specialised server or is folded into `swiss-democracy-mcp`.
 - All data-driven README regions — the Zurich spotlight, the Server Portfolio tables and the Repository Map — are generated from `portfolio.json` by [`scripts/generate_readme.py`](scripts/generate_readme.py); a CI check (`--check`) blocks drift, including a server that is still listed as active after its repository has been archived.
