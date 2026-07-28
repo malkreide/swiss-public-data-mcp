@@ -1,17 +1,23 @@
 # Promotion & distribution
 
+> The counts and entry blocks below are generated from [`portfolio.json`](portfolio.json)
+> by `scripts/generate_promotion.py`. Do not edit the generated regions by hand.
+
+<!-- BEGIN GENERATED: promotion-intro -->
 How to broaden adoption of the portfolio's MCP servers beyond the official
-registry. Generated context: **34 active servers**, source of truth
+registry. Generated context: **42 active servers**, source of truth
 [`portfolio.json`](portfolio.json).
 
 ## Status of the levers
 
 | Lever | Status |
 |---|---|
-| Official **MCP Registry** (`registry.modelcontextprotocol.io`) | **Done** — all 34 servers published under `io.github.malkreide/*`. |
+| Official **MCP Registry** (`registry.modelcontextprotocol.io`) | **Done** — all 42 servers published under `io.github.malkreide/*`. |
 | `modelcontextprotocol/servers` community list | **Retired** — that list was removed in favour of the MCP Registry, so there is nothing to submit there. |
 | `punkpeye/awesome-mcp-servers` (community awesome list) | **Open** — accepts PRs; see below. |
+| [`opendata.swiss` showcase](https://opendata.swiss/en/submit-showcase) | **Open** — submission text is prepared in [`docs/SHOWCASE.md`](docs/SHOWCASE.md). |
 | Third-party catalogues (Smithery, Glama, PulseMCP, MCP.so, …) | **Mostly automatic** — they ingest from the registry; a few accept manual submissions. |
+<!-- END GENERATED: promotion-intro -->
 
 ---
 
@@ -27,22 +33,23 @@ scope · OS):
 `🐍` Python · `🏠` local (stdio) service · `🍎 🪟 🐧` cross-platform — which is
 what every server in this portfolio is.
 
+<!-- BEGIN GENERATED: awesome-entries -->
 ### Recommended: one collection entry (least spammy, high signal)
 
-Rather than adding 34 lines from a single author, lead with one entry
+Rather than adding 42 lines from a single author, lead with one entry
 for the portfolio and slot it under the most fitting current category (e.g. a
 government / open-data section). Check the live README for the exact category
 names before submitting.
 
 ```
-- [malkreide/swiss-public-data-mcp](https://github.com/malkreide/swiss-public-data-mcp) 🐍 🏠 🍎 🪟 🐧 - Curated portfolio of 34 MCP servers for Swiss public & open data — transport, law, statistics, energy, environment, health, geodata, democracy and more.
+- [malkreide/swiss-public-data-mcp](https://github.com/malkreide/swiss-public-data-mcp) 🐍 🏠 🍎 🪟 🐧 - Curated portfolio of 42 MCP servers for Swiss public & open data — transport, law, statistics, energy, environment, health, geodata, democracy and more.
 ```
 
-### Optional: all 34 individual entries
+### Optional: all 42 individual entries
 
 If you prefer per-server visibility, distribute these into the matching topical
 categories (transport, finance, law, location, etc.). Paste only the ones you
-want — avoid dumping all 34 into a single category.
+want — avoid dumping all 42 into a single category.
 
 ```
 - [malkreide/swiss-transport-mcp](https://github.com/malkreide/swiss-transport-mcp) 🐍 🏠 🍎 🪟 🐧 - OJP 2.0 journey planning, SIRI-SX disruptions, occupancy, fares, train formation
@@ -57,15 +64,23 @@ want — avoid dumping all 34 into a single category.
 - [malkreide/openlex-mcp](https://github.com/malkreide/openlex-mcp) 🐍 🏠 🍎 🪟 🐧 - Canton Zurich legislation via ZH-Lex with full-text search and article extraction
 - [malkreide/swiss-courts-mcp](https://github.com/malkreide/swiss-courts-mcp) 🐍 🏠 🍎 🪟 🐧 - Swiss court decisions via entscheidsuche.ch, including federal and cantonal courts
 - [malkreide/register-mcp](https://github.com/malkreide/register-mcp) 🐍 🏠 🍎 🪟 🐧 - Zefix commercial register and UID lookup
+- [malkreide/amtsblatt-mcp](https://github.com/malkreide/amtsblatt-mcp) 🐍 🏠 🍎 🪟 🐧 - amtsblattportal.ch (SHAB + cantonal gazettes) — procurement and official notices, person-data rubrics excluded by design
+- [malkreide/swiss-procurement-mcp](https://github.com/malkreide/swiss-procurement-mcp) 🐍 🏠 🍎 🪟 🐧 - simap.ch public procurement API: tenders and awards across all cantons and the Confederation, read-only
 - [malkreide/swiss-ip-mcp](https://github.com/malkreide/swiss-ip-mcp) 🐍 🏠 🍎 🪟 🐧 - IGE/IPI Swissreg trademarks, patents, SPCs
+- [malkreide/termdat-mcp](https://github.com/malkreide/termdat-mcp) 🐍 🏠 🍎 🪟 🐧 - Official multilingual terminology of the Swiss Federal Administration (TERMDAT)
+- [malkreide/i14y-mcp](https://github.com/malkreide/i14y-mcp) 🐍 🏠 🍎 🪟 🐧 - I14Y national interoperability platform and metadata catalogue (DCAT-AP)
+- [malkreide/lindas-mcp](https://github.com/malkreide/lindas-mcp) 🐍 🏠 🍎 🪟 🐧 - LINDAS linked-data knowledge graph: ~2,000 federal SPARQL data cubes with resolved labels
 - [malkreide/swiss-statistics-mcp](https://github.com/malkreide/swiss-statistics-mcp) 🐍 🏠 🍎 🪟 🐧 - BFS STAT-TAB PxWeb API for official Swiss statistics
 - [malkreide/zurich-opendata-mcp](https://github.com/malkreide/zurich-opendata-mcp) 🐍 🏠 🍎 🪟 🐧 - City of Zurich weather, air quality, parking, geodata, Gemeinderat, tourism
 - [malkreide/swisstopo-mcp](https://github.com/malkreide/swisstopo-mcp) 🐍 🏠 🍎 🪟 🐧 - Swiss federal geodata: geocoding, height, STAC, WMTS, OEREB and more
+- [malkreide/swiss-housing-mcp](https://github.com/malkreide/swiss-housing-mcp) 🐍 🏠 🍎 🪟 🐧 - GWR/RegBL federal building and dwelling register: buildings, dwellings and construction pipeline
 - [malkreide/global-education-mcp](https://github.com/malkreide/global-education-mcp) 🐍 🏠 🍎 🪟 🐧 - UNESCO UIS and OECD Education at a Glance
 - [malkreide/zh-education-mcp](https://github.com/malkreide/zh-education-mcp) 🐍 🏠 🍎 🪟 🐧 - Canton and City of Zurich education data: schools, statistics, infrastructure
 - [malkreide/swiss-academic-libraries-mcp](https://github.com/malkreide/swiss-academic-libraries-mcp) 🐍 🏠 🍎 🪟 🐧 - swisscovery, e-rara, e-periodica, e-manuscripta via SRU/OAI-PMH
 - [malkreide/eth-library-mcp](https://github.com/malkreide/eth-library-mcp) 🐍 🏠 🍎 🪟 🐧 - ETH Library Discovery and Persons APIs
+- [malkreide/swiss-holidays-mcp](https://github.com/malkreide/swiss-holidays-mcp) 🐍 🏠 🍎 🪟 🐧 - openholidaysapi.org school and public holidays for all 26 cantons
 - [malkreide/swiss-snb-mcp](https://github.com/malkreide/swiss-snb-mcp) 🐍 🏠 🍎 🪟 🐧 - SNB data portal: exchange rates, balance sheet, policy rates, SARON, monetary aggregates
+- [malkreide/swiss-efv-mcp](https://github.com/malkreide/swiss-efv-mcp) 🐍 🏠 🍎 🪟 🐧 - Swiss federal finances (EFV): budget, debt, forecasts and spending by task and institution
 - [malkreide/seco-labor-mcp](https://github.com/malkreide/seco-labor-mcp) 🐍 🏠 🍎 🪟 🐧 - SECO labour market: unemployment, vacancies, workforce indicators
 - [malkreide/swiss-culture-mcp](https://github.com/malkreide/swiss-culture-mcp) 🐍 🏠 🍎 🪟 🐧 - BAK cultural heritage, ISOS, living traditions, RSS
 - [malkreide/swiss-cultural-heritage-mcp](https://github.com/malkreide/swiss-cultural-heritage-mcp) 🐍 🏠 🍎 🪟 🐧 - Heritage inventories, monument lists, archaeological registers
@@ -86,24 +101,27 @@ want — avoid dumping all 34 into a single category.
 **Title:**
 
 ```
-Add swiss-public-data-mcp: curated portfolio of 34 Swiss open-data MCP servers
+Add swiss-public-data-mcp: curated portfolio of 42 Swiss open-data MCP servers
 ```
 
 **Body:**
 
 ```
-Adds a curated, audited portfolio of 34 MCP servers connecting AI agents to
+Adds a curated, audited portfolio of 42 MCP servers connecting AI agents to
 Swiss public and open data (opendata.swiss, GeoAdmin, Fedlex, BFS, SNB, SBB,
 MeteoSwiss, BAG, parliament, and more).
 
 - All servers are production-ready, audited, and published in the official MCP
   Registry under the `io.github.malkreide/*` namespace.
+- Every server is a thin read-only client for an official public endpoint; no
+  data is mirrored or re-published.
 - Python / stdio / cross-platform; installable via uvx.
 - Single source of truth: https://github.com/malkreide/swiss-public-data-mcp/blob/main/portfolio.json
 
 I've added one collection entry to keep the list tidy; happy to split into
 per-category entries if you prefer.
 ```
+<!-- END GENERATED: awesome-entries -->
 
 ---
 

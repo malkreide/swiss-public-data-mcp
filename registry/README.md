@@ -119,7 +119,8 @@ PyPI package declares the same registry name. Both must line up.
    curl "https://registry.modelcontextprotocol.io/v0/servers?search=io.github.malkreide"
    ```
 
-Repeat per server (a small shell loop over the 34 ids works well). New servers
+Repeat per server (a small shell loop over the ids in `portfolio.json` works
+well). New servers
 flow automatically: add them to `portfolio.json`, rerun the generator, and the
 draft appears here.
 

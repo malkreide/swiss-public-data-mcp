@@ -4,6 +4,7 @@ name: Portfolio sync
 #   * README.md / README.de.md  -> python scripts/generate_readme.py
 #   * registry/*/server.json    -> python scripts/generate_server_json.py
 #   * docs/INSTALL.md           -> python scripts/generate_install_snippets.py
+#   * PROMOTION.md              -> python scripts/generate_promotion.py
 on:
   push:
     branches: [main]
@@ -25,3 +26,5 @@ jobs:
         run: python scripts/generate_server_json.py --check
       - name: Check install snippets are in sync with portfolio.json
         run: python scripts/generate_install_snippets.py --check
+      - name: Check PROMOTION.md is in sync with portfolio.json
+        run: python scripts/generate_promotion.py --check

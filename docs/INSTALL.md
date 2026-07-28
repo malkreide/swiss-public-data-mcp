@@ -193,63 +193,6 @@ Swiss federal law via Fedlex SPARQL endpoint.
 
 ---
 
-## termdat-mcp
-
-Official multilingual terminology of the Swiss Federal Administration (TERMDAT).
-
-```json
-{
-  "mcpServers": {
-    "termdat-mcp": {
-      "command": "uvx",
-      "args": [
-        "termdat-mcp"
-      ]
-    }
-  }
-}
-```
-
----
-
-## i14y-mcp
-
-I14Y national interoperability platform and metadata catalogue (DCAT-AP).
-
-```json
-{
-  "mcpServers": {
-    "i14y-mcp": {
-      "command": "uvx",
-      "args": [
-        "i14y-mcp"
-      ]
-    }
-  }
-}
-```
-
----
-
-## lindas-mcp
-
-LINDAS linked-data knowledge graph: ~2,000 federal SPARQL data cubes with resolved labels.
-
-```json
-{
-  "mcpServers": {
-    "lindas-mcp": {
-      "command": "uvx",
-      "args": [
-        "lindas-mcp"
-      ]
-    }
-  }
-}
-```
-
----
-
 ## openlex-mcp
 
 Canton Zurich legislation via ZH-Lex with full-text search and article extraction.
@@ -370,6 +313,63 @@ Requires credentials: replace the placeholder values for `IGE_USERNAME`, `IGE_PA
 
 ---
 
+## termdat-mcp
+
+Official multilingual terminology of the Swiss Federal Administration (TERMDAT).
+
+```json
+{
+  "mcpServers": {
+    "termdat-mcp": {
+      "command": "uvx",
+      "args": [
+        "termdat-mcp"
+      ]
+    }
+  }
+}
+```
+
+---
+
+## i14y-mcp
+
+I14Y national interoperability platform and metadata catalogue (DCAT-AP).
+
+```json
+{
+  "mcpServers": {
+    "i14y-mcp": {
+      "command": "uvx",
+      "args": [
+        "i14y-mcp"
+      ]
+    }
+  }
+}
+```
+
+---
+
+## lindas-mcp
+
+LINDAS linked-data knowledge graph: ~2,000 federal SPARQL data cubes with resolved labels.
+
+```json
+{
+  "mcpServers": {
+    "lindas-mcp": {
+      "command": "uvx",
+      "args": [
+        "lindas-mcp"
+      ]
+    }
+  }
+}
+```
+
+---
+
 ## swiss-statistics-mcp
 
 BFS STAT-TAB PxWeb API for official Swiss statistics.
@@ -419,25 +419,6 @@ Swiss federal geodata: geocoding, height, STAC, WMTS, OEREB and more.
       "command": "uvx",
       "args": [
         "swisstopo-mcp"
-      ]
-    }
-  }
-}
-```
-
----
-
-## swiss-geodata-mcp
-
-geo.admin.ch federal geodata: ~700 layers, building zones, heights, LV95 coordinate conversion.
-
-```json
-{
-  "mcpServers": {
-    "swiss-geodata-mcp": {
-      "command": "uvx",
-      "args": [
-        "swiss-geodata-mcp"
       ]
     }
   }
