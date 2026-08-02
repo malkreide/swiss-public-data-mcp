@@ -21,6 +21,13 @@ jobs:
           python-version: "3.13"
       - name: Validate portfolio.json
         run: python -c "import json; json.load(open('portfolio.json'))"
+      # Ein portfolioweiter Sweep meldete "33 von 33 ok", waehrend portfolio.json
+      # 43 aktive Server fuehrte: zehn waren nie in der Zielliste, darunter
+      # meteoswiss-mcp. Die Zielliste kommt seither von hier, und dieser Schritt
+      # haelt das Feld gueltig. Nur Struktur, kein Netz — ob die Distribution auf
+      # dem Index liegt, prueft der Nightly (index-presence.yml).
+      - name: Check pypi_dist coverage field
+        run: python scripts/coverage_manifest.py --check
       - name: Check READMEs are in sync with portfolio.json
         run: python scripts/generate_readme.py --check
       - name: Check registry server.json files are in sync with portfolio.json
