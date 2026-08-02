@@ -17,12 +17,27 @@ and conventions behind the registry entries.
 | `scripts/generate_install_snippets.py` | **in this repo** | only when you edit `portfolio.json` |
 | `scripts/generate_promotion.py` | **in this repo** | only when you edit `portfolio.json` |
 | `scripts/generate_showcase_card.py` | **in this repo** | only when you edit `portfolio.json` |
+| `scripts/coverage_manifest.py` | **in this repo** | before any portfolio-wide sweep |
 | `scripts/patch_mcp_name.py` | **against the server repos** | publishing, step 1 |
 | `scripts/release_all.py` | **against the server repos** | publishing, step 2 |
 | `scripts/publish_registry.py` | **against the server repos** | publishing, step 3 |
 
 The first five are *maintenance* (CI checks they stay in sync with
 `portfolio.json`). The last three are the *publishing pipeline*.
+
+`coverage_manifest.py` is neither: it hands a portfolio-wide tool the list of
+servers it is supposed to cover, so that "I checked everything" is a claim with
+a source rather than a habit. Use it whenever a sweep runs against the fleet:
+
+```bash
+python scripts/coverage_manifest.py --published-only --format json > /tmp/manifest.json
+```
+
+An identity sweep on 2026-07-31 reported "33 of 33 ok" while this file listed 43
+active servers. Ten had never been in the target list — seven of them `core`,
+including `meteoswiss-mcp`. Nothing contradicted the number, because no tool
+compared it against anything. A sweep that cannot name what it skipped has not
+reported on the portfolio; it has reported on an unknown subset of it.
 
 Commands are given for **Windows PowerShell** and **macOS/Linux**. On Windows use
 `python`; on macOS/Linux use `python3`.

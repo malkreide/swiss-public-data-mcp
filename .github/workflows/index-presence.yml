@@ -1,0 +1,28 @@
+name: Index presence
+
+# Prueft, dass jede in portfolio.json deklarierte Distribution auf dem Index
+# tatsaechlich existiert.
+#
+# Warum nicht in "Portfolio sync": dieser Schritt braucht das Netz, und seine
+# Fehlschlaege haben zwei Ursachen, die gleich aussehen — ein falscher Name in
+# portfolio.json und ein kurz nicht erreichbarer Index. Im Pfad jedes Pull
+# Requests wuerde die zweite Ursache das Beheben der ersten blockieren.
+#
+# Bewusst geplant und nicht "aus CI ausgeschlossen": ausgeschlossene Pruefungen
+# verrotten. Hier ist ein roter Lauf eine Nachricht, kein Rauschen.
+
+on:
+  schedule:
+    - cron: "37 4 * * *"
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Verify every pypi_dist exists on the index
+        run: python scripts/coverage_manifest.py --verify-index
