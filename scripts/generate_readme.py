@@ -2,11 +2,18 @@
 """Generate the data-driven README sections from portfolio.json.
 
 `portfolio.json` is the single source of truth for the server inventory. This
-script regenerates the two drift-prone, data-driven regions in both READMEs:
+script regenerates the drift-prone, data-driven regions in both READMEs:
 
   * the **Zurich spotlight** table,
-  * the **Server Portfolio** tables, and
-  * the **Repository Map** tree.
+  * the **Server Portfolio** tables,
+  * the **Repository Map** tree, and
+  * the **Startup Behaviour** summary.
+
+The last one is derived rather than written for a reason: it is a *measurement*
+(how many servers announce reaching serving state, and which do not), and a
+measurement transcribed by hand stops being one the moment the next server is
+added. The numbers come from `start_event_status`; nothing here may be edited
+into the README directly.
 
 Each region in the README is delimited by HTML comment markers:
 
@@ -27,6 +34,14 @@ import json
 import pathlib
 import re
 import sys
+
+_HERE = pathlib.Path(__file__).resolve().parent
+if str(_HERE) not in sys.path:
+    # Ausdruecklich, nicht auf sys.path[0] verlassen: das gilt nur fuer
+    # `python scripts/generate_readme.py`, nicht fuer `python -m`.
+    sys.path.insert(0, str(_HERE))
+
+import coverage_manifest  # noqa: E402 - dieselbe Regel, eine Stelle (siehe validate_counts)
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PORTFOLIO = ROOT / "portfolio.json"
@@ -53,6 +68,32 @@ LANGS = {
         "map_audit": "← audit tooling, not a server",
         "related_prefix": " · ↔ related: ",
         "source_key": "data_source",
+        "startup_lead": (
+            "Of the {measured} published servers, **{declared}** announce reaching "
+            "serving state with a stable line on stderr. For those, a tool can tell "
+            "whether an installed artefact really comes up. For the remaining "
+            "**{quiet}** it cannot — a probe can only report *that they did not "
+            "crash*, which is a weaker claim than it looks: `zh-education-mcp` 0.2.4 "
+            "did crash, on every transport, and the published package stayed broken "
+            "for months because nothing ever started it."
+        ),
+        "startup_header": "| Startup behaviour | Servers |",
+        "startup_silent": (
+            "**No output at all** ({n}) — nothing within six seconds with stdin closed"
+        ),
+        "startup_banner": (
+            "**Only the SDK banner** ({n}) — that is the SDK's output, not the "
+            "server's, and it would vanish with the next SDK upgrade"
+        ),
+        "startup_unmeasured": (
+            "Not measured, and listed so the count above cannot be mistaken for the "
+            "whole portfolio: {names}."
+        ),
+        "startup_reason_archived": "archived",
+        "startup_reason_nodist": "publishes no package",
+        "startup_all_declared": (
+            "All {measured} published servers announce reaching serving state on stderr."
+        ),
     },
     "de": {
         "readme": ROOT / "README.de.md",
@@ -75,6 +116,35 @@ LANGS = {
         "map_audit": "← Audit-Tooling, kein Server",
         "related_prefix": " · ↔ verwandt: ",
         "source_key": "data_source_de",
+        "startup_lead": (
+            "Von den {measured} veröffentlichten Servern melden **{declared}** das "
+            "Erreichen des Bedienzustands mit einer stabilen Zeile auf stderr. Dort "
+            "kann ein Werkzeug feststellen, ob ein installiertes Artefakt wirklich "
+            "hochkommt. Bei den übrigen **{quiet}** kann es das nicht — eine Sonde "
+            "kann dort nur melden, *dass nichts abgestürzt ist*, und das ist eine "
+            "schwächere Aussage, als sie aussieht: `zh-education-mcp` 0.2.4 stürzte "
+            "ab, unter jedem Transport, und das veröffentlichte Paket blieb "
+            "monatelang unbrauchbar, weil es niemand startete."
+        ),
+        "startup_header": "| Startverhalten | Server |",
+        "startup_silent": (
+            "**Keine Ausgabe** ({n}) — nichts innerhalb von sechs Sekunden mit "
+            "geschlossenem stdin"
+        ),
+        "startup_banner": (
+            "**Nur der SDK-Banner** ({n}) — das ist die Ausgabe des SDK, nicht die "
+            "des Servers, und sie verschwände beim nächsten SDK-Update"
+        ),
+        "startup_unmeasured": (
+            "Nicht gemessen, und hier aufgeführt, damit die Zahl oben nicht für das "
+            "ganze Portfolio gehalten wird: {names}."
+        ),
+        "startup_reason_archived": "archiviert",
+        "startup_reason_nodist": "veröffentlicht kein Paket",
+        "startup_all_declared": (
+            "Alle {measured} veröffentlichten Server melden das Erreichen des "
+            "Bedienzustands auf stderr."
+        ),
     },
 }
 
@@ -205,10 +275,67 @@ def build_repository_map(data: dict, lang: dict) -> str:
     return "\n".join(lines)
 
 
+def build_startup_behaviour(data: dict, lang: dict) -> str:
+    """Summarise what the portfolio does — and does not — announce at startup.
+
+    Derived from `start_event_status`, never transcribed. The point of the
+    section is that 15 servers cannot be verified as having come up; a number
+    typed into the README would report that state of affairs on the day it was
+    typed and every day after, whatever the servers went on to do.
+
+    Only the servers *without* a marker are named. The 27 with one need no list:
+    a tool reads them from `portfolio.json`, and a reader does not act on them.
+    """
+    by_state: dict[str, list[dict]] = {}
+    for s in data["servers"]:
+        by_state.setdefault(s["start_event_status"], []).append(s)
+
+    silent = by_state.get("silent", [])
+    banner = by_state.get("sdk_banner_only", [])
+    declared = by_state.get("declared", [])
+    unmeasured = by_state.get("unmeasured", [])
+    measured = len(declared) + len(silent) + len(banner)
+    quiet = len(silent) + len(banner)
+
+    def names(rows: list[dict]) -> str:
+        return ", ".join(f"`{s['id']}`" for s in sorted(rows, key=lambda r: r["id"]))
+
+    out: list[str] = []
+    if quiet == 0:
+        out.append(lang["startup_all_declared"].format(measured=measured))
+    else:
+        out.append(
+            lang["startup_lead"].format(
+                measured=measured, declared=len(declared), quiet=quiet
+            )
+        )
+        out += ["", lang["startup_header"], "|---|---|"]
+        if silent:
+            out.append(f"| {lang['startup_silent'].format(n=len(silent))} | {names(silent)} |")
+        if banner:
+            out.append(f"| {lang['startup_banner'].format(n=len(banner))} | {names(banner)} |")
+
+    if unmeasured:
+        reasons = []
+        for s in sorted(unmeasured, key=lambda r: r["id"]):
+            why = (
+                lang["startup_reason_nodist"]
+                if not s.get("pypi_dist")
+                else lang["startup_reason_archived"]
+            )
+            reasons.append(f"`{s['id']}` ({why})")
+        out += ["", lang["startup_unmeasured"].format(names=", ".join(reasons))]
+
+    return "\n".join(out)
+
+
 def replace_region(text: str, name: str, new_inner: str) -> str:
     begin = f"<!-- BEGIN GENERATED: {name} -->"
     end = f"<!-- END GENERATED: {name} -->"
-    pattern = re.compile(re.escape(begin) + r"\n.*?\n" + re.escape(end), re.DOTALL)
+    # Kein `\n.*?\n`: das verlangt mindestens eine Zeile dazwischen und findet
+    # eine frisch angelegte, noch leere Region nicht — der Fehler liest sich
+    # dann als "Marker fehlt", obwohl sie dastehen.
+    pattern = re.compile(re.escape(begin) + r".*?" + re.escape(end), re.DOTALL)
     if not pattern.search(text):
         raise SystemExit(f"ERROR: markers for '{name}' not found in README")
     return pattern.sub(lambda _m: f"{begin}\n{new_inner}\n{end}", text, count=1)
@@ -251,6 +378,32 @@ def validate_counts(data: dict) -> None:
     for sid in data["spotlight"]["servers"]:
         if sid not in known:
             problems.append(f"spotlight references unknown server '{sid}'")
+
+    # Der Startverhalten-Abschnitt veroeffentlicht Zahlen. Sie stimmen nur,
+    # solange `start_event` und `start_event_status` dasselbe sagen — sonst
+    # steht dort eine Messung, die so niemand gemacht hat.
+    for s in data["servers"]:
+        problems.extend(coverage_manifest.check_start_event_status(s))
+
+    # Und sie stimmen nur, solange genau die veroeffentlichten Server gemessen
+    # sind. Ein neuer Server mit Paket, aber ohne Messung, wuerde die Nenner
+    # unbemerkt verschieben: der Abschnitt sagt dann etwas Wahres ueber eine
+    # kleinere Menge und liest sich wie eine Aussage ueber das Portfolio.
+    publishable = {
+        s["id"]
+        for s in data["servers"]
+        if s["status"].startswith("production_ready") and s.get("pypi_dist")
+    }
+    measured = {
+        s["id"]
+        for s in data["servers"]
+        if s["start_event_status"] in ("declared", "silent", "sdk_banner_only")
+    }
+    for sid in sorted(publishable - measured):
+        problems.append(f"{sid} is published but has no start_event measurement")
+    for sid in sorted(measured - publishable):
+        problems.append(f"{sid} carries a start_event measurement but is not a published server")
+
     if problems:
         raise SystemExit("ERROR: portfolio.json count validation failed:\n  " + "\n  ".join(problems))
 
@@ -260,6 +413,7 @@ def render(data: dict, lang: dict) -> str:
     text = replace_region(text, "zurich-spotlight", build_spotlight(data, lang))
     text = replace_region(text, "server-portfolio", build_server_portfolio(data, lang))
     text = replace_region(text, "repository-map", build_repository_map(data, lang))
+    text = replace_region(text, "startup-behaviour", build_startup_behaviour(data, lang))
     return text
 
 
