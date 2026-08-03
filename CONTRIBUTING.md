@@ -66,6 +66,9 @@ Instead:
      "id": "example-mcp",
      "display_name": "example-mcp",
      "repository": "https://github.com/malkreide/example-mcp",
+     "pypi_dist": "example-mcp",
+     "start_event": "server_initialized",
+     "start_event_status": "declared",
      "category": "Statistics & Geodata",
      "scope": "core",
      "status": "production_ready",
@@ -83,6 +86,18 @@ Instead:
    ```
 
    - `category` must match a `label` in the top-level `display_categories`.
+   - `pypi_dist` is the distribution name on the index, or `null` for a server
+     that publishes no package. The field is **mandatory**: a missing key and an
+     explicit `null` are different claims, and `coverage_manifest.py --check`
+     refuses the entry rather than read one as the other.
+   - `start_event` is the line a tool watches for to know the server reached
+     serving, and `start_event_status` says which kind of measurement produced
+     it: `declared`, `silent`, `sdk_banner_only` or `unmeasured`. The two must
+     agree — `declared` exactly when `start_event` is set — and the Startup
+     Behaviour section of both READMEs is derived from them.
+     For a structured log line the marker must be the **exact** value of the
+     `event`/`msg` field; a prefix does not match. For plain text any stable
+     substring works, but it must never contain a timestamp.
    - `requires_credentials: true` renders the 🔐 icon; `scope: "adjacent-context"`
      renders 🧭; status/audit icons are derived automatically.
    - The audit-link label (`audits/`, `audit/`, `docs/audit/`) and the `main` vs
@@ -111,6 +126,7 @@ Instead:
    for s in readme server_json install_snippets promotion showcase_card; do
      python scripts/generate_$s.py --check || break
    done
+   python scripts/coverage_manifest.py --check
    ```
 
 The [`readme-sync`](.github/workflows/readme-sync.yml) workflow runs every
