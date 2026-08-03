@@ -148,6 +148,19 @@ audit:
   audited_at: "YYYY-MM-DD"
 ```
 
+### Startverhalten
+
+<!-- BEGIN GENERATED: startup-behaviour -->
+Von den 42 veröffentlichten Servern melden **27** das Erreichen des Bedienzustands mit einer stabilen Zeile auf stderr. Dort kann ein Werkzeug feststellen, ob ein installiertes Artefakt wirklich hochkommt. Bei den übrigen **15** kann es das nicht — eine Sonde kann dort nur melden, *dass nichts abgestürzt ist*, und das ist eine schwächere Aussage, als sie aussieht: `zh-education-mcp` 0.2.4 stürzte ab, unter jedem Transport, und das veröffentlichte Paket blieb monatelang unbrauchbar, weil es niemand startete.
+
+| Startverhalten | Server |
+|---|---|
+| **Keine Ausgabe** (13) — nichts innerhalb von sechs Sekunden mit geschlossenem stdin | `bakom-mcp`, `global-education-mcp`, `meteoswiss-mcp`, `news-monitor-mcp`, `sbb-opendata-mcp`, `swiss-cultural-heritage-mcp`, `swiss-democracy-mcp`, `swiss-housing-mcp`, `swiss-procurement-mcp`, `swiss-snb-mcp`, `swiss-statistics-mcp`, `zh-education-mcp`, `zurich-opendata-mcp` |
+| **Nur der SDK-Banner** (2) — das ist die Ausgabe des SDK, nicht die des Servers, und sie verschwände beim nächsten SDK-Update | `seco-labor-mcp`, `swiss-food-safety-mcp` |
+
+Nicht gemessen, und hier aufgeführt, damit die Zahl oben nicht für das ganze Portfolio gehalten wird: `MCP-Server-for-patent-research-` (veröffentlicht kein Paket), `swiss-geodata-mcp` (archiviert).
+<!-- END GENERATED: startup-behaviour -->
+
 ---
 
 ## Server-Portfolio

@@ -148,6 +148,19 @@ audit:
   audited_at: "YYYY-MM-DD"
 ```
 
+### Startup Behaviour
+
+<!-- BEGIN GENERATED: startup-behaviour -->
+Of the 42 published servers, **27** announce reaching serving state with a stable line on stderr. For those, a tool can tell whether an installed artefact really comes up. For the remaining **15** it cannot — a probe can only report *that they did not crash*, which is a weaker claim than it looks: `zh-education-mcp` 0.2.4 did crash, on every transport, and the published package stayed broken for months because nothing ever started it.
+
+| Startup behaviour | Servers |
+|---|---|
+| **No output at all** (13) — nothing within six seconds with stdin closed | `bakom-mcp`, `global-education-mcp`, `meteoswiss-mcp`, `news-monitor-mcp`, `sbb-opendata-mcp`, `swiss-cultural-heritage-mcp`, `swiss-democracy-mcp`, `swiss-housing-mcp`, `swiss-procurement-mcp`, `swiss-snb-mcp`, `swiss-statistics-mcp`, `zh-education-mcp`, `zurich-opendata-mcp` |
+| **Only the SDK banner** (2) — that is the SDK's output, not the server's, and it would vanish with the next SDK upgrade | `seco-labor-mcp`, `swiss-food-safety-mcp` |
+
+Not measured, and listed so the count above cannot be mistaken for the whole portfolio: `MCP-Server-for-patent-research-` (publishes no package), `swiss-geodata-mcp` (archived).
+<!-- END GENERATED: startup-behaviour -->
+
 ---
 
 ## Server Portfolio

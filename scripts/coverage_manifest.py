@@ -36,10 +36,23 @@ plain-text line any stable substring works, but it must not contain a
 timestamp: such a marker matches on the first run and never again.
 
 ``null`` means **not measured**, not "has none" — a consumer must be able to
-tell those apart, or it counts its own ignorance as a finding. Fifteen entries
-are legitimately ``null``: thirteen servers print nothing at all within the
-smoke window, and two print only the FastMCP banner, which belongs to the SDK
-rather than to the server and would vanish with an SDK upgrade.
+tell those apart, or it counts its own ignorance as a finding.
+
+A single ``null`` cannot carry that distinction, so ``start_event_status``
+does, with one of four values:
+
+    declared          a marker was measured and stands in ``start_event``
+    silent            measured: no output at all within the smoke window
+    sdk_banner_only   measured: only the SDK's own banner, which belongs to the
+                      SDK rather than to the server and would vanish with an
+                      SDK upgrade — pinning on it would measure the wrong thing
+    unmeasured        not measured (no package on the index, or archived)
+
+The two fields are two views of one measurement, and ``--check`` refuses any
+entry where they disagree: ``declared`` exactly when ``start_event`` is set.
+Without the status field a derived statement could only say "fifteen carry no
+marker", which merges "says nothing" with "nobody looked" — the very
+conflation this manifest exists to prevent.
 
 ``pypi_dist`` is the distribution name on the index, or ``null`` for a server
 that publishes no package (one legacy repo). Tools that measure a *published
@@ -135,7 +148,38 @@ def validate(servers: list[dict]) -> list[str]:
         ):
             problems.append(f"{sid}: 'start_event' ist weder null noch ein Marker")
 
+        problems.extend(check_start_event_status(s))
+
     return problems
+
+
+# `start_event` und `start_event_status` sind zwei Sichten auf eine Messung.
+# Ohne den Status heisst `null` zugleich "sagt nichts" und "nicht gemessen" —
+# und ein daraus abgeleiteter Satz zaehlt das eigene Nichtwissen mit.
+START_EVENT_STATES = ("declared", "silent", "sdk_banner_only", "unmeasured")
+
+
+def check_start_event_status(s: dict) -> list[str]:
+    """Der Status muss bekannt sein und zum Marker passen.
+
+    Getrennte Funktion, weil `generate_readme.py` dieselbe Pruefung braucht:
+    dort haengt ein veroeffentlichter Zahlensatz daran, und ein Widerspruch
+    zwischen den beiden Feldern wuerde dort zu einer Aussage, die niemand
+    gemessen hat.
+    """
+    sid = s.get("id", "<ohne id>")
+    if "start_event_status" not in s:
+        return [f"{sid}: Feld 'start_event_status' fehlt ({'/'.join(START_EVENT_STATES)})"]
+    state = s["start_event_status"]
+    if state not in START_EVENT_STATES:
+        return [f"{sid}: 'start_event_status' {state!r} ist kein bekannter Wert"]
+    declared = s.get("start_event") is not None
+    if (state == "declared") != declared:
+        return [
+            f"{sid}: 'start_event_status' ist {state!r}, "
+            f"'start_event' ist {'gesetzt' if declared else 'null'} — das widerspricht sich"
+        ]
+    return []
 
 
 def verify_index(servers: list[dict], index_url: str, timeout: float) -> list[str]:
@@ -224,7 +268,9 @@ def main() -> int:
         counts = collections.Counter(
             "ohne Paket" if s["pypi_dist"] is None else "mit Paket" for s in servers
         )
+        starts = collections.Counter(s["start_event_status"] for s in servers)
         print(f"pypi_dist OK ({len(servers)} Eintraege; {dict(counts)})")
+        print(f"start_event OK ({dict(starts)})")
         return 0
 
     sel = select(
@@ -251,6 +297,7 @@ def main() -> int:
                         "repository": s["repository"],
                         "pypi_dist": s["pypi_dist"],
                         "start_event": s.get("start_event"),
+                        "start_event_status": s.get("start_event_status"),
                         "scope": s["scope"],
                         "status": s["status"],
                     }
