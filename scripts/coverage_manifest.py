@@ -110,6 +110,17 @@ def validate(servers: list[dict]) -> list[str]:
             problems.append(f"{sid}: 'pypi_dist' {dist!r} schon bei {seen[dist]}")
         seen[dist] = sid
 
+        # `start_event`: die Zeichenkette, an der ein Werkzeug erkennt, dass
+        # dieser Server das Bedienen erreicht hat. `null` heisst ausdruecklich
+        # "noch nicht erhoben" — nicht "hat keins". Ein Werkzeug muss die
+        # beiden unterscheiden koennen, sonst zaehlt es Nichtwissen als Befund.
+        if "start_event" not in s:
+            problems.append(f"{sid}: Feld 'start_event' fehlt (String oder null)")
+        elif s["start_event"] is not None and not (
+            isinstance(s["start_event"], str) and s["start_event"].strip()
+        ):
+            problems.append(f"{sid}: 'start_event' ist weder null noch ein Marker")
+
     return problems
 
 
@@ -225,6 +236,7 @@ def main() -> int:
                         "id": s["id"],
                         "repository": s["repository"],
                         "pypi_dist": s["pypi_dist"],
+                        "start_event": s.get("start_event"),
                         "scope": s["scope"],
                         "status": s["status"],
                     }
