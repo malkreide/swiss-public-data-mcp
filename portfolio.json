@@ -318,7 +318,7 @@
       "display_name": "openlex-mcp",
       "repository": "https://github.com/malkreide/openlex-mcp",
       "pypi_dist": "openlex-mcp",
-      "start_event": "Lifespan gestartet",
+      "start_event": "Lifespan gestartet — geteilter HTTP-Client bereit",
       "category": "Legal, Courts & Regulatory",
       "scope": "core",
       "status": "production_ready",
