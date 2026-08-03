@@ -54,6 +54,14 @@ Without the status field a derived statement could only say "fifteen carry no
 marker", which merges "says nothing" with "nobody looked" — the very
 conflation this manifest exists to prevent.
 
+``repositories`` (JSON output only) lists every repository the portfolio owns —
+servers, tooling, and this index — and is deliberately *unfiltered*. The
+selector answers "which servers should this probe measure"; a sweep over
+repositories (open pull requests, workflow health, branch protection) asks a
+different question, and handing it a scope-filtered list would narrow it
+without saying so. Each entry carries ``archived`` so a consumer can name what
+it skipped instead of silently not seeing it.
+
 ``pypi_dist`` is the distribution name on the index, or ``null`` for a server
 that publishes no package (one legacy repo). Tools that measure a *published
 artefact* must skip the ``null`` entries — that is a justified skip, and it is
@@ -108,6 +116,49 @@ def select(
         if published_only and not s.get("pypi_dist"):
             continue
         out.append(s)
+    return out
+
+
+def repositories(d: dict) -> list[dict]:
+    """Every repository this portfolio owns — servers, tooling, and the index.
+
+    Deliberately **not** filtered by the selector. The selector answers "which
+    servers should this probe measure"; this answers "which repositories exist",
+    and they are different questions. A tool that sweeps repositories — open
+    pull requests, branch protection, workflow health — needs the second one,
+    and handing it a scope-filtered list would narrow its sweep without saying
+    so. That is the failure this module exists to prevent, one layer out.
+
+    ``archived`` travels with each entry rather than being dropped: an archived
+    repository is read-only, so a finding about it is usually noise — but the
+    consumer must be able to *say* it skipped one, not silently not see it.
+    """
+    out: list[dict] = [
+        {
+            "id": "swiss-public-data-mcp",
+            "repository": d["portfolio_repository"],
+            "kind": "index",
+            "archived": False,
+        }
+    ]
+    out += [
+        {
+            "id": t["id"],
+            "repository": t["repository"],
+            "kind": "tooling",
+            "archived": bool(t.get("archived")),
+        }
+        for t in d.get("tooling", [])
+    ]
+    out += [
+        {
+            "id": s["id"],
+            "repository": s["repository"],
+            "kind": "server",
+            "archived": bool(s.get("archived")),
+        }
+        for s in d["servers"]
+    ]
     return out
 
 
@@ -180,6 +231,26 @@ def check_start_event_status(s: dict) -> list[str]:
             f"'start_event' ist {'gesetzt' if declared else 'null'} — das widerspricht sich"
         ]
     return []
+
+
+def validate_repositories(d: dict) -> list[str]:
+    """Every declared repository is a GitHub URL, and no URL appears twice.
+
+    A duplicate would make a repository-wide sweep report it twice and its own
+    coverage count wrong — the same denominator problem as everywhere else here.
+    """
+    problems: list[str] = []
+    seen: dict[str, str] = {}
+    for r in repositories(d):
+        url = (r.get("repository") or "").rstrip("/")
+        parts = url.removeprefix("https://github.com/").split("/")
+        if not url.startswith("https://github.com/") or len(parts) != 2 or not all(parts):
+            problems.append(f"{r['id']}: 'repository' ist keine github.com/<owner>/<name>-URL")
+            continue
+        if url in seen:
+            problems.append(f"{r['id']}: 'repository' {url} schon bei {seen[url]}")
+        seen[url] = r["id"]
+    return problems
 
 
 def verify_index(servers: list[dict], index_url: str, timeout: float) -> list[str]:
@@ -259,9 +330,9 @@ def main() -> int:
         return 0
 
     if args.check:
-        problems = validate(servers)
+        problems = validate(servers) + validate_repositories(d)
         if problems:
-            print("portfolio.json: pypi_dist-Verstoesse", file=sys.stderr)
+            print("portfolio.json: Manifest-Verstoesse", file=sys.stderr)
             for msg in problems:
                 print(f"  {msg}", file=sys.stderr)
             return 1
@@ -269,8 +340,10 @@ def main() -> int:
             "ohne Paket" if s["pypi_dist"] is None else "mit Paket" for s in servers
         )
         starts = collections.Counter(s["start_event_status"] for s in servers)
+        repos = collections.Counter(r["kind"] for r in repositories(d))
         print(f"pypi_dist OK ({len(servers)} Eintraege; {dict(counts)})")
         print(f"start_event OK ({dict(starts)})")
+        print(f"repositories OK ({sum(repos.values())}; {dict(repos)})")
         return 0
 
     sel = select(
@@ -291,6 +364,7 @@ def main() -> int:
                     "published_only": args.published_only,
                 },
                 "expected": len(sel),
+                "repositories": repositories(d),
                 "servers": [
                     {
                         "id": s["id"],
