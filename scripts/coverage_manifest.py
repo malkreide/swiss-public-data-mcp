@@ -27,6 +27,20 @@ like it reported on the portfolio. Incomplete coverage should be a non-zero
 exit unless the skip was named and justified — "I did not look" and "there was
 nothing there" must not share an exit code.
 
+``start_event`` is the marker a tool can watch for to know this server reached
+serving. For a structured log line it must be the **exact** value of the
+``event``/``msg`` field — a prefix does not match, which cost one entry a round
+of verification (``openlex-mcp`` was declared as ``Lifespan gestartet`` while
+the field reads ``Lifespan gestartet — geteilter HTTP-Client bereit``). For a
+plain-text line any stable substring works, but it must not contain a
+timestamp: such a marker matches on the first run and never again.
+
+``null`` means **not measured**, not "has none" — a consumer must be able to
+tell those apart, or it counts its own ignorance as a finding. Fifteen entries
+are legitimately ``null``: thirteen servers print nothing at all within the
+smoke window, and two print only the FastMCP banner, which belongs to the SDK
+rather than to the server and would vanish with an SDK upgrade.
+
 ``pypi_dist`` is the distribution name on the index, or ``null`` for a server
 that publishes no package (one legacy repo). Tools that measure a *published
 artefact* must skip the ``null`` entries — that is a justified skip, and it is
@@ -109,6 +123,17 @@ def validate(servers: list[dict]) -> list[str]:
         if dist in seen:
             problems.append(f"{sid}: 'pypi_dist' {dist!r} schon bei {seen[dist]}")
         seen[dist] = sid
+
+        # `start_event`: die Zeichenkette, an der ein Werkzeug erkennt, dass
+        # dieser Server das Bedienen erreicht hat. `null` heisst ausdruecklich
+        # "noch nicht erhoben" — nicht "hat keins". Ein Werkzeug muss die
+        # beiden unterscheiden koennen, sonst zaehlt es Nichtwissen als Befund.
+        if "start_event" not in s:
+            problems.append(f"{sid}: Feld 'start_event' fehlt (String oder null)")
+        elif s["start_event"] is not None and not (
+            isinstance(s["start_event"], str) and s["start_event"].strip()
+        ):
+            problems.append(f"{sid}: 'start_event' ist weder null noch ein Marker")
 
     return problems
 
@@ -225,6 +250,7 @@ def main() -> int:
                         "id": s["id"],
                         "repository": s["repository"],
                         "pypi_dist": s["pypi_dist"],
+                        "start_event": s.get("start_event"),
                         "scope": s["scope"],
                         "status": s["status"],
                     }
