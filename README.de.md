@@ -101,7 +101,7 @@ Diese Links sind Kontext, keine Autorisierung. Das Repository bleibt ein private
 
 ## Qualität & Audit-Tooling
 
-Die Auditmethodik ist jetzt mit dem öffentlichen [`mcp-audit-skill`](https://github.com/malkreide/mcp-audit-skill) verknüpft, statt als interner Katalog beschrieben zu werden. Ergänzt wird sie durch [`mcp-continuous-auditor`](https://github.com/malkreide/mcp-continuous-auditor), der kontinuierliche CI-Audits gegen MCP-Server ausführt und promptfoo als deterministische Ground Truth nutzt. Der Skill dokumentiert aktuell **68 Checks in acht Kategorien**:
+Die Auditmethodik ist jetzt mit dem öffentlichen [`mcp-audit-skill`](https://github.com/malkreide/mcp-audit-skill) verknüpft, statt als interner Katalog beschrieben zu werden. Ergänzt wird sie durch [`mcp-continuous-auditor`](https://github.com/malkreide/mcp-continuous-auditor), der kontinuierliche CI-Audits gegen MCP-Server ausführt und promptfoo als deterministische Ground Truth nutzt. Der Skill dokumentiert aktuell **112 Checks in zwölf Kategorien**, auf doppelter Spec-Baseline (`2025-11-25` und `2026-07-28`):
 
 | Kategorie | Abdeckung |
 |---|---|
@@ -113,6 +113,10 @@ Die Auditmethodik ist jetzt mit dem öffentlichen [`mcp-audit-skill`](https://gi
 | `HITL` | Sampling und Human-in-the-Loop-Verhalten |
 | `CH` | Schweizer DSG / EDÖB / Public-Sector-Compliance |
 | `OPS` | Teststrategie, Dokumentation, Phasenarchitektur, Release-Hygiene |
+| `FID` | Datentreue: Scope-Defaults, Recall gegen Ground Truth, Leermengen, Query-Syntax |
+| `IDENT` | Identität: User-Agent, `__version__`, Manifest- und Doku-Version, Release-Gap, Gesundheit des Artefakts |
+| `DRIFT` | Upstream-Vertrag und Repo-Prosa: Endpoint-Drift, Fallback-Semantik, Testgüte, CHANGELOG gegen Code |
+| `DEP` | Auflösungsraum des publizierten Artefakts: Obergrenzen, Major-Wechsel |
 
 Der Audit-Skill ist **kein** Vulnerability-Scanner und **kein** Compliance-Zertifikat. Er macht Review-Methodik reproduzierbar. Architektururteile bleiben menschlich.
 
@@ -135,15 +139,16 @@ audit:
   repo: https://github.com/malkreide/swiss-transport-mcp
   audited_commit: "<commit-sha>"
   audit_skill: https://github.com/malkreide/mcp-audit-skill
-  audit_skill_version: "0.1.x"
-  catalogue_checks: 68
-  mcp_spec_version: "2025-11-25"
+  audit_skill_version: "2.0.0"
+  catalogue_checks: 112
+  mcp_spec_version: "2025-11-25"        # 2025-11-25 | 2026-07-28
   profile:
-    transport: ["stdio", "streamable-http"]
-    auth_model: "no-auth"
-    data_class: "public-open-data"
-    write_access: false
-    deployment: ["local", "cloud-ready"]
+    transport: "dual"                   # stdio-only | dual | HTTP/SSE
+    sdk_language: "Python"              # Python | TypeScript
+    auth_model: "none"                  # none | API-Key | OAuth-Proxy
+    data_class: "Public Open Data"      # Public Open Data | Verwaltungsdaten | PII
+    write_capable: false
+    deployment: ["local-stdio", "Railway"]
   gate: "no critical/high findings open"
   audited_at: "YYYY-MM-DD"
 ```
