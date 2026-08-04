@@ -19,7 +19,7 @@
   },
   "audit_methodology": {
     "repository": "https://github.com/malkreide/mcp-audit-skill",
-    "catalogue_checks": 68,
+    "catalogue_checks": 112,
     "categories": [
       "ARCH",
       "SDK",
@@ -28,7 +28,11 @@
       "OBS",
       "HITL",
       "CH",
-      "OPS"
+      "OPS",
+      "FID",
+      "IDENT",
+      "DRIFT",
+      "DEP"
     ],
     "current_mcp_spec_baseline": "2025-11-25",
     "required_report_metadata": [
