@@ -26,13 +26,13 @@ Rahmen steht als Regel 5 in [`mcp-data-fidelity`](https://github.com/malkreide/m
 | | |
 |---|---:|
 | Server mit Testsuite | **42** |
-| davon mit Aufzeichnungsskript **und** Datum | **6** |
+| davon mit Aufzeichnungsskript **und** Datum | **7** |
 | Inline-Payloads insgesamt | **rund 1 145** |
 | mit Live-Test-Markern | 40 |
 | davon an einem Zeitplan | 20 |
 
 Zum Zeitpunkt der Erhebung hatte **kein einziger** der 42 Server eine datierte
-Fixture-Herkunft. Die 6, die sie heute haben, sind am selben Tag nachgezogen
+Fixture-Herkunft. Die 7, die sie heute haben, sind am selben Tag nachgezogen
 worden (siehe «Was daraus geworden ist»).
 
 ## Wie gemessen wurde
@@ -85,7 +85,7 @@ Ein Signal, das sich nicht belegen lässt, gehört nicht in einen Befund.
 | `termdat-mcp` | 5 | 27 | 0 | keine | 1 Datei(en)+geplant |
 | `swiss-road-mobility-mcp` | 12 | 27 | 0 | keine | 3 Datei(en)+geplant |
 | `lindas-mcp` | 4 | 24 | 0 | keine | 1 Datei(en)+geplant |
-| `wsl-envidat-mcp` | 5 | 24 | 0 | keine | 2 Datei(en) |
+| `wsl-envidat-mcp` ✅ | 5 | 24 | 5 | **datiert** | 2 Datei(en) |
 | `swiss-holidays-mcp` | 11 | 21 | 0 | keine | 1 Datei(en)+geplant |
 | `swiss-transport-mcp` | 14 | 20 | 0 | keine | 1 Datei(en) |
 | `parlament-mcp` | 5 | 20 | 0 | keine | 2 Datei(en)+geplant |
@@ -120,7 +120,6 @@ Viele ungeprüfte Annahmen **und** kein Zeitplan, der sie gegen die Quelle hält
 
 | Server | Payloads | Live |
 |---|---:|---|
-| `wsl-envidat-mcp` | 24 | 2 Datei(en) |
 | `swiss-transport-mcp` | 20 | 1 Datei(en) |
 | `swiss-academic-libraries-mcp` | 18 | 4 Datei(en) |
 | `swiss-democracy-mcp` | 18 | 1 Datei(en) |
@@ -134,7 +133,7 @@ Quelle, die ihre Kopfzeilen wechselt. Der Faktor-100-Fehler in
 
 ## Was daraus geworden ist
 
-Sechs Server sind am 2026-08-07 nachgezogen worden. In **drei** von sechs hat
+Sieben Server sind am 2026-08-07 nachgezogen worden. In **drei** von sieben hat
 allein das Aufzeichnen einen ausgelieferten Fehler freigelegt:
 
 | Server | PR | Befund |
@@ -145,15 +144,19 @@ allein das Aufzeichnen einen ausgelieferten Fehler freigelegt:
 | `zurich-opendata-mcp` | [#84](https://github.com/malkreide/zurich-opendata-mcp/pull/84) | **Kein Befund.** 246 Tests unverändert grün. Der Server sendet `rows` überall explizit; das Aufzeichnen hat es nur belegt. |
 | `swiss-statistics-mcp` | [#29](https://github.com/malkreide/swiss-statistics-mcp/pull/29) | **Kein Befund am Server**, drei an den Fixtures: Ein Snapshot ist ein Zeitpunkt, die alte Fixture war zwei (BFS 133 *und* 295 in einer Datei); die Korrespondenz-Fixture beantwortete eine Anfrage mit anderen Parametern, als der Server sendet; falsche Codes und ein gekürzter Titel. |
 | `meteoswiss-mcp` | [#42](https://github.com/malkreide/meteoswiss-mcp/pull/42) | **Kein Befund am Server.** Die STAC-Fixture führte 4 Assets, die Quelle liefert 16 — der Selektor, der ausdrücklich jeden Fallback ablehnt, wurde nie gegen die Historik-Dateien geprüft, gegen die es ihn gibt. |
+| `wsl-envidat-mcp` | [#24](https://github.com/malkreide/wsl-envidat-mcp/pull/24) | **Kein Befund am Server**, drei an den Fixtures: Die Organisationen `wsl` und `slf` gibt es nicht (`organization_show?id=slf` → HTTP 404); Tags stehen in GROSSBUCHSTABEN statt kleingeschrieben; ein Datensatz hat 42 Felder statt 9, mit `extras`, die die Quelle nicht kennt. |
 
-Die drei Nullbefunde gehören genauso in diese Tabelle wie die drei Funde. Nach
+Die vier Nullbefunde gehören genauso in diese Tabelle wie die drei Funde. Nach
 drei Repos in Folge, die etwas hergaben, wäre die Versuchung gross gewesen, auch
 in den übrigen etwas zu finden.
 
-**Die Fehlerdichte fällt, je weiter man die Rangfolge hinuntergeht**, und das
-passt zu dem, was die Payload-Spalte misst: Exposition, nicht Risiko. Die drei
-ausgelieferten Fehler lagen alle in der ersten Hälfte der Liste; bei den
-folgenden drei belegten die Fixtures nur weniger, als sie aussahen.
+**Die Rangfolge trennt Fund und Nullbefund nicht.** Die drei ausgelieferten
+Fehler liegen auf den Plätzen 3, 9 und 13, die vier Nullbefunde auf 10, 11, 12
+und 17 — verschränkt, nicht gestaffelt. Alle sieben stammen zudem aus den
+obersten 17 von 42; über die untere Hälfte sagt diese Stichprobe gar nichts. Das
+ist kein Mangel der Rangfolge, sondern das, was die Payload-Spalte misst:
+Exposition, nicht Risiko. Sie sagt, wie viel ungeprüfte Annahme ein Server
+trägt, nicht, ob eine davon falsch ist.
 
 ### Zwei Lücken, die offen bleiben
 
@@ -168,13 +171,13 @@ folgenden drei belegten die Fixtures nur weniger, als sie aussahen.
 
 ## Wenn weitergemacht wird
 
-Das Muster liegt in sechs Servern vor und ist übertragbar: ein
+Das Muster liegt in sieben Servern vor und ist übertragbar: ein
 `scripts/record_fixtures.py`, das die Quelle abruft, Ausschnitte nach
 **dokumentierter Auswahlregel** schreibt und eine `PROVENANCE.md` mit Quelle,
 Datum, Regel und SHA-256 erzeugt. Dazu ein Loader in `tests/`, der einen
 fehlenden Namen als Fehler behandelt statt als leere Struktur.
 
-Drei Dinge haben sich dabei durchgehend bewährt:
+Vier Dinge haben sich dabei durchgehend bewährt:
 
 1. **Erwartungen aus der Fixture ableiten**, nicht danebenschreiben. Eine feste
    Zahl ist beim nächsten Aufzeichnen falsch, ohne dass sich etwas Geprüftes
@@ -185,6 +188,14 @@ Drei Dinge haben sich dabei durchgehend bewährt:
 3. **Die Gegenprobe führen.** In `bag-health-mcp` bestand die erste Fassung des
    neuen Tests auch mit zurückgedrehter Fixture: Der Befund war enthalten, aber
    von keiner Zusicherung festgehalten. Erst die zweite Fassung fiel.
+4. **Abgeleitete Erwartungen brauchen eine Code-Mutation, keine
+   Fixture-Mutation.** Wer die Erwartung aus der Fixture ableitet — und das ist
+   richtig, siehe Punkt 1 —, kann sie nicht prüfen, indem er die Fixture
+   verbiegt: Die Erwartung wandert mit, und alles bleibt grün. In
+   `meteoswiss-mcp` und `wsl-envidat-mcp` ist das jeweils passiert. Geprüft
+   wird stattdessen am Server (dort: «rendere die älteste statt der jüngsten
+   Zeile», «melde die gezeigte statt der gefundenen Zahl»). Wer diesen
+   Unterschied übersieht, hält eine Tautologie für einen Test.
 
 Wo Personendaten im Spiel sind — Amtsblatt-Rubriken wie `SB` und `LS` —, bleibt
 die **Struktur echt und die Werte redigiert**, mit vollständiger Liste in der
