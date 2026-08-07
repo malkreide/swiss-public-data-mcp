@@ -28,6 +28,7 @@ Usage:
 The --check mode is run in CI so a stale README (e.g. after a repo rename) fails
 the build instead of silently drifting.
 """
+
 from __future__ import annotations
 
 import json
@@ -128,8 +129,7 @@ LANGS = {
         ),
         "startup_header": "| Startverhalten | Server |",
         "startup_silent": (
-            "**Keine Ausgabe** ({n}) — nichts innerhalb von sechs Sekunden mit "
-            "geschlossenem stdin"
+            "**Keine Ausgabe** ({n}) — nichts innerhalb von sechs Sekunden mit geschlossenem stdin"
         ),
         "startup_banner": (
             "**Nur der SDK-Banner** ({n}) — das ist die Ausgabe des SDK, nicht die "
@@ -220,15 +220,13 @@ def build_server_portfolio(data: dict, lang: dict) -> str:
                 desc = s[lang["desc_key"]]
                 related = s.get("related") or []
                 if related:
-                    links = ", ".join(
-                        f"[`{r}`]({repo_by_id.get(r, '#')})" for r in related
-                    )
+                    links = ", ".join(f"[`{r}`]({repo_by_id.get(r, '#')})" for r in related)
                     desc = f"{desc}{lang['related_prefix']}{links}"
                 out.append(
                     f"| [{s['display_name']}]({s['repository']}) "
                     f"| {source_link(s, lang)} "
                     f"| {desc} "
-                    f"| *\"{s[lang['query_key']]}\"* "
+                    f'| *"{s[lang["query_key"]]}"* '
                     f"| {status_icons(s)} "
                     f"| [{audit_label(s['audit_evidence'])}]({s['audit_evidence']}) |"
                 )
@@ -305,9 +303,7 @@ def build_startup_behaviour(data: dict, lang: dict) -> str:
         out.append(lang["startup_all_declared"].format(measured=measured))
     else:
         out.append(
-            lang["startup_lead"].format(
-                measured=measured, declared=len(declared), quiet=quiet
-            )
+            lang["startup_lead"].format(measured=measured, declared=len(declared), quiet=quiet)
         )
         out += ["", lang["startup_header"], "|---|---|"]
         if silent:
@@ -372,7 +368,9 @@ def validate_counts(data: dict) -> None:
             problems.append(f"{s['id']} is missing data_source/data_source_de/data_source_url")
     known = {s["id"] for s in data["servers"]}
     for s in data["servers"]:
-        for ref in list(s.get("related") or []) + ([s["superseded_by"]] if s.get("superseded_by") else []):
+        for ref in list(s.get("related") or []) + (
+            [s["superseded_by"]] if s.get("superseded_by") else []
+        ):
             if ref not in known:
                 problems.append(f"{s['id']} references unknown server '{ref}'")
     for sid in data["spotlight"]["servers"]:
@@ -405,7 +403,9 @@ def validate_counts(data: dict) -> None:
         problems.append(f"{sid} carries a start_event measurement but is not a published server")
 
     if problems:
-        raise SystemExit("ERROR: portfolio.json count validation failed:\n  " + "\n  ".join(problems))
+        raise SystemExit(
+            "ERROR: portfolio.json count validation failed:\n  " + "\n  ".join(problems)
+        )
 
 
 def render(data: dict, lang: dict) -> str:

@@ -39,6 +39,7 @@ Prerequisites for --publish (per the registry docs, see registry/README.md):
   * each package published to PyPI with an ``mcp-name`` URL in pyproject.toml,
   * the ``mcp-publisher`` CLI installed and ``mcp-publisher login github`` done.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -136,16 +137,30 @@ def serialize(obj: dict) -> str:
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
-    p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    p = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
     p.add_argument("--only", nargs="+", metavar="ID", help="restrict to these server ids")
-    p.add_argument("--repos-dir", type=pathlib.Path, default=ROOT.parent,
-                   help="directory containing server repos as <id>/ (default: parent of this repo)")
-    p.add_argument("--clone", action="store_true",
-                   help="git clone missing repos (and ff-pull existing ones)")
-    p.add_argument("--out", type=pathlib.Path, default=DEFAULT_OUT,
-                   help=f"where to write publish-ready server.json (default: {DEFAULT_OUT.relative_to(ROOT)})")
-    p.add_argument("--publish", action="store_true",
-                   help="actually run `mcp-publisher publish` for READY servers (default: dry run)")
+    p.add_argument(
+        "--repos-dir",
+        type=pathlib.Path,
+        default=ROOT.parent,
+        help="directory containing server repos as <id>/ (default: parent of this repo)",
+    )
+    p.add_argument(
+        "--clone", action="store_true", help="git clone missing repos (and ff-pull existing ones)"
+    )
+    p.add_argument(
+        "--out",
+        type=pathlib.Path,
+        default=DEFAULT_OUT,
+        help=f"where to write publish-ready server.json (default: {DEFAULT_OUT.relative_to(ROOT)})",
+    )
+    p.add_argument(
+        "--publish",
+        action="store_true",
+        help="actually run `mcp-publisher publish` for READY servers (default: dry run)",
+    )
     p.add_argument("--timeout", type=float, default=15.0, help="PyPI request timeout in seconds")
     return p.parse_args(argv)
 
@@ -164,9 +179,12 @@ def main(argv: list[str]) -> int:
             return 2
 
     if args.publish and not shutil.which("mcp-publisher"):
-        print("ERROR: --publish given but `mcp-publisher` is not on PATH.\n"
-              "       Install it and run `mcp-publisher login github` first "
-              "(see registry/README.md).", file=sys.stderr)
+        print(
+            "ERROR: --publish given but `mcp-publisher` is not on PATH.\n"
+            "       Install it and run `mcp-publisher login github` first "
+            "(see registry/README.md).",
+            file=sys.stderr,
+        )
         return 2
 
     args.out.mkdir(parents=True, exist_ok=True)

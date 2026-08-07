@@ -1,0 +1,56 @@
+name: lint
+
+# Der Linter auf die Skripte, die dieses Repo ausmachen.
+#
+# Bis hierher lief auf `scripts/` nie einer. Die zehn Dateien darunter erzeugen
+# READMEs, `server.json`-Dateien und Release-Artefakte fuer das ganze
+# Portfolio — ein Repo, das die Klammer um vierzig andere haelt und selbst
+# durch kein Gate geht, ist die Klasse, aus der `OPS-005`
+# (Pipeline-Ehrlichkeit) entstand.
+#
+# Eigener Workflow statt eines Schrittes in `readme-sync.yml` oder
+# `index-presence.yml`: jene beiden brauchen das Netz und laufen auf einem
+# Zeitplan. Ein Lint-Befund haette dort denselben roten Punkt erzeugt wie ein
+# nicht erreichbarer Index, und die zwei Ursachen waeren nicht mehr zu
+# unterscheiden gewesen.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lint-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ruff:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      # Exakt gepinnt, nicht mit Obergrenze. Fuer `ruff check` genuegte eine,
+      # weil der Regelsatz in `select` steht (ruff.toml). Fuer
+      # `ruff format --check` unten genuegt sie NICHT: dort ist das Ergebnis
+      # selbst das Kriterium, und jede Version, die am Formatter dreht, faerbt
+      # unberuehrten Code rot. 0.16.1 ist die Version, auf der das Portfolio
+      # geschlossen steht.
+      - name: Install pinned Ruff
+        run: pip install ruff==0.16.1
+
+      - name: Lint
+        run: ruff check scripts/
+
+      # Zweites, eigenstaendiges Gate. Ein gruenes `ruff check` belegt kein
+      # gruenes Format — die beiden pruefen Verschiedenes. Eigener Schritt,
+      # damit im Log steht, welches der beiden ausgeloest hat.
+      - name: Format
+        run: ruff format --check scripts/

@@ -20,6 +20,7 @@ Usage:
 The --check mode runs in CI so the snippets cannot drift from portfolio.json,
 mirroring scripts/generate_server_json.py.
 """
+
 from __future__ import annotations
 
 import json

@@ -31,6 +31,7 @@ built, or uploaded. Then:
 
 Uploading needs PyPI credentials (e.g. ``~/.pypirc`` or TWINE_USERNAME/PASSWORD).
 """
+
 from __future__ import annotations
 
 import argparse
@@ -47,6 +48,7 @@ import zipfile
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 REGISTRY_DIR = ROOT / "registry"
 
+
 # `version = "1.2.3"` line inside a given [table] (header .. next top-level table).
 def _section_re(table: str) -> re.Pattern[str]:
     esc = re.escape(table)
@@ -55,7 +57,10 @@ def _section_re(table: str) -> re.Pattern[str]:
         re.MULTILINE | re.DOTALL,
     )
 
-VERSION_LINE = re.compile(r"""^(?P<pre>[ \t]*version[ \t]*=[ \t]*)['"](?P<ver>[^'"]+)['"]""", re.MULTILINE)
+
+VERSION_LINE = re.compile(
+    r"""^(?P<pre>[ \t]*version[ \t]*=[ \t]*)['"](?P<ver>[^'"]+)['"]""", re.MULTILINE
+)
 SEMVER_TAG = re.compile(r"^v?(\d+)\.(\d+)\.(\d+)$")
 
 # States.
@@ -122,14 +127,20 @@ def set_version_in_section(text: str, table: str, new_version: str) -> str | Non
     sec = _section_re(table).search(text)
     if not sec or not VERSION_LINE.search(sec.group("body")):
         return None
-    new_body = VERSION_LINE.sub(lambda m: f'{m.group("pre")}"{new_version}"', sec.group("body"), count=1)
+    new_body = VERSION_LINE.sub(
+        lambda m: f'{m.group("pre")}"{new_version}"', sec.group("body"), count=1
+    )
     start, end = sec.span()
     return text[:start] + sec.group("header") + new_body + text[end:]
 
 
 def latest_tag_version(repo_dir: pathlib.Path) -> str:
-    res = subprocess.run(["git", "-C", str(repo_dir), "tag", "--list", "v*"],
-                         capture_output=True, text=True, check=False)
+    res = subprocess.run(
+        ["git", "-C", str(repo_dir), "tag", "--list", "v*"],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
     best = (0, 0, 0)
     for line in res.stdout.split():
         m = SEMVER_TAG.match(line.strip())
@@ -147,7 +158,10 @@ def ensure_repo(repo_dir: pathlib.Path, url: str, clone: bool) -> bool:
         return False
     repo_dir.parent.mkdir(parents=True, exist_ok=True)
     print(f"  cloning {url} -> {repo_dir}")
-    return subprocess.run(["git", "clone", "--depth", "1", url, str(repo_dir)], check=False).returncode == 0
+    return (
+        subprocess.run(["git", "clone", "--depth", "1", url, str(repo_dir)], check=False).returncode
+        == 0
+    )
 
 
 def run(cmd: list[str], cwd: pathlib.Path) -> bool:
@@ -165,7 +179,9 @@ def mcp_name_in_dist(repo_dir: pathlib.Path, name: str) -> bool:
     embed in the wheel's METADATA payload, so a substring check over METADATA is
     sufficient and matches the registry's own README-based validation.
     """
-    wheels = sorted(glob.glob(str(repo_dir / "dist" / "*.whl")), key=lambda p: pathlib.Path(p).stat().st_mtime)
+    wheels = sorted(
+        glob.glob(str(repo_dir / "dist" / "*.whl")), key=lambda p: pathlib.Path(p).stat().st_mtime
+    )
     if not wheels:
         return False
     with zipfile.ZipFile(wheels[-1]) as zf:
@@ -177,17 +193,35 @@ def mcp_name_in_dist(repo_dir: pathlib.Path, name: str) -> bool:
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
-    p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    p = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
     p.add_argument("--only", nargs="+", metavar="ID", help="restrict to these server ids")
-    p.add_argument("--repos-dir", type=pathlib.Path, default=ROOT.parent,
-                   help="directory containing server repos as <id>/ (default: parent of this repo)")
-    p.add_argument("--clone", action="store_true", help="git clone missing repos (ff-pull existing)")
-    p.add_argument("--part", choices=["patch", "minor", "major"], default="patch",
-                   help="version bump size for static-version projects (default: patch)")
+    p.add_argument(
+        "--repos-dir",
+        type=pathlib.Path,
+        default=ROOT.parent,
+        help="directory containing server repos as <id>/ (default: parent of this repo)",
+    )
+    p.add_argument(
+        "--clone", action="store_true", help="git clone missing repos (ff-pull existing)"
+    )
+    p.add_argument(
+        "--part",
+        choices=["patch", "minor", "major"],
+        default="patch",
+        help="version bump size for static-version projects (default: patch)",
+    )
     p.add_argument("--build", action="store_true", help="bump, build, twine check, verify metadata")
-    p.add_argument("--commit", action="store_true", help="commit the bump and create the vX.Y.Z tag (implies --build)")
+    p.add_argument(
+        "--commit",
+        action="store_true",
+        help="commit the bump and create the vX.Y.Z tag (implies --build)",
+    )
     p.add_argument("--push", action="store_true", help="push commit and tag (implies --commit)")
-    p.add_argument("--upload", action="store_true", help="twine upload verified builds (implies --build)")
+    p.add_argument(
+        "--upload", action="store_true", help="twine upload verified builds (implies --build)"
+    )
     return p.parse_args(argv)
 
 
@@ -215,7 +249,7 @@ def main(argv: list[str]) -> int:
         repo_dir = (args.repos_dir / sid).resolve()
         if not ensure_repo(repo_dir, url, args.clone):
             rows.append((sid, NO_REPO, f"{repo_dir} (use --clone)"))
-            print(f"  repo not found (use --clone)")
+            print("  repo not found (use --clone)")
             continue
         pyproject = repo_dir / "pyproject.toml"
         if not pyproject.exists():
@@ -260,7 +294,9 @@ def main(argv: list[str]) -> int:
                 print("  dynamic version: tagging requires --commit; skipped build")
                 continue
         else:
-            new_text = set_version_in_section(text, "project" if mode == "project" else "tool.poetry", nxt)
+            new_text = set_version_in_section(
+                text, "project" if mode == "project" else "tool.poetry", nxt
+            )
             if new_text is None or detect_version(tomllib.loads(new_text))[1] != nxt:
                 rows.append((sid, NO_VERSION, "could not rewrite version line"))
                 print("  ERROR: could not rewrite version; left untouched")
@@ -297,7 +333,9 @@ def main(argv: list[str]) -> int:
             git(repo_dir, "push", "--tags")
 
         if args.upload:
-            if run([sys.executable, "-m", "twine", "upload", *glob.glob(str(dist / "*"))], repo_dir):
+            if run(
+                [sys.executable, "-m", "twine", "upload", *glob.glob(str(dist / "*"))], repo_dir
+            ):
                 uploaded += 1
                 rows.append((sid, UPLOADED, nxt))
                 print(f"  uploaded {nxt}")

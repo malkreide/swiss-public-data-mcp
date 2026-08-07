@@ -76,6 +76,7 @@ Usage:
     python scripts/coverage_manifest.py --check              # validate the field
     python scripts/coverage_manifest.py --verify-index       # ask the index (network)
 """
+
 from __future__ import annotations
 
 import argparse
