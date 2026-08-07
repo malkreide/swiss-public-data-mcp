@@ -26,13 +26,13 @@ Rahmen steht als Regel 5 in [`mcp-data-fidelity`](https://github.com/malkreide/m
 | | |
 |---|---:|
 | Server mit Testsuite | **42** |
-| davon mit Aufzeichnungsskript **und** Datum | **7** |
+| davon mit Aufzeichnungsskript **und** Datum | **8** |
 | Inline-Payloads insgesamt | **rund 1 145** |
 | mit Live-Test-Markern | 40 |
 | davon an einem Zeitplan | 20 |
 
 Zum Zeitpunkt der Erhebung hatte **kein einziger** der 42 Server eine datierte
-Fixture-Herkunft. Die 7, die sie heute haben, sind am selben Tag nachgezogen
+Fixture-Herkunft. Die 8, die sie heute haben, sind am selben Tag nachgezogen
 worden (siehe «Was daraus geworden ist»).
 
 ## Wie gemessen wurde
@@ -46,6 +46,14 @@ worden (siehe «Was daraus geworden ist»).
   Kalibrierung unten sagt, warum.
 - **Live** — Dateien mit `pytest.mark.live`, plus ob ein Workflow mit `cron:` sie
   tatsächlich fährt.
+
+**Testdateien und Payloads sind Erhebungswerte, Fixture-Dateien und Provenienz
+sind Tagesstand.** Die Rangfolge hat nur als *ein* Messzeitpunkt eine Bedeutung;
+würde man die Exposition der nachgezogenen Server nachmessen, verschöbe sich die
+Liste, weil das Nachziehen selbst Tests hinzufügt. Bei `swiss-transport-mcp` wäre
+das nach dem Nachziehen 17 Testdateien und 27 Payloads statt 14 und 20. Die
+Spalten, die den *Zustand* melden — Fixture-Dateien, Provenienz —, stehen
+dagegen auf heute; sonst wäre die Tabelle für ihren eigentlichen Zweck blind.
 
 ### Zwei Kalibrierungen, offengelegt
 
@@ -87,7 +95,7 @@ Ein Signal, das sich nicht belegen lässt, gehört nicht in einen Befund.
 | `lindas-mcp` | 4 | 24 | 0 | keine | 1 Datei(en)+geplant |
 | `wsl-envidat-mcp` ✅ | 5 | 24 | 5 | **datiert** | 2 Datei(en) |
 | `swiss-holidays-mcp` | 11 | 21 | 0 | keine | 1 Datei(en)+geplant |
-| `swiss-transport-mcp` | 14 | 20 | 0 | keine | 1 Datei(en) |
+| `swiss-transport-mcp` ✅ | 14 | 20 | 2 | **datiert** | 1 Datei(en) |
 | `parlament-mcp` | 5 | 20 | 0 | keine | 2 Datei(en)+geplant |
 | `swiss-academic-libraries-mcp` | 5 | 18 | 0 | keine | 4 Datei(en) |
 | `swiss-democracy-mcp` | 2 | 18 | 0 | keine | 1 Datei(en) |
@@ -120,7 +128,6 @@ Viele ungeprüfte Annahmen **und** kein Zeitplan, der sie gegen die Quelle hält
 
 | Server | Payloads | Live |
 |---|---:|---|
-| `swiss-transport-mcp` | 20 | 1 Datei(en) |
 | `swiss-academic-libraries-mcp` | 18 | 4 Datei(en) |
 | `swiss-democracy-mcp` | 18 | 1 Datei(en) |
 | `swiss-electricity-mcp` | 15 | 1 Datei(en) |
@@ -133,7 +140,7 @@ Quelle, die ihre Kopfzeilen wechselt. Der Faktor-100-Fehler in
 
 ## Was daraus geworden ist
 
-Sieben Server sind am 2026-08-07 nachgezogen worden. In **drei** von sieben hat
+Acht Server sind am 2026-08-07 nachgezogen worden. In **vier** von acht hat
 allein das Aufzeichnen einen ausgelieferten Fehler freigelegt:
 
 | Server | PR | Befund |
@@ -145,18 +152,25 @@ allein das Aufzeichnen einen ausgelieferten Fehler freigelegt:
 | `swiss-statistics-mcp` | [#29](https://github.com/malkreide/swiss-statistics-mcp/pull/29) | **Kein Befund am Server**, drei an den Fixtures: Ein Snapshot ist ein Zeitpunkt, die alte Fixture war zwei (BFS 133 *und* 295 in einer Datei); die Korrespondenz-Fixture beantwortete eine Anfrage mit anderen Parametern, als der Server sendet; falsche Codes und ein gekürzter Titel. |
 | `meteoswiss-mcp` | [#42](https://github.com/malkreide/meteoswiss-mcp/pull/42) | **Kein Befund am Server.** Die STAC-Fixture führte 4 Assets, die Quelle liefert 16 — der Selektor, der ausdrücklich jeden Fallback ablehnt, wurde nie gegen die Historik-Dateien geprüft, gegen die es ihn gibt. |
 | `wsl-envidat-mcp` | [#24](https://github.com/malkreide/wsl-envidat-mcp/pull/24) | **Kein Befund am Server**, drei an den Fixtures: Die Organisationen `wsl` und `slf` gibt es nicht (`organization_show?id=slf` → HTTP 404); Tags stehen in GROSSBUCHSTABEN statt kleingeschrieben; ein Datensatz hat 42 Felder statt 9, mit `extras`, die die Quelle nicht kennt. |
+| `swiss-transport-mcp` | [#31](https://github.com/malkreide/swiss-transport-mcp/pull/31) | **Fünf Befunde am Server**, alle derselben Herkunft: Er spricht an mehreren Stellen OJP **1.0**, wo er 2.0 zu sprechen glaubt. `<n>` statt des Pflichtfelds `<Name>` in jedem `PlaceRef` — damit war jede Reise- und Abfahrtsanfrage ungültig; `<LocationName>` für Ortsnamen, die es in OJP 2.0 innerhalb eines `PlaceRef` gar nicht gibt; `<IncludeRealtimeData>` statt `UseRealtimeData`; der Standort-Parser las nur `StopPlaceName` und verwarf alles andere; Fusswege kamen ohne Start- und Zielnamen zurück. |
 
-Die vier Nullbefunde gehören genauso in diese Tabelle wie die drei Funde. Nach
+Die vier Nullbefunde gehören genauso in diese Tabelle wie die vier Funde. Nach
 drei Repos in Folge, die etwas hergaben, wäre die Versuchung gross gewesen, auch
 in den übrigen etwas zu finden.
 
-**Die Rangfolge trennt Fund und Nullbefund nicht.** Die drei ausgelieferten
-Fehler liegen auf den Plätzen 3, 9 und 13, die vier Nullbefunde auf 10, 11, 12
-und 17 — verschränkt, nicht gestaffelt. Alle sieben stammen zudem aus den
-obersten 17 von 42; über die untere Hälfte sagt diese Stichprobe gar nichts. Das
+**Die Rangfolge trennt Fund und Nullbefund nicht.** Die vier ausgelieferten
+Fehler liegen auf den Plätzen 3, 9, 13 und 19, die vier Nullbefunde auf 10, 11,
+12 und 17 — verschränkt, nicht gestaffelt. Alle acht stammen zudem aus den
+obersten 19 von 42; über die untere Hälfte sagt diese Stichprobe gar nichts. Das
 ist kein Mangel der Rangfolge, sondern das, was die Payload-Spalte misst:
 Exposition, nicht Risiko. Sie sagt, wie viel ungeprüfte Annahme ein Server
 trägt, nicht, ob eine davon falsch ist.
+
+`swiss-transport-mcp` macht das zum zweiten Mal vor: 20 Payloads, Platz 19 — und
+der schwerste Befund der acht. Jede Reise- und jede Abfahrtsanfrage des Servers
+war ungültig, an einer Stelle, die keine einzige Fixture je berührt hat. Die
+Payload-Spalte konnte davon nichts wissen, weil der Fehler nicht in den Daten
+stand, sondern in der Frage.
 
 ### Zwei Lücken, die offen bleiben
 
@@ -171,13 +185,13 @@ trägt, nicht, ob eine davon falsch ist.
 
 ## Wenn weitergemacht wird
 
-Das Muster liegt in sieben Servern vor und ist übertragbar: ein
+Das Muster liegt in acht Servern vor und ist übertragbar: ein
 `scripts/record_fixtures.py`, das die Quelle abruft, Ausschnitte nach
 **dokumentierter Auswahlregel** schreibt und eine `PROVENANCE.md` mit Quelle,
 Datum, Regel und SHA-256 erzeugt. Dazu ein Loader in `tests/`, der einen
 fehlenden Namen als Fehler behandelt statt als leere Struktur.
 
-Vier Dinge haben sich dabei durchgehend bewährt:
+Fünf Dinge haben sich dabei durchgehend bewährt:
 
 1. **Erwartungen aus der Fixture ableiten**, nicht danebenschreiben. Eine feste
    Zahl ist beim nächsten Aufzeichnen falsch, ohne dass sich etwas Geprüftes
@@ -196,6 +210,15 @@ Vier Dinge haben sich dabei durchgehend bewährt:
    wird stattdessen am Server (dort: «rendere die älteste statt der jüngsten
    Zeile», «melde die gezeigte statt der gefundenen Zahl»). Wer diesen
    Unterschied übersieht, hält eine Tautologie für einen Test.
+5. **Wo keine Antwort aufzeichenbar ist, den Vertrag aufzeichnen.**
+   `swiss-transport-mcp` hat vier Quellen, die alle einen Bearer-Token
+   verlangen; CI hat keinen, also lässt sich keine Antwort ehrlich datieren.
+   Aufzeichenbar war stattdessen das öffentliche XML-Schema der Norm, gegen die
+   der Server spricht — und das hat fünf ausgelieferte Fehler gefunden, die
+   keine Antwort-Fixture je berührt hätte. Wenn die Daten verschlossen sind, ist
+   die Schnittstellendefinition der nächstbeste aufzeichenbare Gegenstand.
+   Fällt auch die weg, gehört das so in die `PROVENANCE.md` — wie bei Zefix in
+   `register-mcp` — statt in ein Datum, das nicht stimmt.
 
 Wo Personendaten im Spiel sind — Amtsblatt-Rubriken wie `SB` und `LS` —, bleibt
 die **Struktur echt und die Werte redigiert**, mit vollständiger Liste in der
