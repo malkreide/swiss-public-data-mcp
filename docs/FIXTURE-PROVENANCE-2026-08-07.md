@@ -26,13 +26,13 @@ Rahmen steht als Regel 5 in [`mcp-data-fidelity`](https://github.com/malkreide/m
 | | |
 |---|---:|
 | Server mit Testsuite | **42** |
-| davon mit Aufzeichnungsskript **und** Datum | **4** |
+| davon mit Aufzeichnungsskript **und** Datum | **6** |
 | Inline-Payloads insgesamt | **rund 1 145** |
 | mit Live-Test-Markern | 40 |
 | davon an einem Zeitplan | 20 |
 
 Zum Zeitpunkt der Erhebung hatte **kein einziger** der 42 Server eine datierte
-Fixture-Herkunft. Die 4, die sie heute haben, sind am selben Tag nachgezogen
+Fixture-Herkunft. Die 6, die sie heute haben, sind am selben Tag nachgezogen
 worden (siehe «Was daraus geworden ist»).
 
 ## Wie gemessen wurde
@@ -79,8 +79,8 @@ Ein Signal, das sich nicht belegen lässt, gehört nicht in einen Befund.
 | `seco-labor-mcp` | 4 | 47 | 0 | keine | 1 Datei(en)+geplant |
 | `register-mcp` ✅ | 6 | 44 | 3 | **datiert** | 2 Datei(en) |
 | `zurich-opendata-mcp` ✅ | 16 | 35 | 4 | **datiert** | 3 Datei(en) |
-| `swiss-statistics-mcp` | 2 | 34 | 0 | keine | 1 Datei(en) |
-| `meteoswiss-mcp` | 2 | 33 | 0 | keine | 1 Datei(en) |
+| `swiss-statistics-mcp` ✅ | 2 | 34 | 7 | **datiert** | 1 Datei(en) |
+| `meteoswiss-mcp` ✅ | 2 | 33 | 6 | **datiert** | 1 Datei(en) |
 | `zh-education-mcp` ✅ | 5 | 31 | 6 | **datiert** | 2 Datei(en)+geplant |
 | `termdat-mcp` | 5 | 27 | 0 | keine | 1 Datei(en)+geplant |
 | `swiss-road-mobility-mcp` | 12 | 27 | 0 | keine | 3 Datei(en)+geplant |
@@ -120,8 +120,6 @@ Viele ungeprüfte Annahmen **und** kein Zeitplan, der sie gegen die Quelle hält
 
 | Server | Payloads | Live |
 |---|---:|---|
-| `swiss-statistics-mcp` | 34 | 1 Datei(en) |
-| `meteoswiss-mcp` | 33 | 1 Datei(en) |
 | `wsl-envidat-mcp` | 24 | 2 Datei(en) |
 | `swiss-transport-mcp` | 20 | 1 Datei(en) |
 | `swiss-academic-libraries-mcp` | 18 | 4 Datei(en) |
@@ -136,7 +134,7 @@ Quelle, die ihre Kopfzeilen wechselt. Der Faktor-100-Fehler in
 
 ## Was daraus geworden ist
 
-Vier Server sind am 2026-08-07 nachgezogen worden. In **drei** von vier hat
+Sechs Server sind am 2026-08-07 nachgezogen worden. In **drei** von sechs hat
 allein das Aufzeichnen einen ausgelieferten Fehler freigelegt:
 
 | Server | PR | Befund |
@@ -145,10 +143,17 @@ allein das Aufzeichnen einen ausgelieferten Fehler freigelegt:
 | `bag-health-mcp` | [#55](https://github.com/malkreide/bag-health-mcp/pull/55) | Die Sitemap-Fixture beschrieb eine Form, die es nicht gibt: vier `/de/`-URLs, von denen die Quelle **keine einzige** liefert. Deutsch kommt sprachneutral. Ausserdem gemessen: 9 von 12 Indikatoren haben gar keine Datenserie. |
 | `register-mcp` | [#49](https://github.com/malkreide/register-mcp/pull/49) | Eine korrekte **HR-Suche war blockiert** — 2 279 587 Treffer über einer Schwelle von 2 000 000, die «weit über jedem plausiblen Einzelfilter» liegen sollte. |
 | `zurich-opendata-mcp` | [#84](https://github.com/malkreide/zurich-opendata-mcp/pull/84) | **Kein Befund.** 246 Tests unverändert grün. Der Server sendet `rows` überall explizit; das Aufzeichnen hat es nur belegt. |
+| `swiss-statistics-mcp` | [#29](https://github.com/malkreide/swiss-statistics-mcp/pull/29) | **Kein Befund am Server**, drei an den Fixtures: Ein Snapshot ist ein Zeitpunkt, die alte Fixture war zwei (BFS 133 *und* 295 in einer Datei); die Korrespondenz-Fixture beantwortete eine Anfrage mit anderen Parametern, als der Server sendet; falsche Codes und ein gekürzter Titel. |
+| `meteoswiss-mcp` | [#42](https://github.com/malkreide/meteoswiss-mcp/pull/42) | **Kein Befund am Server.** Die STAC-Fixture führte 4 Assets, die Quelle liefert 16 — der Selektor, der ausdrücklich jeden Fallback ablehnt, wurde nie gegen die Historik-Dateien geprüft, gegen die es ihn gibt. |
 
-Der Nullbefund gehört genauso in diese Tabelle wie die drei Funde. Nach drei
-Repos in Folge, die etwas hergaben, wäre die Versuchung gross gewesen, auch im
-vierten etwas zu finden.
+Die drei Nullbefunde gehören genauso in diese Tabelle wie die drei Funde. Nach
+drei Repos in Folge, die etwas hergaben, wäre die Versuchung gross gewesen, auch
+in den übrigen etwas zu finden.
+
+**Die Fehlerdichte fällt, je weiter man die Rangfolge hinuntergeht**, und das
+passt zu dem, was die Payload-Spalte misst: Exposition, nicht Risiko. Die drei
+ausgelieferten Fehler lagen alle in der ersten Hälfte der Liste; bei den
+folgenden drei belegten die Fixtures nur weniger, als sie aussahen.
 
 ### Zwei Lücken, die offen bleiben
 
@@ -163,7 +168,7 @@ vierten etwas zu finden.
 
 ## Wenn weitergemacht wird
 
-Das Muster liegt in vier Servern vor und ist übertragbar: ein
+Das Muster liegt in sechs Servern vor und ist übertragbar: ein
 `scripts/record_fixtures.py`, das die Quelle abruft, Ausschnitte nach
 **dokumentierter Auswahlregel** schreibt und eine `PROVENANCE.md` mit Quelle,
 Datum, Regel und SHA-256 erzeugt. Dazu ein Loader in `tests/`, der einen
