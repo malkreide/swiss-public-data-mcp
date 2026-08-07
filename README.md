@@ -43,6 +43,7 @@ Last checked: **2026-07-28**
 | Promotion & distribution | [`PROMOTION.md`](PROMOTION.md) |
 | Client install snippets | [`docs/INSTALL.md`](docs/INSTALL.md) |
 | `opendata.swiss` showcase submission | [`docs/SHOWCASE.md`](docs/SHOWCASE.md) |
+| Fixture provenance inventory (snapshot, 2026-08-07) | [`docs/FIXTURE-PROVENANCE-2026-08-07.md`](docs/FIXTURE-PROVENANCE-2026-08-07.md) |
 | Required discovery topic | [`swiss-public-data-mcp`](https://github.com/topics/swiss-public-data-mcp) |
 | Current MCP spec baseline for new audits | [`2025-11-25`](https://modelcontextprotocol.io/specification/versioning) |
 
