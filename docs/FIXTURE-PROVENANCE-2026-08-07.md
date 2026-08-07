@@ -26,13 +26,13 @@ Rahmen steht als Regel 5 in [`mcp-data-fidelity`](https://github.com/malkreide/m
 | | |
 |---|---:|
 | Server mit Testsuite | **42** |
-| davon mit Aufzeichnungsskript **und** Datum | **8** |
+| davon mit Aufzeichnungsskript **und** Datum | **9** |
 | Inline-Payloads insgesamt | **rund 1 145** |
 | mit Live-Test-Markern | 40 |
 | davon an einem Zeitplan | 20 |
 
 Zum Zeitpunkt der Erhebung hatte **kein einziger** der 42 Server eine datierte
-Fixture-Herkunft. Die 8, die sie heute haben, sind am selben Tag nachgezogen
+Fixture-Herkunft. Die 9, die sie heute haben, sind am selben Tag nachgezogen
 worden (siehe «Was daraus geworden ist»).
 
 ## Wie gemessen wurde
@@ -97,7 +97,7 @@ Ein Signal, das sich nicht belegen lässt, gehört nicht in einen Befund.
 | `swiss-holidays-mcp` | 11 | 21 | 0 | keine | 1 Datei(en)+geplant |
 | `swiss-transport-mcp` ✅ | 14 | 20 | 2 | **datiert** | 1 Datei(en) |
 | `parlament-mcp` | 5 | 20 | 0 | keine | 2 Datei(en)+geplant |
-| `swiss-academic-libraries-mcp` | 5 | 18 | 0 | keine | 4 Datei(en) |
+| `swiss-academic-libraries-mcp` ✅ | 5 | 18 | 10 | **datiert** | 4 Datei(en) |
 | `swiss-democracy-mcp` | 2 | 18 | 0 | keine | 1 Datei(en) |
 | `swiss-courts-mcp` | 9 | 16 | 1 | keine | 2 Datei(en)+geplant |
 | `swiss-electricity-mcp` | 8 | 15 | 0 | keine | 1 Datei(en) |
@@ -128,7 +128,6 @@ Viele ungeprüfte Annahmen **und** kein Zeitplan, der sie gegen die Quelle hält
 
 | Server | Payloads | Live |
 |---|---:|---|
-| `swiss-academic-libraries-mcp` | 18 | 4 Datei(en) |
 | `swiss-democracy-mcp` | 18 | 1 Datei(en) |
 | `swiss-electricity-mcp` | 15 | 1 Datei(en) |
 | `swiss-snb-mcp` | 11 | 2 Datei(en) |
@@ -140,7 +139,7 @@ Quelle, die ihre Kopfzeilen wechselt. Der Faktor-100-Fehler in
 
 ## Was daraus geworden ist
 
-Acht Server sind am 2026-08-07 nachgezogen worden. In **vier** von acht hat
+Neun Server sind am 2026-08-07 nachgezogen worden. In **fünf** von neun hat
 allein das Aufzeichnen einen ausgelieferten Fehler freigelegt:
 
 | Server | PR | Befund |
@@ -153,24 +152,27 @@ allein das Aufzeichnen einen ausgelieferten Fehler freigelegt:
 | `meteoswiss-mcp` | [#42](https://github.com/malkreide/meteoswiss-mcp/pull/42) | **Kein Befund am Server.** Die STAC-Fixture führte 4 Assets, die Quelle liefert 16 — der Selektor, der ausdrücklich jeden Fallback ablehnt, wurde nie gegen die Historik-Dateien geprüft, gegen die es ihn gibt. |
 | `wsl-envidat-mcp` | [#24](https://github.com/malkreide/wsl-envidat-mcp/pull/24) | **Kein Befund am Server**, drei an den Fixtures: Die Organisationen `wsl` und `slf` gibt es nicht (`organization_show?id=slf` → HTTP 404); Tags stehen in GROSSBUCHSTABEN statt kleingeschrieben; ein Datensatz hat 42 Felder statt 9, mit `extras`, die die Quelle nicht kennt. |
 | `swiss-transport-mcp` | [#31](https://github.com/malkreide/swiss-transport-mcp/pull/31) | **Fünf Befunde am Server**, alle derselben Herkunft: Er spricht an mehreren Stellen OJP **1.0**, wo er 2.0 zu sprechen glaubt. `<n>` statt des Pflichtfelds `<Name>` in jedem `PlaceRef` — damit war jede Reise- und Abfahrtsanfrage ungültig; `<LocationName>` für Ortsnamen, die es in OJP 2.0 innerhalb eines `PlaceRef` gar nicht gibt; `<IncludeRealtimeData>` statt `UseRealtimeData`; der Standort-Parser las nur `StopPlaceName` und verwarf alles andere; Fusswege kamen ohne Start- und Zielnamen zurück. |
+| `swiss-academic-libraries-mcp` | [#50](https://github.com/malkreide/swiss-academic-libraries-mcp/pull/50) | **Die Sammlungs-Übersicht meldete ein Zehntel des Bestands als Gesamtzahl.** `ListSets` ist paginiert wie `ListRecords`; gelesen wurde eine Seite. e-rara: 10 statt **105**, e-manuscripta: 10 statt **49**. Der Namensfilter lief danach über diese Reste, so dass eine Sammlung, die es gibt, als «Keine Sammlungen gefunden» zurückkam. |
 
-Die vier Nullbefunde gehören genauso in diese Tabelle wie die vier Funde. Nach
+Die vier Nullbefunde gehören genauso in diese Tabelle wie die fünf Funde. Nach
 drei Repos in Folge, die etwas hergaben, wäre die Versuchung gross gewesen, auch
 in den übrigen etwas zu finden.
 
-**Die Rangfolge trennt Fund und Nullbefund nicht.** Die vier ausgelieferten
-Fehler liegen auf den Plätzen 3, 9, 13 und 19, die vier Nullbefunde auf 10, 11,
-12 und 17 — verschränkt, nicht gestaffelt. Alle acht stammen zudem aus den
-obersten 19 von 42; über die untere Hälfte sagt diese Stichprobe gar nichts. Das
+**Die Rangfolge trennt Fund und Nullbefund nicht.** Die fünf ausgelieferten
+Fehler liegen auf den Plätzen 3, 9, 13, 19 und 21, die vier Nullbefunde auf 10,
+11, 12 und 17 — verschränkt, nicht gestaffelt. Alle neun stammen zudem aus den
+obersten 21 von 42, also **exakt aus der oberen Hälfte**; über die untere sagt
+diese Stichprobe gar nichts. Das
 ist kein Mangel der Rangfolge, sondern das, was die Payload-Spalte misst:
 Exposition, nicht Risiko. Sie sagt, wie viel ungeprüfte Annahme ein Server
 trägt, nicht, ob eine davon falsch ist.
 
-`swiss-transport-mcp` macht das zum zweiten Mal vor: 20 Payloads, Platz 19 — und
-der schwerste Befund der acht. Jede Reise- und jede Abfahrtsanfrage des Servers
-war ungültig, an einer Stelle, die keine einzige Fixture je berührt hat. Die
-Payload-Spalte konnte davon nichts wissen, weil der Fehler nicht in den Daten
-stand, sondern in der Frage.
+Die beiden untersten der neun führen das vor. `swiss-transport-mcp` (20
+Payloads, Platz 19): Jede Reise- und jede Abfahrtsanfrage war ungültig.
+`swiss-academic-libraries-mcp` (18 Payloads, Platz 21): Die Sammlungs-Übersicht
+meldete ein Zehntel des Bestands als Gesamtzahl. Beide Fehler standen nicht in
+den Daten, sondern in der Frage — und davon konnte die Payload-Spalte nichts
+wissen.
 
 ### Zwei Lücken, die offen bleiben
 
@@ -185,13 +187,13 @@ stand, sondern in der Frage.
 
 ## Wenn weitergemacht wird
 
-Das Muster liegt in acht Servern vor und ist übertragbar: ein
+Das Muster liegt in neun Servern vor und ist übertragbar: ein
 `scripts/record_fixtures.py`, das die Quelle abruft, Ausschnitte nach
 **dokumentierter Auswahlregel** schreibt und eine `PROVENANCE.md` mit Quelle,
 Datum, Regel und SHA-256 erzeugt. Dazu ein Loader in `tests/`, der einen
 fehlenden Namen als Fehler behandelt statt als leere Struktur.
 
-Fünf Dinge haben sich dabei durchgehend bewährt:
+Sechs Dinge haben sich dabei durchgehend bewährt:
 
 1. **Erwartungen aus der Fixture ableiten**, nicht danebenschreiben. Eine feste
    Zahl ist beim nächsten Aufzeichnen falsch, ohne dass sich etwas Geprüftes
@@ -219,6 +221,17 @@ Fünf Dinge haben sich dabei durchgehend bewährt:
    die Schnittstellendefinition der nächstbeste aufzeichenbare Gegenstand.
    Fällt auch die weg, gehört das so in die `PROVENANCE.md` — wie bei Zefix in
    `register-mcp` — statt in ein Datum, das nicht stimmt.
+6. **Der Zuschnitt muss die auffällige Zeile behalten.** «Die ersten N
+   Datensätze» ist eine bequeme Auswahlregel und schneidet zuverlässig genau
+   das weg, wofür es die Fixture gibt. In `swiss-academic-libraries-mcp`
+   zweimal am selben Tag: ex/ante liefert ein rohes Steuerzeichen mitten in
+   einem Feld — es sass ausserhalb der ersten zwei Datensätze, und ohne es
+   belegte die Fixture nicht mehr, wozu die XML-Reinigung da ist. sui generis
+   führt seine ersten Datensätze als `status="deleted"`; eine Fixture nur aus
+   Grabsteinen lässt den Parser korrekt nichts liefern und prüft damit nichts.
+   Beides hat der Aufzeichnungslauf selbst gemeldet, weil die Regeln als
+   Zusicherung im Skript stehen und nicht als Absicht im Kopf. Das ist nicht
+   Punkt 2: Dort trifft eine Regel nichts mehr, hier trifft sie das Falsche.
 
 Wo Personendaten im Spiel sind — Amtsblatt-Rubriken wie `SB` und `LS` —, bleibt
 die **Struktur echt und die Werte redigiert**, mit vollständiger Liste in der
