@@ -26,13 +26,13 @@ Rahmen steht als Regel 5 in [`mcp-data-fidelity`](https://github.com/malkreide/m
 | | |
 |---|---:|
 | Server mit Testsuite | **42** |
-| davon mit Aufzeichnungsskript **und** Datum | **9** |
+| davon mit Aufzeichnungsskript **und** Datum | **10** |
 | Inline-Payloads insgesamt | **rund 1 145** |
 | mit Live-Test-Markern | 40 |
 | davon an einem Zeitplan | 20 |
 
 Zum Zeitpunkt der Erhebung hatte **kein einziger** der 42 Server eine datierte
-Fixture-Herkunft. Die 9, die sie heute haben, sind am selben Tag nachgezogen
+Fixture-Herkunft. Die 10, die sie heute haben, sind am selben Tag nachgezogen
 worden (siehe «Was daraus geworden ist»).
 
 ## Wie gemessen wurde
@@ -98,7 +98,7 @@ Ein Signal, das sich nicht belegen lässt, gehört nicht in einen Befund.
 | `swiss-transport-mcp` ✅ | 14 | 20 | 2 | **datiert** | 1 Datei(en) |
 | `parlament-mcp` | 5 | 20 | 0 | keine | 2 Datei(en)+geplant |
 | `swiss-academic-libraries-mcp` ✅ | 5 | 18 | 10 | **datiert** | 4 Datei(en) |
-| `swiss-democracy-mcp` | 2 | 18 | 0 | keine | 1 Datei(en) |
+| `swiss-democracy-mcp` ✅ | 2 | 18 | 3 | **datiert** | 1 Datei(en) |
 | `swiss-courts-mcp` | 9 | 16 | 1 | keine | 2 Datei(en)+geplant |
 | `swiss-electricity-mcp` | 8 | 15 | 0 | keine | 1 Datei(en) |
 | `swiss-efv-mcp` | 4 | 13 | 0 | keine | 1 Datei(en)+geplant |
@@ -128,7 +128,6 @@ Viele ungeprüfte Annahmen **und** kein Zeitplan, der sie gegen die Quelle hält
 
 | Server | Payloads | Live |
 |---|---:|---|
-| `swiss-democracy-mcp` | 18 | 1 Datei(en) |
 | `swiss-electricity-mcp` | 15 | 1 Datei(en) |
 | `swiss-snb-mcp` | 11 | 2 Datei(en) |
 
@@ -139,7 +138,7 @@ Quelle, die ihre Kopfzeilen wechselt. Der Faktor-100-Fehler in
 
 ## Was daraus geworden ist
 
-Neun Server sind am 2026-08-07 nachgezogen worden. In **fünf** von neun hat
+Zehn Server sind am 2026-08-07 nachgezogen worden. In **sechs** von zehn hat
 allein das Aufzeichnen einen ausgelieferten Fehler freigelegt:
 
 | Server | PR | Befund |
@@ -153,25 +152,28 @@ allein das Aufzeichnen einen ausgelieferten Fehler freigelegt:
 | `wsl-envidat-mcp` | [#24](https://github.com/malkreide/wsl-envidat-mcp/pull/24) | **Kein Befund am Server**, drei an den Fixtures: Die Organisationen `wsl` und `slf` gibt es nicht (`organization_show?id=slf` → HTTP 404); Tags stehen in GROSSBUCHSTABEN statt kleingeschrieben; ein Datensatz hat 42 Felder statt 9, mit `extras`, die die Quelle nicht kennt. |
 | `swiss-transport-mcp` | [#31](https://github.com/malkreide/swiss-transport-mcp/pull/31) | **Fünf Befunde am Server**, alle derselben Herkunft: Er spricht an mehreren Stellen OJP **1.0**, wo er 2.0 zu sprechen glaubt. `<n>` statt des Pflichtfelds `<Name>` in jedem `PlaceRef` — damit war jede Reise- und Abfahrtsanfrage ungültig; `<LocationName>` für Ortsnamen, die es in OJP 2.0 innerhalb eines `PlaceRef` gar nicht gibt; `<IncludeRealtimeData>` statt `UseRealtimeData`; der Standort-Parser las nur `StopPlaceName` und verwarf alles andere; Fusswege kamen ohne Start- und Zielnamen zurück. |
 | `swiss-academic-libraries-mcp` | [#50](https://github.com/malkreide/swiss-academic-libraries-mcp/pull/50) | **Die Sammlungs-Übersicht meldete ein Zehntel des Bestands als Gesamtzahl.** `ListSets` ist paginiert wie `ListRecords`; gelesen wurde eine Seite. e-rara: 10 statt **105**, e-manuscripta: 10 statt **49**. Der Namensfilter lief danach über diese Reste, so dass eine Sammlung, die es gibt, als «Keine Sammlungen gefunden» zurückkam. |
+| `swiss-democracy-mcp` | [#25](https://github.com/malkreide/swiss-democracy-mcp/pull/25) | **Füllwerte wurden als Parteiparolen ausgegeben.** Swissvotes markiert Fehlendes mit `9999` und `.`; der Code übersetzte die bekannten Codes und reichte den Rest roh durch. **667 der 714 Abstimmungen** betroffen — für die Bundesverfassung von 1848 meldete das Werkzeug `{"FDP": "9999", …}` für alle zehn Parteien, von denen es damals keine gab. |
 
-Die vier Nullbefunde gehören genauso in diese Tabelle wie die fünf Funde. Nach
+Die vier Nullbefunde gehören genauso in diese Tabelle wie die sechs Funde. Nach
 drei Repos in Folge, die etwas hergaben, wäre die Versuchung gross gewesen, auch
 in den übrigen etwas zu finden.
 
-**Die Rangfolge trennt Fund und Nullbefund nicht.** Die fünf ausgelieferten
-Fehler liegen auf den Plätzen 3, 9, 13, 19 und 21, die vier Nullbefunde auf 10,
-11, 12 und 17 — verschränkt, nicht gestaffelt. Alle neun stammen zudem aus den
-obersten 21 von 42, also **exakt aus der oberen Hälfte**; über die untere sagt
-diese Stichprobe gar nichts. Das
+**Die Rangfolge trennt Fund und Nullbefund nicht.** Die sechs ausgelieferten
+Fehler liegen auf den Plätzen 3, 9, 13, 19, 21 und 22, die vier Nullbefunde auf
+10, 11, 12 und 17 — verschränkt, nicht gestaffelt. Alle zehn stammen zudem aus
+den obersten 22 von 42; über die untere Hälfte sagt diese Stichprobe gar nichts.
+Das
 ist kein Mangel der Rangfolge, sondern das, was die Payload-Spalte misst:
 Exposition, nicht Risiko. Sie sagt, wie viel ungeprüfte Annahme ein Server
 trägt, nicht, ob eine davon falsch ist.
 
-Die beiden untersten der neun führen das vor. `swiss-transport-mcp` (20
-Payloads, Platz 19): Jede Reise- und jede Abfahrtsanfrage war ungültig.
-`swiss-academic-libraries-mcp` (18 Payloads, Platz 21): Die Sammlungs-Übersicht
-meldete ein Zehntel des Bestands als Gesamtzahl. Beide Fehler standen nicht in
-den Daten, sondern in der Frage — und davon konnte die Payload-Spalte nichts
+Die drei untersten der zehn führen das vor — und alle drei tragen einen Fund.
+`swiss-transport-mcp` (Platz 19): Jede Reise- und jede Abfahrtsanfrage war
+ungültig. `swiss-academic-libraries-mcp` (Platz 21): Die Sammlungs-Übersicht
+meldete ein Zehntel des Bestands als Gesamtzahl. `swiss-democracy-mcp`
+(Platz 22): Füllwerte gingen als Parteiparolen hinaus, in 93 % der
+Abstimmungen. Keiner dieser Fehler stand in den Daten — sie standen in der
+Frage, im Blättern und im Codebuch. Davon kann eine Payload-Zählung nichts
 wissen.
 
 ### Zwei Lücken, die offen bleiben
@@ -187,7 +189,7 @@ wissen.
 
 ## Wenn weitergemacht wird
 
-Das Muster liegt in neun Servern vor und ist übertragbar: ein
+Das Muster liegt in zehn Servern vor und ist übertragbar: ein
 `scripts/record_fixtures.py`, das die Quelle abruft, Ausschnitte nach
 **dokumentierter Auswahlregel** schreibt und eine `PROVENANCE.md` mit Quelle,
 Datum, Regel und SHA-256 erzeugt. Dazu ein Loader in `tests/`, der einen
@@ -232,6 +234,15 @@ Sechs Dinge haben sich dabei durchgehend bewährt:
    Beides hat der Aufzeichnungslauf selbst gemeldet, weil die Regeln als
    Zusicherung im Skript stehen und nicht als Absicht im Kopf. Das ist nicht
    Punkt 2: Dort trifft eine Regel nichts mehr, hier trifft sie das Falsche.
+
+   In `swiss-democracy-mcp` ein drittes Mal, und dort wird der Grund sichtbar,
+   warum Aufzeichnen überhaupt etwas findet: **Was eine Fixture wertvoll macht,
+   ist meist genau das, was niemand erfinden würde.** Swissvotes markiert
+   Fehlendes mit `9999`. Wer eine CSV-Zeile von Hand schreibt, schreibt
+   `p-fdp;1` — plausibel, sauber, und damit blind für den Fall, der in 93 % der
+   Zeilen vorkommt. Ausgewählt wird deshalb nach Merkmal, nicht nach Position;
+   «die ersten N Zeilen» hätte aus 714 Zeilen ausgerechnet die harmlosen
+   getroffen.
 
 Wo Personendaten im Spiel sind — Amtsblatt-Rubriken wie `SB` und `LS` —, bleibt
 die **Struktur echt und die Werte redigiert**, mit vollständiger Liste in der
