@@ -1,0 +1,38 @@
+# Ruff-Konfiguration.
+#
+# Kein `pyproject.toml` im Repo — dieses Repo ist kein Python-Paket, sondern
+# die Portfolio-Klammer mit Generator- und Release-Skripten. Deshalb steht die
+# Konfiguration in einer eigenen `ruff.toml`.
+#
+# Anlass: Zehn Skripte unter `scripts/` erzeugen READMEs, `server.json`-Dateien und
+# Release-Artefakte fuer das ganze Portfolio — und auf keines davon lief je
+# ein Linter. Ein Repo, das die Vorlagen fuer 40 andere haelt und selbst durch
+# kein Gate geht, ist die Klasse, aus der `OPS-005` (Pipeline-Ehrlichkeit)
+# entstand.
+
+# Die bestehenden Workflows fahren Python 3.13.
+target-version = "py313"
+
+# Zeilenbreite: 100, die modale Breite des Portfolios (34 von 48 Repos mit
+# ruff-Konfiguration). Ausgeschrieben, damit sie eine Entscheidung ist statt
+# einer Abwesenheit.
+line-length = 100
+
+[lint]
+# Expliziter Regelsatz statt ruffs Vorgaben. Ohne `select` gilt der Default der
+# jeweiligen ruff-Version, und der verschiebt sich — im Portfolio ist genau das
+# beim Sprung auf 0.16.1 passiert, an unberuehrtem Code. Ein `select` ersetzt
+# die Vorgaben vollstaendig; damit ist der erzwungene Satz exakt diese Liste.
+#
+# Der modale Satz des Portfolios, 18 Repos fahren genau diesen:
+#
+#   E  — pycodestyle-Fehler
+#   F  — Pyflakes (ungenutzte Importe und Variablen, f-String-Fehler, ...)
+#   W  — pycodestyle-Warnungen
+#   I  — Import-Sortierung (isort)
+#   UP — pyupgrade (moderne Syntax)
+select = ["E", "F", "W", "I", "UP"]
+
+# E501 entscheidet der Formatter, nicht der Linter — so halten es 24 der 25
+# Portfolio-Repos mit `E` im Satz.
+ignore = ["E501"]

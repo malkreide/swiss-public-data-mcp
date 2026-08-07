@@ -37,6 +37,7 @@ Examples
     python scripts/patch_mcp_name.py --repos-dir ../repos --clone --write
     python scripts/patch_mcp_name.py --repos-dir ../repos --write --commit --push
 """
+
 from __future__ import annotations
 
 import argparse
@@ -130,7 +131,10 @@ def ensure_repo(repo_dir: pathlib.Path, url: str, clone: bool) -> bool:
         return False
     repo_dir.parent.mkdir(parents=True, exist_ok=True)
     print(f"  cloning {url} -> {repo_dir}")
-    return subprocess.run(["git", "clone", "--depth", "1", url, str(repo_dir)], check=False).returncode == 0
+    return (
+        subprocess.run(["git", "clone", "--depth", "1", url, str(repo_dir)], check=False).returncode
+        == 0
+    )
 
 
 def git(repo_dir: pathlib.Path, *args: str) -> int:
@@ -138,14 +142,26 @@ def git(repo_dir: pathlib.Path, *args: str) -> int:
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
-    p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    p = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
     p.add_argument("--only", nargs="+", metavar="ID", help="restrict to these server ids")
-    p.add_argument("--repos-dir", type=pathlib.Path, default=ROOT.parent,
-                   help="directory containing server repos as <id>/ (default: parent of this repo)")
-    p.add_argument("--clone", action="store_true", help="git clone missing repos (ff-pull existing)")
+    p.add_argument(
+        "--repos-dir",
+        type=pathlib.Path,
+        default=ROOT.parent,
+        help="directory containing server repos as <id>/ (default: parent of this repo)",
+    )
+    p.add_argument(
+        "--clone", action="store_true", help="git clone missing repos (ff-pull existing)"
+    )
     p.add_argument("--write", action="store_true", help="write edits (default: dry run)")
-    p.add_argument("--commit", action="store_true", help="git commit the edits in each repo (implies --write)")
-    p.add_argument("--push", action="store_true", help="git push after committing (implies --commit)")
+    p.add_argument(
+        "--commit", action="store_true", help="git commit the edits in each repo (implies --write)"
+    )
+    p.add_argument(
+        "--push", action="store_true", help="git push after committing (implies --commit)"
+    )
     return p.parse_args(argv)
 
 
@@ -173,7 +189,7 @@ def main(argv: list[str]) -> int:
         repo_dir = (args.repos_dir / sid).resolve()
         if not ensure_repo(repo_dir, url, args.clone):
             rows.append((sid, NO_REPO, f"{repo_dir} (use --clone)"))
-            print(f"  repo not found (use --clone)")
+            print("  repo not found (use --clone)")
             continue
 
         readme = find_readme(repo_dir)
@@ -197,7 +213,9 @@ def main(argv: list[str]) -> int:
                 try:
                     tomllib.loads(new_ptext)  # guard: must still parse
                 except tomllib.TOMLDecodeError:
-                    rows.append((sid, "PARSE_ERROR", "pyproject cleanup would not parse; left untouched"))
+                    rows.append(
+                        (sid, "PARSE_ERROR", "pyproject cleanup would not parse; left untouched")
+                    )
                     print("  ERROR: pyproject cleanup did not validate; skipping repo")
                     continue
 
@@ -232,9 +250,11 @@ def main(argv: list[str]) -> int:
         print(f"{sid:<32} {state:<22} {detail}")
     print("-" * 70)
     if args.write:
-        print(f"changed {changed} repo(s)"
-              + (" and committed" if args.commit else "")
-              + (" and pushed" if args.push else ""))
+        print(
+            f"changed {changed} repo(s)"
+            + (" and committed" if args.commit else "")
+            + (" and pushed" if args.push else "")
+        )
     else:
         actionable = sum(1 for _, s, _ in rows if s.endswith("(dry-run)"))
         print(f"dry run: {actionable} repo(s) would change. Re-run with --write to apply.")

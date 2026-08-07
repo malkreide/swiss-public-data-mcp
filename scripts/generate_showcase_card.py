@@ -24,6 +24,7 @@ Usage:
     python scripts/generate_showcase_card.py           # rewrite the HTML
     python scripts/generate_showcase_card.py --check    # exit 1 if out of date
 """
+
 from __future__ import annotations
 
 import json

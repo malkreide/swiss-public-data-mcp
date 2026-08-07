@@ -34,6 +34,7 @@ Usage:
 The --check mode is run in CI so a stale draft (e.g. after a repo rename) fails
 the build instead of silently drifting, mirroring scripts/generate_readme.py.
 """
+
 from __future__ import annotations
 
 import json

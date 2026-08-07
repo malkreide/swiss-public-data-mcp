@@ -17,6 +17,7 @@ Usage:
     python scripts/generate_promotion.py           # rewrite PROMOTION.md
     python scripts/generate_promotion.py --check    # exit 1 if out of date
 """
+
 from __future__ import annotations
 
 import json
@@ -86,9 +87,7 @@ def build_entries(data: dict) -> str:
         "```",
     ]
     for s in servers:
-        lines.append(
-            f"- [malkreide/{s['id']}]({s['repository']}) {BADGES} - {s['description']}"
-        )
+        lines.append(f"- [malkreide/{s['id']}]({s['repository']}) {BADGES} - {s['description']}")
     lines += [
         "```",
         "",
