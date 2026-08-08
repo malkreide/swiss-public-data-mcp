@@ -102,7 +102,7 @@ Diese Links sind Kontext, keine Autorisierung. Das Repository bleibt ein private
 
 ## Qualität & Audit-Tooling
 
-Die Auditmethodik ist jetzt mit dem öffentlichen [`mcp-audit-skill`](https://github.com/malkreide/mcp-audit-skill) verknüpft, statt als interner Katalog beschrieben zu werden. Ergänzt wird sie durch [`mcp-continuous-auditor`](https://github.com/malkreide/mcp-continuous-auditor), der kontinuierliche CI-Audits gegen MCP-Server ausführt und promptfoo als deterministische Ground Truth nutzt. Der Skill dokumentiert aktuell **112 Checks in zwölf Kategorien**, auf doppelter Spec-Baseline (`2025-11-25` und `2026-07-28`):
+Die Auditmethodik ist jetzt mit dem öffentlichen [`mcp-audit-skill`](https://github.com/malkreide/mcp-audit-skill) verknüpft, statt als interner Katalog beschrieben zu werden. Ergänzt wird sie durch [`mcp-continuous-auditor`](https://github.com/malkreide/mcp-continuous-auditor), der kontinuierliche CI-Audits gegen MCP-Server ausführt und promptfoo als deterministische Ground Truth nutzt. Der Skill dokumentiert aktuell **120 Checks in zwölf Kategorien**, auf doppelter Spec-Baseline (`2025-11-25` und `2026-07-28`):
 
 | Kategorie | Abdeckung |
 |---|---|
@@ -140,8 +140,8 @@ audit:
   repo: https://github.com/malkreide/swiss-transport-mcp
   audited_commit: "<commit-sha>"
   audit_skill: https://github.com/malkreide/mcp-audit-skill
-  audit_skill_version: "2.0.0"
-  catalogue_checks: 112
+  audit_skill_version: "2.3.0"
+  catalogue_checks: 120
   mcp_spec_version: "2025-11-25"        # 2025-11-25 | 2026-07-28
   profile:
     transport: "dual"                   # stdio-only | dual | HTTP/SSE

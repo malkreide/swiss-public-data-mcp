@@ -19,7 +19,7 @@
   },
   "audit_methodology": {
     "repository": "https://github.com/malkreide/mcp-audit-skill",
-    "catalogue_checks": 112,
+    "catalogue_checks": 120,
     "categories": [
       "ARCH",
       "SDK",
