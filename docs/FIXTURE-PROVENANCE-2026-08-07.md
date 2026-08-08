@@ -1,7 +1,14 @@
 # Fixture-Herkunft im Portfolio — Bestandsaufnahme
 
-**Stand: 2026-08-07.** Erhoben read-only über den Git-Proxy; kein Repo wurde
-für diese Messung verändert.
+**Erhebung: 2026-08-07. Zustandsspalten nachgemessen am 2026-08-08.** Erhoben
+read-only über den Git-Proxy; kein Repo wurde für diese Messung verändert.
+
+Der Bericht führt deshalb **zwei Daten**, und das ist Absicht: Die
+Expositionswerte — Testdateien, Inline-Payloads, Live-Tests — stehen auf dem
+Erhebungstag und dürfen sich nicht bewegen, sonst verliert die Rangfolge ihren
+Bezugspunkt. Die Zustandsspalten — Fixture-Dateien, Provenienz — stehen auf dem
+letzten Nachziehen. Wer nur eines der beiden Daten nennt, macht aus dem Bericht
+genau die Angabe, gegen die er argumentiert.
 
 Dieser Bericht ist eine **Momentaufnahme und altert**. Das Datum steht deshalb im
 Dateinamen und hier: Ohne Zeitpunkt ist eine Bestandsaufnahme nach ein paar
@@ -26,14 +33,22 @@ Rahmen steht als Regel 5 in [`mcp-data-fidelity`](https://github.com/malkreide/m
 | | |
 |---|---:|
 | Server mit Testsuite | **42** |
-| davon mit Aufzeichnungsskript **und** Datum | **12** |
+| davon mit Aufzeichnungsskript **und** Datum | **21** |
 | Inline-Payloads insgesamt | **rund 1 145** |
 | mit Live-Test-Markern | 40 |
 | davon an einem Zeitplan | 20 |
 
 Zum Zeitpunkt der Erhebung hatte **kein einziger** der 42 Server eine datierte
-Fixture-Herkunft. Zehn sind am selben Tag nachgezogen worden, der elfte und
-der zwölfte am 2026-08-08 (siehe «Was daraus geworden ist»).
+Fixture-Herkunft. Zwölf sind am 2026-08-07 und 2026-08-08 nachgezogen worden,
+neun weitere am 2026-08-08 (siehe «Was daraus geworden ist»). Das ist die Hälfte
+des Portfolios; die andere Hälfte steht unverändert auf «keine».
+
+**Die Zahl 21 ist gemessen, nicht mitgezählt.** Beim Nachziehen dieses Berichts
+stand in der laufenden Notiz «neunzehn». Nachgemessen wurde über alle Repos
+gegen den Standardzweig — Aufzeichnungsskript unter `scripts/record_fixtures.py`
+**und** eine `PROVENANCE.md` unter `tests/`, die ein Datum führt. Es sind 21.
+Eine mitlaufende Zählung ist genau das, wogegen dieser Bericht argumentiert:
+eine Behauptung ohne Messzeitpunkt.
 
 ## Wie gemessen wurde
 
@@ -47,24 +62,47 @@ der zwölfte am 2026-08-08 (siehe «Was daraus geworden ist»).
 - **Live** — Dateien mit `pytest.mark.live`, plus ob ein Workflow mit `cron:` sie
   tatsächlich fährt.
 
-**Testdateien und Payloads sind Erhebungswerte, Fixture-Dateien und Provenienz
-sind Tagesstand.** Die Rangfolge hat nur als *ein* Messzeitpunkt eine Bedeutung;
+**Testdateien, Payloads und Live-Tests sind Erhebungswerte, Fixture-Dateien und
+Provenienz sind Tagesstand.** Die Rangfolge hat nur als *ein* Messzeitpunkt eine
+Bedeutung;
 würde man die Exposition der nachgezogenen Server nachmessen, verschöbe sich die
 Liste, weil das Nachziehen selbst Tests hinzufügt. Bei `swiss-transport-mcp` wäre
 das nach dem Nachziehen 17 Testdateien und 27 Payloads statt 14 und 20. Die
 Spalten, die den *Zustand* melden — Fixture-Dateien, Provenienz —, stehen
 dagegen auf heute; sonst wäre die Tabelle für ihren eigentlichen Zweck blind.
 
-### Zwei Kalibrierungen, offengelegt
+Die Live-Spalte steht deshalb weiterhin auf dem Erhebungsstand, auch wo sie
+inzwischen falsch ist: `eth-library-mcp` führt dort «keine» und hat seit dem
+Nachziehen zwei Live-Tests, `sbb-opendata-mcp` und `news-monitor-mcp` haben ihre
+vorhandenen erstmals zum Laufen gebracht. Wer aus dieser Spalte den heutigen
+Zustand lesen will, liest die falsche Tabelle — die Befunde dazu stehen unten.
 
-Der erste Detektor hat sich zweimal selbst getäuscht, und beides ist genau die
-Fehlerklasse, um die es hier geht:
+### Drei Kalibrierungen, offengelegt
+
+Der Detektor hat sich dreimal selbst getäuscht, und alle drei Male ist es genau
+die Fehlerklasse, um die es hier geht:
 
 1. Er meldete Provenienz, sobald irgendein README das Wort «aufgezeichnet»
    enthielt. Eine Herkunftsangabe am falschen Ort ist keine.
 2. Er meldete «Datum im Test» für einen Server, dessen Fixtures nachweislich
    erfunden waren — die Daten stammten aus der `Stand`-Spalte der Nutzdaten. Das
    Signal ist zurückgestuft und zählt nicht als Beleg.
+3. **Beim Nachziehen auf 21**, also mit dem Bericht in der Hand, der die beiden
+   ersten Fehler bereits beschreibt: Die Neumessung suchte `PROVENANCE` per
+   Namensmuster über den ganzen Baum und traf in `zh-education-mcp`
+   `src/zh_education_mcp/provenance.py` — eine Quelldatei für die
+   Lizenz-Attribution, die mit Fixture-Herkunft nichts zu tun hat. Der Server
+   erschien dadurch als «Provenienz ohne Datum», obwohl seine
+   `tests/fixtures/PROVENANCE.md` in Ordnung ist. Punkt 1 in neuer Kleidung, im
+   selben Repo, mit derselben Ursache: Ein Name am falschen Ort ist kein Beleg.
+   Die Messung greift seither nur noch auf `tests/**/PROVENANCE.md` zu.
+
+Ein zweiter Messfehler derselben Erhebung gehört daneben, weil er die andere
+Richtung zeigt: Der erste Durchlauf meldete für 15 von 21 nachgezogenen Servern
+**kein** Aufzeichnungsskript. Gemessen war nicht der Bestand der Repos, sondern
+das Alter der lokalen Klone — `origin/main` war Tage alt. Dieselbe Regel wie bei
+den beiden Korrekturen weiter unten, ein drittes Mal: **Eine Messung, die die
+eigene Vorlage abfragt, misst die Vorlage.**
 
 Gegengeprüft wurde an `zh-education-mcp` vorher/nachher: Nur der behobene Stand
 meldet `Skript/Datei`.
@@ -79,13 +117,13 @@ Ein Signal, das sich nicht belegen lässt, gehört nicht in einen Befund.
 |---|---:|---:|---:|---|---|
 | `srgssr-mcp` | 6 | 134 | 0 | keine | 1 Datei(en)+geplant |
 | `swisstopo-mcp` | 35 | 133 | 0 | keine | 14 Datei(en)+geplant |
-| `bag-health-mcp` ✅ | 3 | 72 | 9 | **datiert** | 1 Datei(en) |
+| `bag-health-mcp` ✅ | 3 | 72 | 14 | **datiert** | 1 Datei(en) |
 | `swiss-procurement-mcp` | 20 | 72 | 0 | keine | 1 Datei(en)+geplant |
 | `swiss-cultural-heritage-mcp` | 3 | 66 | 0 | keine | 1 Datei(en)+geplant |
 | `amtsblatt-mcp` | 20 | 64 | 0 | keine | 2 Datei(en)+geplant |
 | `swiss-environment-mcp` | 7 | 57 | 0 | keine | 4 Datei(en)+geplant |
 | `seco-labor-mcp` | 4 | 47 | 0 | keine | 1 Datei(en)+geplant |
-| `register-mcp` ✅ | 6 | 44 | 3 | **datiert** | 2 Datei(en) |
+| `register-mcp` ✅ | 6 | 44 | 8 | **datiert** | 2 Datei(en) |
 | `zurich-opendata-mcp` ✅ | 16 | 35 | 4 | **datiert** | 3 Datei(en) |
 | `swiss-statistics-mcp` ✅ | 2 | 34 | 7 | **datiert** | 1 Datei(en) |
 | `meteoswiss-mcp` ✅ | 2 | 33 | 6 | **datiert** | 1 Datei(en) |
@@ -104,21 +142,21 @@ Ein Signal, das sich nicht belegen lässt, gehört nicht in einen Befund.
 | `swiss-efv-mcp` | 4 | 13 | 0 | keine | 1 Datei(en)+geplant |
 | `i14y-mcp` | 4 | 11 | 0 | keine | 1 Datei(en)+geplant |
 | `swiss-snb-mcp` ✅ | 4 | 11 | 11 | **datiert** | 2 Datei(en) |
-| `eth-library-mcp` | 2 | 11 | 0 | keine | keine |
+| `eth-library-mcp` ✅ | 2 | 11 | 1 | **datiert** | keine |
 | `fedlex-mcp` | 3 | 9 | 0 | keine | 1 Datei(en) |
 | `hn-tech-signal-mcp` | 2 | 6 | 0 | keine | 1 Datei(en) |
 | `swiss-energy-mcp` | 5 | 5 | 0 | keine | 1 Datei(en)+geplant |
 | `lobbywatch-mcp` | 6 | 5 | 0 | keine | 1 Datei(en) |
-| `swiss-ip-mcp` | 1 | 5 | 0 | keine | 1 Datei(en)+geplant |
-| `openlex-mcp` | 8 | 4 | 0 | keine | 1 Datei(en)+geplant |
+| `swiss-ip-mcp` ✅ | 1 | 5 | 1 | **datiert** | 1 Datei(en)+geplant |
+| `openlex-mcp` ✅ | 8 | 4 | 2 | **datiert** | 1 Datei(en)+geplant |
 | `swiss-housing-mcp` | 1 | 4 | 0 | keine | 1 Datei(en)+geplant |
-| `bag-epl-mcp` | 3 | 3 | 0 | keine | 1 Datei(en) |
-| `news-monitor-mcp` | 2 | 2 | 0 | keine | 1 Datei(en) |
-| `global-education-mcp` | 2 | 2 | 0 | keine | keine |
-| `swiss-culture-mcp` | 1 | 1 | 2 | keine | 1 Datei(en) |
+| `bag-epl-mcp` ✅ | 3 | 3 | 3 | **datiert** | 1 Datei(en) |
+| `news-monitor-mcp` ✅ | 2 | 2 | 1 | **datiert** | 1 Datei(en) |
+| `global-education-mcp` ✅ | 2 | 2 | 9 | **datiert** | keine |
+| `swiss-culture-mcp` ✅ | 1 | 1 | 3 | **datiert** | 1 Datei(en) |
 | `bakom-mcp` | 7 | 1 | 0 | keine | 1 Datei(en) |
-| `sbb-opendata-mcp` | 1 | 0 | 0 | keine | 1 Datei(en) |
-| `swiss-food-safety-mcp` | 1 | 0 | 0 | keine | 1 Datei(en) |
+| `sbb-opendata-mcp` ✅ | 1 | 0 | 8 | **datiert** | 1 Datei(en) |
+| `swiss-food-safety-mcp` ✅ | 1 | 0 | 2 | **datiert** | 1 Datei(en) |
 
 `swiss-public-data-mcp` führt keine Testsuite — es ist das Portfolio-Meta-Repo.
 
@@ -145,9 +183,9 @@ Quelle, die ihre Kopfzeilen wechselt. Der Faktor-100-Fehler in
 
 ## Was daraus geworden ist
 
-Zwölf Server sind nachgezogen worden — zehn am 2026-08-07, zwei am 2026-08-08.
-In **acht** von zwölf hat allein das Aufzeichnen einen ausgelieferten Fehler
-freigelegt:
+**21 Server sind nachgezogen worden** — zwölf zuerst, aus der oberen Hälfte der
+Rangfolge, danach neun aus der unteren. In **16** von 21 hat allein das
+Aufzeichnen einen ausgelieferten Fehler freigelegt; fünf sind Nullbefunde.
 
 | Server | PR | Befund |
 |---|---|---|
@@ -164,30 +202,67 @@ freigelegt:
 | `swiss-snb-mcp` | [#35](https://github.com/malkreide/swiss-snb-mcp/pull/35) | **Vier Befunde.** Die Bankenbilanz lieferte für `frequency="monthly"` **immer** eine leere Tabelle: Die Dimensionsordnung stand als Konstante mit vier Einträgen im Code, der Monats-Cube führt fünf, und jede Reihe mit abweichender Länge wurde stumm verworfen — HTTP 200, Kopfzeile, nichts darunter. `snb_get_warehouse_metadata` war kaputt, seit es existiert: Es baute `dimensions/json/<lang>`, einen Pfad, den es nicht gibt und den data.snb.ch als Angular-App mit **HTTP 200 und `text/html`** beantwortet. Die Jahresreihe gab Total, Inland und Ausland als drei identisch beschriftete Zeilen aus, wobei Inland + Ausland das Total ergibt. Und `INR100` wurde als Währung angeboten, die es in keinem der Cubes gibt. |
 | `swiss-democracy-mcp` | [#25](https://github.com/malkreide/swiss-democracy-mcp/pull/25) | **Füllwerte wurden als Parteiparolen ausgegeben.** Swissvotes markiert Fehlendes mit `9999` und `.`; der Code übersetzte die bekannten Codes und reichte den Rest roh durch. **667 der 714 Abstimmungen** betroffen — für die Bundesverfassung von 1848 meldete das Werkzeug `{"FDP": "9999", …}` für alle zehn Parteien, von denen es damals keine gab. |
 
-Die vier Nullbefunde gehören genauso in diese Tabelle wie die acht Funde. Nach
+### Die neun aus der unteren Hälfte
+
+| Server | PR | Befund |
+|---|---|---|
+| `eth-library-mcp` | [#18](https://github.com/malkreide/eth-library-mcp/pull/18) | **Ein Werkzeug bot eine API an, die es nicht mehr gibt.** Im Code und in beiden READMEs stand seit Langem, die Persons-API gebe «aktuell HTTP 404» und die richtige URL müsse noch verifiziert werden. Es gibt keine richtige URL. Entscheidbar war das **ohne API-Schlüssel**, weil das Gateway vor der Schlüsselprüfung routet: `/discovery/v1/resources` → 401 (Route da, Schlüssel fehlt), ein erfundener Discovery-Pfad → 404, sämtliche Persons-Pfade → 404. `eth_search_persons` ist entfernt statt mit einer schöneren Fehlermeldung versehen. Damit fällt auch die Angabe «7 Tools / 3 APIs» aus beiden READMEs — es sind sechs Werkzeuge und eine API. |
+| `sbb-opendata-mcp` | [#24](https://github.com/malkreide/sbb-opendata-mcp/pull/24) | **Drei von zehn Werkzeugen antworteten auf jede Anfrage mit einem Fehler.** Die Haltestellensuche wählte sieben deutsche Feldnamen aus einem Datensatz, der ausschliesslich englische führt — die Explore-API beantwortet ein unbekanntes Feld im `select` mit HTTP 400, nicht mit weniger Spalten. `sbb_list_datasets` sortierte nach `metas.default.title`, das der Katalog nicht kennt: Das Werkzeug, mit dem man herausfindet, welche Datensätze es gibt, hat nie funktioniert (es sind 61). Das dritte fragte einen Datensatz, den es nicht mehr gibt, und ist entfernt. Nebenbefund: Die DiDok-Liste schreibt «unbefristet gültig» als `9999-12-31`, bei 59 515 von 59 530 Einträgen — derselbe Füllwert, der in `swiss-democracy-mcp` als Parteiparole hinausging. |
+| `global-education-mcp` | [#21](https://github.com/malkreide/global-education-mcp/pull/21) | **Drei von vier UIS-Pfaden gaben HTTP 404, und 12 der 22 angebotenen Indikator-IDs führt die Quelle nicht.** Die Suite war dabei mit 128 Tests grün: Die Mocks trugen dieselben erfundenen Feldnamen wie der Produktivcode. Der Antwortumschlag heisst `records`, gelesen wurde `observations`; der Jahresfilter hiess `startYear`/`endYear` statt `start`/`end`, und unbekannte Parameter beantwortet die Quelle mit 200 und lässt sie fallen. Die Quelle nennt einen unbekannten Ländercode im Klartext — gelesen wurde das nie, ein Tippfehler sah aus wie Datenmangel. |
+| `bag-epl-mcp` | [#32](https://github.com/malkreide/bag-epl-mcp/pull/32) | **Der GgV-Rechtsverweis zeigte auf eine ELI, die das Register nicht führt** (`1986/40_40_40` statt `1986/46_46_46`). Kein Statuscode konnte das zeigen: Fedlex antwortet für **jede** ELI mit HTTP 200 und derselben Byte-Zahl. Dazu drei ausgegebene «offizielle Quellen» mit HTTP 404 — für zwei Werkzeuge war dieser Link die ganze Antwort. Und `_sl_website_suche` machte aus einem `JSONDecodeError` die Aussage «die API ist nicht öffentlich dokumentiert»; gemessen ist HTTP 200 mit `text/html`, byte-identisch zu einem frei erfundenen Pfad. |
+| `news-monitor-mcp` | [#42](https://github.com/malkreide/news-monitor-mcp/pull/42) | **Die drei Live-Tests dieses Repos liefen nie.** Sie trugen `@pytest.mark.live`, aber keinen `@pytest.mark.asyncio` — im Strict-Default heisst das «async def functions are not natively supported», und die CI schliesst `-m live` aus, also meldete es niemand. Alle drei Zusicherungen trafen ausserdem nur die eigene Vorlage; eine war eine Disjunktion, deren zweiter Zweig die Ergebnis-Überschrift ist und damit immer wahr. `data.get("news", [])` machte aus einem Formfehler «0 Ergebnisse». |
+| `swiss-food-safety-mcp` | [#24](https://github.com/malkreide/swiss-food-safety-mcp/pull/24) | **Sieben Werkzeuge zum ersten Mal live getrieben, sechs gaben etwas anderes aus, als sie versprachen** — und keines sah dabei nach einem Fehler aus. Die Tierseuchen-Suche hat nie Daten geliefert: Der SPARQL-Endpunkt war die Editor-Oberfläche (POST 404), die Abfrage traf eine Klasse mit null Instanzen — so viele wie eine erfundene Kontrollklasse. Ein Werkzeug gab Antibiotikadaten statt Tiergesundheitsdaten aus, eines eine Code-Legende statt Kontrollergebnissen, eines das `datapackage.json` — die *Beschreibung* der Daten, als wären es die Daten. Der UTF-8-BOM stand im Namen der ersten Spalte, weshalb jeder Jahresfilter still ins Leere lief. |
+| `openlex-mcp` | [#41](https://github.com/malkreide/openlex-mcp/pull/41) | **Acht Werkzeuge, acht Live-Tests — die beste Abdeckung im Portfolio, und trotzdem ein Befund.** Er liegt nicht in der Mechanik, sondern in der Verwechslung zweier Fragen: `provenance="cache"` sagt, woher *diese Antwort* kam; gemeint ist, wie alt die *Gesetze darin* sind. Die jüngste Fassung im Datensatz stammt vom 2023-01-01, der Cache gilt derweil 24 Stunden. Ein zwischenzeitlich aufgehobenes Gesetz erscheint weiterhin als in Kraft. Neu weist jede Antwort `corpus_as_of` aus. |
+| `swiss-ip-mcp` | [#37](https://github.com/malkreide/swiss-ip-mcp/pull/37) | **Nullbefund, dreifach belegt.** Jede Adresse, der Keycloak-Realm und der `client_id` sind die, die die Quelle führt. Drei unabhängige Belege, weil einer nicht getragen hätte: Der IDP unterscheidet drei Fälle (falsche Zugangsdaten → `invalid_grant`, erfundener Realm → 404, erfundener `client_id` → `invalid_client`); der Realm nennt seinen Token-Endpunkt selbst unter `.well-known/openid-configuration`; die API-Doku deklariert beide Adressen wörtlich. Der dritte Beleg ist nötig, weil die Swissreg-API selbst **nicht** unterscheidet — gebauter und erfundener Pfad antworten identisch. |
+| `swiss-culture-mcp` | [#19](https://github.com/malkreide/swiss-culture-mcp/pull/19) | **Eine ausgegebene «offizielle Quelle» war tot.** `bak_isos_overview` gab einen BAK-Pfad aus, der HTTP 404 liefert — wie der ganze `kulturerbe`-Zweig. Belegt mit einer Kontrolle: Ein frei erfundener Pfad unter demselben Präfix liefert denselben 404 mit demselben Titel. Eine Ersatzadresse ist bewusst nicht geraten. Alles andere trug und ist als Nullbefund mit aufgezeichnet. |
+
+Die **fünf** Nullbefunde gehören genauso in diese Tabellen wie die 16 Funde. Nach
 drei Repos in Folge, die etwas hergaben, wäre die Versuchung gross gewesen, auch
 in den übrigen etwas zu finden.
 
-**Die Rangfolge trennt Fund und Nullbefund nicht.** Die acht ausgelieferten
-Fehler liegen auf den Plätzen 3, 9, 13, 19, 21, 22, 24 und 27, die vier
-Nullbefunde auf 10, 11, 12 und 17 — verschränkt, nicht gestaffelt. Alle zwölf
-stammen zudem aus den obersten 27 von 42; über die untere Hälfte sagt diese
-Stichprobe gar nichts.
-Das ist kein Mangel der Rangfolge, sondern das, was die Payload-Spalte misst:
-Exposition, nicht Risiko. Sie sagt, wie viel ungeprüfte Annahme ein Server
-trägt, nicht, ob eine davon falsch ist.
+**Die Rangfolge trennt Fund und Nullbefund nicht.** Die 16 ausgelieferten Fehler
+liegen auf den Plätzen 3, 9, 13, 19, 21, 22, 24, 27, 28, 34, 36, 37, 38, 39, 41
+und 42, die fünf Nullbefunde auf 10, 11, 12, 17 und 33 — verschränkt, nicht
+gestaffelt. Das ist kein Mangel der Rangfolge, sondern das, was die
+Payload-Spalte misst: Exposition, nicht Risiko. Sie sagt, wie viel ungeprüfte
+Annahme ein Server trägt, nicht, ob eine davon falsch ist.
 
-Die fünf untersten der zwölf führen das vor — und alle fünf tragen einen Fund.
-`swiss-transport-mcp` (Platz 19): Jede Reise- und jede Abfahrtsanfrage war
-ungültig. `swiss-academic-libraries-mcp` (Platz 21): Die Sammlungs-Übersicht
-meldete ein Zehntel des Bestands als Gesamtzahl. `swiss-democracy-mcp`
-(Platz 22): Füllwerte gingen als Parteiparolen hinaus, in 93 % der
-Abstimmungen. `swiss-electricity-mcp` (Platz 24, der bisher unterste): Alle drei
-Tarif-Werkzeuge antworteten mit null Zeilen — mit 15 Payloads der zweitkleinste
-Wert. `swiss-snb-mcp` (Platz 27, der unterste): vier Befunde bei **11**
-Payloads, dem kleinsten Wert unter den zwölf. Keiner dieser Fehler stand in den
-Daten — sie standen in der Frage, im Blättern, im Codebuch, im Namensraum und in
-der Zahl der Dimensionen. Davon kann eine Payload-Zählung nichts wissen.
+### Die offene Frage der ersten Fassung, jetzt beantwortet
+
+Der Bericht führte an dieser Stelle einen Vorbehalt: *«Alle zwölf stammen aus den
+obersten 27 von 42; über die untere Hälfte sagt diese Stichprobe gar nichts.»*
+Die untere Hälfte ist inzwischen begangen, und die Antwort fällt deutlicher aus
+als erwartet — **sie zeigt nicht bloss, dass die Rangfolge nichts über Risiko
+sagt, sondern dass sie in dieser Stichprobe in die falsche Richtung zeigt:**
+
+| | nachgezogen | mit Fund | Quote |
+|---|---:|---:|---:|
+| obere Hälfte (Plätze 1–21) | 9 | 5 | 56 % |
+| untere Hälfte (Plätze 22–42) | 12 | 11 | 92 % |
+
+Die beiden Server mit **null** Inline-Payloads — dem kleinsten Expositionswert
+des ganzen Portfolios, den Plätzen 41 und 42 — tragen beide einen Fund, und
+keinen kleinen: In `sbb-opendata-mcp` antworteten drei von zehn Werkzeugen auf
+jede Anfrage mit einem Fehler, darunter das Werkzeug, das auflistet, welche
+Datensätze es überhaupt gibt. In `swiss-food-safety-mcp` gaben sechs von sieben
+live getriebenen Werkzeugen etwas anderes aus, als sie versprachen. Ein Server
+ohne einen einzigen erfundenen Payload ist eben nicht geprüft — er ist
+**ungeprüft**, und die Spalte kann diese beiden Zustände nicht auseinanderhalten.
+
+**Dieser Vergleich ist keine Statistik, und er soll keine sein.** Die 21 sind
+nicht zufällig gezogen, sondern in zwei bewussten Wellen bearbeitet, und die
+zweite lief mit dem Wissen aus der ersten — die Kontrollprobe, die Auswahl nach
+Merkmal, der Import der Basis-URL aus dem Produktivcode waren beim zweiten
+Durchgang von Anfang an da. Ein Teil der höheren Quote ist deshalb der geschärfte
+Blick und nicht der schlechtere Zustand. Was der Vergleich trägt, ist die
+schwächere und ausreichende Aussage: **Wer die Rangfolge von oben abarbeitet,
+arbeitet nicht die gefährlichsten Server zuerst ab.** Für die Reihenfolge der
+restlichen 21 heisst das, dass die Spalte als Priorisierung ausgedient hat.
+
+Keiner der 16 Fehler stand in den Daten. Sie standen in der Frage, im Blättern,
+im Codebuch, im Namensraum, in der Zahl der Dimensionen, in einer Feldsprache, in
+einem Byte vor der ersten Kopfzeile und in einer URL, die seit Jahren 404 gibt.
+Davon kann eine Payload-Zählung nichts wissen.
 
 ### Ein Befund anderer Art: das Prüfwerk selbst
 
@@ -213,6 +288,27 @@ Das ist der Grund, warum das Aufzeichnen hier überhaupt etwas gefunden hat: Der
 Server hatte mehr Live-Abdeckung als die meisten im Portfolio, und sie war
 wirkungslos. Eine Zahl in der Live-Spalte dieser Rangfolge sagt, dass es
 Live-Tests *gibt* — nicht, dass jemand ihr Ergebnis liest.
+
+**Die untere Hälfte hat denselben Befund noch zweimal geliefert, in zwei
+weiteren Gestalten.** Er ist damit kein Einzelfall dieses einen Servers,
+sondern ein Muster:
+
+- `news-monitor-mcp`: Die drei Live-Tests trugen `@pytest.mark.live`, aber
+  keinen `@pytest.mark.asyncio`. Im Strict-Default ist das kein Überspringen,
+  sondern ein Fehler — «async def functions are not natively supported». Weil
+  die CI `-m live` ausschliesst, hat den nie jemand gesehen. Behoben wurde nicht
+  die einzelne Markierung, sondern `asyncio_mode = "auto"`: Eine vergessene
+  Markierung kann diesen Fehler jetzt nicht mehr erzeugen.
+- `sbb-opendata-mcp`: Für **zwei der drei kaputten Werkzeuge gab es einen
+  Live-Test** — `test_live_search_waedenswil` und `test_live_list_datasets`.
+  Beide hätten den Fehler gemeldet. Die CI fährt nur `-m "not live"`, und einen
+  Live-Job gibt es nicht. Die Abdeckung war da, der Lauf nicht.
+
+Drei Server, drei Mechanismen, ein Ergebnis: **rot, aber nicht gelesen**
+(`swiss-snb-mcp`), **fehlerhaft, aber nicht ausgeführt** (`news-monitor-mcp`),
+**korrekt, aber nie gefahren** (`sbb-opendata-mcp`). In allen drei Fällen hätte
+die Live-Spalte dieser Rangfolge eine Zahl grösser null gemeldet. Sie zählt
+Dateien, nicht Läufe, und ein Lauf, den niemand liest, ist kein Lauf.
 
 ### Zwei Korrekturen an diesem Bericht — und beide dieselbe
 
@@ -280,13 +376,17 @@ Antworten.
 
 ## Wenn weitergemacht wird
 
-Das Muster liegt in zwölf Servern vor und ist übertragbar: ein
+Das Muster liegt in 21 Servern vor und ist übertragbar: ein
 `scripts/record_fixtures.py`, das die Quelle abruft, Ausschnitte nach
 **dokumentierter Auswahlregel** schreibt und eine `PROVENANCE.md` mit Quelle,
 Datum, Regel und SHA-256 erzeugt. Dazu ein Loader in `tests/`, der einen
 fehlenden Namen als Fehler behandelt statt als leere Struktur.
 
-Acht Dinge haben sich dabei durchgehend bewährt:
+Zehn Dinge haben sich dabei durchgehend bewährt. Die Punkte 1 bis 8 stammen aus
+der ersten Welle, 9 und 10 aus der zweiten — die untere Hälfte der Rangfolge
+besteht überwiegend aus Servern, deren Quelle Zugangsdaten verlangt oder deren
+Antwort sich nicht ehrlich datieren lässt, und dort verschiebt sich der
+Gegenstand des Aufzeichnens:
 
 1. **Erwartungen aus der Fixture ableiten**, nicht danebenschreiben. Eine feste
    Zahl ist beim nächsten Aufzeichnen falsch, ohne dass sich etwas Geprüftes
@@ -370,6 +470,39 @@ Acht Dinge haben sich dabei durchgehend bewährt:
    Messgrössen unter eine Beschriftung geraten. Erfundene Fixtures zeigen das
    nie, weil sie je Fall eine Zeile führen — die Mehrdeutigkeit entsteht erst
    in der Menge.
+9. **Ein Statuscode belegt nur mit Kontrolle etwas — und manchmal auch dann
+   nicht.** Ein 404 auf eine Adresse, die man selbst gebaut hat, misst die
+   eigene Adressliste. Erst eine **frei erfundene** Gegenprobe zeigt, ob die
+   Quelle überhaupt unterscheidet. Am ETH-Gateway tut sie es sauber: bekannter
+   Discovery-Pfad → 401, erfundener → 404, sämtliche Persons-Pfade → 404 — damit
+   ist «die API ist weg» belegt, ohne einen einzigen Schlüssel zu besitzen. An
+   anderen Quellen trägt dieselbe Messung nichts: `epl.bag.admin.ch` und
+   `www.swissreg.ch` antworten auf erfundene Pfade identisch wie auf echte;
+   Fedlex liefert für **jede** ELI HTTP 200 mit derselben Byte-Zahl; der
+   BAK-News-Feed liefert 200 auch für eine erfundene Organisationsnummer, und
+   nur die Byte-Grösse (367 gegen 344 962) trennt die Fälle. **Wo die Quelle
+   nicht unterscheidet, ist der Statuscode kein Beleg, sondern eine Zahl** — dann
+   braucht es eine zweite, unabhängige Quelle: die `.well-known`-Deklaration, die
+   API-Doku, ein amtliches Register. In `swiss-ip-mcp` steht der Nullbefund
+   deshalb auf drei Belegen und nicht auf einem.
+
+   Der Nullbefund gehört dabei genauso aufgezeichnet wie der Fund. Ein
+   Nullbefund, den niemand festhält, ist beim nächsten Durchgang keiner mehr —
+   dann wird dieselbe Adresse wieder verdächtigt und wieder freigesprochen.
+10. **Eine Fähigkeit anzubieten, die es nicht gibt, ist derselbe Fehler wie ein
+    leeres Ergebnis — nur lauter.** Zweimal unabhängig aufgetreten:
+    `eth_search_persons` stand mit Warnhinweis in der Werkzeugliste, also genau
+    dort, wo ein Modell zuerst hinsieht, und die dahinterliegende API gibt es
+    nicht mehr. `sbb_get_infrastructure_construction_projects` fragte einen
+    Datensatz, den der Katalog nicht mehr führt und für den er keinen Nachfolger
+    kennt. Beide sind **entfernt** und nicht mit einer schöneren Fehlermeldung
+    versehen. Eine bessere Meldung macht das Werkzeug nur höflicher, nicht
+    ehrlicher — angeboten wird es weiterhin.
+
+    Damit fällt regelmässig auch eine Zahl in der Dokumentation: Aus «7 Tools /
+    3 APIs» wurden in `eth-library-mcp` sechs Werkzeuge und eine API, in beiden
+    READMEs. Wer ein Werkzeug entfernt und die Auszählung stehen lässt, hat den
+    Fehler nur eine Ebene nach oben verschoben.
 
 Wo Personendaten im Spiel sind — Amtsblatt-Rubriken wie `SB` und `LS` —, bleibt
 die **Struktur echt und die Werte redigiert**, mit vollständiger Liste in der
