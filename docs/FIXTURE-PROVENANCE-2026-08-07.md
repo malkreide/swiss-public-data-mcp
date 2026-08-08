@@ -26,14 +26,14 @@ Rahmen steht als Regel 5 in [`mcp-data-fidelity`](https://github.com/malkreide/m
 | | |
 |---|---:|
 | Server mit Testsuite | **42** |
-| davon mit Aufzeichnungsskript **und** Datum | **11** |
+| davon mit Aufzeichnungsskript **und** Datum | **12** |
 | Inline-Payloads insgesamt | **rund 1 145** |
 | mit Live-Test-Markern | 40 |
 | davon an einem Zeitplan | 20 |
 
 Zum Zeitpunkt der Erhebung hatte **kein einziger** der 42 Server eine datierte
-Fixture-Herkunft. Zehn sind am selben Tag nachgezogen worden, der elfte am
-2026-08-08 (siehe «Was daraus geworden ist»).
+Fixture-Herkunft. Zehn sind am selben Tag nachgezogen worden, der elfte und
+der zwölfte am 2026-08-08 (siehe «Was daraus geworden ist»).
 
 ## Wie gemessen wurde
 
@@ -103,7 +103,7 @@ Ein Signal, das sich nicht belegen lässt, gehört nicht in einen Befund.
 | `swiss-electricity-mcp` ✅ | 8 | 15 | 9 | **datiert** | 1 Datei(en) |
 | `swiss-efv-mcp` | 4 | 13 | 0 | keine | 1 Datei(en)+geplant |
 | `i14y-mcp` | 4 | 11 | 0 | keine | 1 Datei(en)+geplant |
-| `swiss-snb-mcp` | 4 | 11 | 0 | keine | 2 Datei(en) |
+| `swiss-snb-mcp` ✅ | 4 | 11 | 11 | **datiert** | 2 Datei(en) |
 | `eth-library-mcp` | 2 | 11 | 0 | keine | keine |
 | `fedlex-mcp` | 3 | 9 | 0 | keine | 1 Datei(en) |
 | `hn-tech-signal-mcp` | 2 | 6 | 0 | keine | 1 Datei(en) |
@@ -129,12 +129,14 @@ Viele ungeprüfte Annahmen **und** kein Zeitplan, der sie gegen die Quelle hält
 | Server | Payloads | Live |
 |---|---:|---|
 | `swiss-electricity-mcp` ✅ | 15 | 1 Datei(en) |
-| `swiss-snb-mcp` | 11 | 2 Datei(en) |
+| `swiss-snb-mcp` ✅ | 11 | 2 Datei(en) |
 
-Von diesen beiden ist `swiss-electricity-mcp` inzwischen nachgezogen — und die
-Liste hatte recht, wenn auch nicht aus dem Grund, den sie nennt: Alle drei
-ElCom-Tarif-Werkzeuge lieferten seit einer Umstellung der Quelle nichts.
-`swiss-snb-mcp` steht weiter offen.
+**Diese Liste ist abgearbeitet, und sie hatte recht** — wenn auch nicht aus dem
+Grund, den sie nennt. Bei `swiss-electricity-mcp` lieferten alle drei
+ElCom-Tarif-Werkzeuge seit einer Umstellung der Quelle nichts. Bei
+`swiss-snb-mcp` kamen vier ausgelieferte Fehler heraus, dazu ein fünfter am
+Prüfwerk selbst. Zwei von zwei, bei den beiden kleinsten Expositionswerten des
+Portfolios — was die Spalte misst, ist eben nicht Risiko.
 
 Die Zahl misst Exposition, **nicht** Risiko. Ein Server mit 134 erfundenen
 Payloads gegen eine stabile API ist harmloser als einer mit fünf gegen eine
@@ -143,15 +145,15 @@ Quelle, die ihre Kopfzeilen wechselt. Der Faktor-100-Fehler in
 
 ## Was daraus geworden ist
 
-Elf Server sind nachgezogen worden — zehn am 2026-08-07, der elfte am
-2026-08-08. In **sieben** von elf hat allein das Aufzeichnen einen
-ausgelieferten Fehler freigelegt:
+Zwölf Server sind nachgezogen worden — zehn am 2026-08-07, zwei am 2026-08-08.
+In **acht** von zwölf hat allein das Aufzeichnen einen ausgelieferten Fehler
+freigelegt:
 
 | Server | PR | Befund |
 |---|---|---|
 | `zh-education-mcp` | [#41](https://github.com/malkreide/zh-education-mcp/pull/41) | Die Maturitätsquote war um **Faktor 100** zu hoch. Die Quelle publiziert die Spalte bereits in Prozent; die erfundene Fixture schrieb eine Bruchzahl hinein und liess `* 100` plausibel aussehen. |
 | `bag-health-mcp` | [#55](https://github.com/malkreide/bag-health-mcp/pull/55), [#56](https://github.com/malkreide/bag-health-mcp/pull/56) | Die Sitemap-Fixture beschrieb eine Form, die es nicht gibt: vier `/de/`-URLs, von denen die Quelle **keine einzige** liefert. Deutsch kommt sprachneutral. Der Zusatzbefund «9 von 12 Indikatoren haben gar keine Datenserie» war eine Fehldeutung meiner eigenen Messung — siehe die Korrektur unten. |
-| `register-mcp` | [#49](https://github.com/malkreide/register-mcp/pull/49) | Eine korrekte **HR-Suche war blockiert** — 2 279 587 Treffer über einer Schwelle von 2 000 000, die «weit über jedem plausiblen Einzelfilter» liegen sollte. |
+| `register-mcp` | [#49](https://github.com/malkreide/register-mcp/pull/49), [#50](https://github.com/malkreide/register-mcp/pull/50) | Eine korrekte **HR-Suche war blockiert** — 2 279 587 Treffer über einer Schwelle von 2 000 000, die «weit über jedem plausiblen Einzelfilter» liegen sollte. Nachgereicht in #50: **`legalSeatId` wurde über die falsche Spalte aufgelöst** — sie ist eine BFS-Nummer, und über die interne Gemeinde-`id` gelesen kommt kein Fehler heraus, sondern eine andere, echte Schweizer Gemeinde (261 ist Zürich, über `id` aber Aarwangen BE). 0 von 12 richtig. Dazu: Eine Suche ohne Treffer antwortete «Bitte EHRAID oder UID prüfen», weil Zefix die leere Menge mit HTTP 404 meldet und nicht mit 200. |
 | `zurich-opendata-mcp` | [#84](https://github.com/malkreide/zurich-opendata-mcp/pull/84) | **Kein Befund.** 246 Tests unverändert grün. Der Server sendet `rows` überall explizit; das Aufzeichnen hat es nur belegt. |
 | `swiss-statistics-mcp` | [#29](https://github.com/malkreide/swiss-statistics-mcp/pull/29) | **Kein Befund am Server**, drei an den Fixtures: Ein Snapshot ist ein Zeitpunkt, die alte Fixture war zwei (BFS 133 *und* 295 in einer Datei); die Korrespondenz-Fixture beantwortete eine Anfrage mit anderen Parametern, als der Server sendet; falsche Codes und ein gekürzter Titel. |
 | `meteoswiss-mcp` | [#42](https://github.com/malkreide/meteoswiss-mcp/pull/42) | **Kein Befund am Server.** Die STAC-Fixture führte 4 Assets, die Quelle liefert 16 — der Selektor, der ausdrücklich jeden Fallback ablehnt, wurde nie gegen die Historik-Dateien geprüft, gegen die es ihn gibt. |
@@ -159,45 +161,70 @@ ausgelieferten Fehler freigelegt:
 | `swiss-transport-mcp` | [#31](https://github.com/malkreide/swiss-transport-mcp/pull/31) | **Fünf Befunde am Server**, alle derselben Herkunft: Er spricht an mehreren Stellen OJP **1.0**, wo er 2.0 zu sprechen glaubt. `<n>` statt des Pflichtfelds `<Name>` in jedem `PlaceRef` — damit war jede Reise- und Abfahrtsanfrage ungültig; `<LocationName>` für Ortsnamen, die es in OJP 2.0 innerhalb eines `PlaceRef` gar nicht gibt; `<IncludeRealtimeData>` statt `UseRealtimeData`; der Standort-Parser las nur `StopPlaceName` und verwarf alles andere; Fusswege kamen ohne Start- und Zielnamen zurück. |
 | `swiss-academic-libraries-mcp` | [#50](https://github.com/malkreide/swiss-academic-libraries-mcp/pull/50) | **Die Sammlungs-Übersicht meldete ein Zehntel des Bestands als Gesamtzahl.** `ListSets` ist paginiert wie `ListRecords`; gelesen wurde eine Seite. e-rara: 10 statt **105**, e-manuscripta: 10 statt **49**. Der Namensfilter lief danach über diese Reste, so dass eine Sammlung, die es gibt, als «Keine Sammlungen gefunden» zurückkam. |
 | `swiss-electricity-mcp` | [#37](https://github.com/malkreide/swiss-electricity-mcp/pull/37) | **Alle drei ElCom-Tarif-Werkzeuge lieferten seit einer Umstellung der Quelle nichts.** LINDAS hat den Prädikat-Namensraum umgebaut: `.../measure/*` gibt es nicht mehr, alles steht unter `.../dimension/*`, und die cube-eigenen Namensräume sind weg. `measure/total` war Pflicht-Tripel in jeder Abfrage — das Ergebnis war deshalb kein Fehler, sondern **HTTP 200 mit null Zeilen**, für jede Gemeinde und jedes Jahr. Zürich hat 291 Beobachtungen im Cube; die Abfrage des Servers fand null. Dazu zwei weitere: vier von fünf Speicherseen-Regionen lieferten unter ihrem eigenen Namen die Schweizer Zahlen, und der Standardschnitt der Zeitreihe traf 52 Zeilen ohne eine einzige Messung, weil die Reihe in die Zukunft läuft. |
+| `swiss-snb-mcp` | [#35](https://github.com/malkreide/swiss-snb-mcp/pull/35) | **Vier Befunde.** Die Bankenbilanz lieferte für `frequency="monthly"` **immer** eine leere Tabelle: Die Dimensionsordnung stand als Konstante mit vier Einträgen im Code, der Monats-Cube führt fünf, und jede Reihe mit abweichender Länge wurde stumm verworfen — HTTP 200, Kopfzeile, nichts darunter. `snb_get_warehouse_metadata` war kaputt, seit es existiert: Es baute `dimensions/json/<lang>`, einen Pfad, den es nicht gibt und den data.snb.ch als Angular-App mit **HTTP 200 und `text/html`** beantwortet. Die Jahresreihe gab Total, Inland und Ausland als drei identisch beschriftete Zeilen aus, wobei Inland + Ausland das Total ergibt. Und `INR100` wurde als Währung angeboten, die es in keinem der Cubes gibt. |
 | `swiss-democracy-mcp` | [#25](https://github.com/malkreide/swiss-democracy-mcp/pull/25) | **Füllwerte wurden als Parteiparolen ausgegeben.** Swissvotes markiert Fehlendes mit `9999` und `.`; der Code übersetzte die bekannten Codes und reichte den Rest roh durch. **667 der 714 Abstimmungen** betroffen — für die Bundesverfassung von 1848 meldete das Werkzeug `{"FDP": "9999", …}` für alle zehn Parteien, von denen es damals keine gab. |
 
-Die vier Nullbefunde gehören genauso in diese Tabelle wie die sieben Funde. Nach
+Die vier Nullbefunde gehören genauso in diese Tabelle wie die acht Funde. Nach
 drei Repos in Folge, die etwas hergaben, wäre die Versuchung gross gewesen, auch
 in den übrigen etwas zu finden.
 
-**Die Rangfolge trennt Fund und Nullbefund nicht.** Die sieben ausgelieferten
-Fehler liegen auf den Plätzen 3, 9, 13, 19, 21, 22 und 24, die vier Nullbefunde
-auf 10, 11, 12 und 17 — verschränkt, nicht gestaffelt. Alle elf stammen zudem aus
-den obersten 24 von 42; über die untere Hälfte sagt diese Stichprobe gar nichts.
+**Die Rangfolge trennt Fund und Nullbefund nicht.** Die acht ausgelieferten
+Fehler liegen auf den Plätzen 3, 9, 13, 19, 21, 22, 24 und 27, die vier
+Nullbefunde auf 10, 11, 12 und 17 — verschränkt, nicht gestaffelt. Alle zwölf
+stammen zudem aus den obersten 27 von 42; über die untere Hälfte sagt diese
+Stichprobe gar nichts.
 Das ist kein Mangel der Rangfolge, sondern das, was die Payload-Spalte misst:
 Exposition, nicht Risiko. Sie sagt, wie viel ungeprüfte Annahme ein Server
 trägt, nicht, ob eine davon falsch ist.
 
-Die vier untersten der elf führen das vor — und alle vier tragen einen Fund.
+Die fünf untersten der zwölf führen das vor — und alle fünf tragen einen Fund.
 `swiss-transport-mcp` (Platz 19): Jede Reise- und jede Abfahrtsanfrage war
 ungültig. `swiss-academic-libraries-mcp` (Platz 21): Die Sammlungs-Übersicht
 meldete ein Zehntel des Bestands als Gesamtzahl. `swiss-democracy-mcp`
 (Platz 22): Füllwerte gingen als Parteiparolen hinaus, in 93 % der
 Abstimmungen. `swiss-electricity-mcp` (Platz 24, der bisher unterste): Alle drei
-Tarif-Werkzeuge antworteten mit null Zeilen — mit 15 Payloads der **kleinste**
-Wert unter den elf. Keiner dieser Fehler stand in den Daten — sie standen in der
-Frage, im Blättern, im Codebuch und im Namensraum. Davon kann eine
-Payload-Zählung nichts wissen.
+Tarif-Werkzeuge antworteten mit null Zeilen — mit 15 Payloads der zweitkleinste
+Wert. `swiss-snb-mcp` (Platz 27, der unterste): vier Befunde bei **11**
+Payloads, dem kleinsten Wert unter den zwölf. Keiner dieser Fehler stand in den
+Daten — sie standen in der Frage, im Blättern, im Codebuch, im Namensraum und in
+der Zahl der Dimensionen. Davon kann eine Payload-Zählung nichts wissen.
 
-### Eine Lücke, die offen bleibt
+### Ein Befund anderer Art: das Prüfwerk selbst
 
-- **Zefix in `register-mcp` ist nicht aufgezeichnet.** Die API verlangt
-  `ZEFIX_USER`/`ZEFIX_PASSWORD` und antwortet ohne sie mit HTTP 401. Die Payloads
-  stehen weiter als Literale im Testmodul; `PROVENANCE.md` führt sie ausdrücklich
-  unter «NICHT aufgezeichnet», statt ihnen ein Datum anzuschreiben, das nicht
-  stimmt. Der Zweig im Skript ist fertig.
+In `swiss-snb-mcp` kam ein fünfter Befund heraus, der in keine Spalte dieser
+Tabelle passt, weil er nicht den Server betrifft, sondern **das, was ihn hätte
+prüfen sollen**.
 
-### Eine Korrektur an diesem Bericht
+Beide Live-Suiten des Servers liefen doppelt. Ihre Szenarien hiessen
+`test_01_…` bis `test_20_…`, also sammelte pytest jedes einzeln ein und fuhr es
+ausserhalb der Lifespan — ohne offenen HTTP-Client, also zwangsläufig rot.
+Danach lief derselbe Satz noch einmal korrekt über den eigentlichen
+Einstiegspunkt. Der Lauf meldete seither `Total: 40 | Bestanden: 24 |
+Fehlgeschlagen: 16` bei 20 Szenarien und listete jedes Szenario einmal rot und
+einmal grün.
 
-Die zweite Lücke stand hier so: *«`bag-health-mcp` bietet Indikatoren an, die es
-nicht ausliefern kann.»* Sie ist geschlossen
-([#56](https://github.com/malkreide/bag-health-mcp/pull/56)) — und beim
-Schliessen hat sich gezeigt, dass der Satz falsch war.
+Der Lauf war damit seit jeher rot, und deshalb stand der Job auf
+`continue-on-error`. **Ein Signal, das immer Alarm gibt, ist abgeschaltet** —
+und dieses hier hätte zwei der vier Befunde gefunden: Es gibt ein Live-Szenario
+für die Monatsbilanz und eines für die Dimensionsmetadaten, und beide fahren
+genau die Aufrufe, die nichts lieferten.
+
+Das ist der Grund, warum das Aufzeichnen hier überhaupt etwas gefunden hat: Der
+Server hatte mehr Live-Abdeckung als die meisten im Portfolio, und sie war
+wirkungslos. Eine Zahl in der Live-Spalte dieser Rangfolge sagt, dass es
+Live-Tests *gibt* — nicht, dass jemand ihr Ergebnis liest.
+
+### Zwei Korrekturen an diesem Bericht — und beide dieselbe
+
+Der Bericht führte zwei offene Lücken. Beide sind geschlossen, und beim
+Schliessen hat sich gezeigt, dass **beide Sätze falsch waren** — auf dieselbe
+Weise. Das ist der Grund, warum sie hier stehen und nicht in einer Fussnote.
+
+#### Erste Korrektur: `bag-health-mcp`
+
+Die Lücke stand hier so: *«`bag-health-mcp` bietet Indikatoren an, die es nicht
+ausliefern kann.»* Geschlossen mit
+[#56](https://github.com/malkreide/bag-health-mcp/pull/56).
 
 Gemessen war: 9 von 12 Obsan-Indikatoren antworteten auf `/g/json` **und**
 `/gum/json` je 404. Die Messung stimmt. Der Schluss daraus war meiner: *Sie
@@ -216,24 +243,50 @@ seien national.
 `obsan/lebenserwartung` stand in [#55](https://github.com/malkreide/bag-health-mcp/pull/55)
 als Beispiel für «keine Serie». Er hat 4374 Datenpunkte, kantonal, seit 1998.
 
-Das gehört hierher und nicht in eine Fussnote, weil es die Fehlerklasse dieses
-Berichts wiederholt, eine Ebene höher. Eine erfundene Fixture bestätigt die
-Annahme ihres Autors. Eine echte Messung kann dasselbe tun, wenn man sie unter
-der Annahme liest, die man ohnehin hatte: **404 auf die einzige Adresse, die man
-kennt, misst die eigene Adressliste, nicht den Bestand der Quelle.** Der
-Unterschied wurde erst sichtbar, als das Aufzeichnungsskript die Erhebung selbst
-zum datierten Gegenstand machte (`tests/fixtures/obsan_variant_census.json`) —
-also als die Zahl aufhörte, ein Satz in einer Commit-Nachricht zu sein.
+#### Zweite Korrektur: Zefix in `register-mcp`
+
+Die Lücke stand hier so: *«Die API verlangt `ZEFIX_USER`/`ZEFIX_PASSWORD` und
+antwortet ohne sie mit HTTP 401.»* Geschlossen mit
+[#50](https://github.com/malkreide/register-mcp/pull/50) — **ohne
+Zugangsdaten**, weil es nie welche gebraucht hat.
+
+Es gibt zwei Zefix-APIs unter demselben Host. Das Aufzeichnungsskript fragte
+`ZefixPublicREST`; das verlangt tatsächlich Zugangsdaten. Der Server spricht mit
+`ZefixREST`, und das antwortet **ohne jede Anmeldung mit HTTP 200**. Die 401 hat
+also die Adressliste des Skripts gemessen, nicht den Zugang zur Quelle. Das
+Aufzeichnen förderte danach zwei ausgelieferte Fehler zutage, darunter einer, der
+für `legalSeatId=261` statt Zürich die Gemeinde Aarwangen (BE) benennt — ohne
+Fehlermeldung, weil beide Zahlen echt sind.
+
+#### Warum beide Sätze auf dieselbe Weise falsch waren
+
+Eine erfundene Fixture bestätigt die Annahme ihres Autors und kann sie nicht
+widerlegen. Eine **echte Messung** kann dasselbe tun, wenn man sie unter der
+Annahme liest, die man ohnehin hatte:
+
+> **404 oder 401 auf die einzige Adresse, die man kennt, misst die eigene
+> Adressliste — nicht den Bestand und nicht den Zugang der Quelle.**
+
+Beide Male stimmte die Zahl, und beide Male stand sie für etwas anderes, als im
+Bericht daraus geschlossen wurde. In `bag-health-mcp` wurde der Unterschied
+sichtbar, als das Aufzeichnungsskript die Erhebung selbst zum datierten
+Gegenstand machte (`tests/fixtures/obsan_variant_census.json`) — also als die
+Zahl aufhörte, ein Satz in einer Commit-Nachricht zu sein. In `register-mcp`
+wurde er sichtbar, als das Skript die Basis-URL nicht mehr abschrieb, sondern
+aus dem Produktivcode importierte. Das ist Lehre 7, von der anderen Seite: Wenn
+das Aufzeichnungsskript eine andere Adresse fragt als der Server, misst es den
+falschen Gegenstand — und das gilt für die Fehlschläge genauso wie für die
+Antworten.
 
 ## Wenn weitergemacht wird
 
-Das Muster liegt in elf Servern vor und ist übertragbar: ein
+Das Muster liegt in zwölf Servern vor und ist übertragbar: ein
 `scripts/record_fixtures.py`, das die Quelle abruft, Ausschnitte nach
 **dokumentierter Auswahlregel** schreibt und eine `PROVENANCE.md` mit Quelle,
 Datum, Regel und SHA-256 erzeugt. Dazu ein Loader in `tests/`, der einen
 fehlenden Namen als Fehler behandelt statt als leere Struktur.
 
-Sieben Dinge haben sich dabei durchgehend bewährt:
+Acht Dinge haben sich dabei durchgehend bewährt:
 
 1. **Erwartungen aus der Fixture ableiten**, nicht danebenschreiben. Eine feste
    Zahl ist beim nächsten Aufzeichnen falsch, ohne dass sich etwas Geprüftes
@@ -295,6 +348,28 @@ Sieben Dinge haben sich dabei durchgehend bewährt:
    **Wenn die Antwort davon abhängt, welche Adresse man fragt, muss die Fixture
    auch die Adresse aufzeichnen** — nicht bloss die Antwort darauf. Die Quelle
    sagte dort die ganze Zeit, welche Adressen es gibt; gelesen wurde es nie.
+
+   Und in `register-mcp` derselbe Punkt an der schmerzhaftesten Stelle: Das
+   Aufzeichnungsskript schrieb die Basis-URL ab, statt sie zu importieren, und
+   fragte damit eine andere Zefix-API als der Server. Die 401, die daraufhin
+   ein Jahr lang als «braucht Zugangsdaten» im Bericht stand, betraf einen
+   Endpunkt, den der Server nie anfasst. Seit die URL aus `server.py` kommt,
+   kann das nicht mehr auseinanderlaufen.
+8. **Was der Server ausgibt, muss sagen, welcher Schnitt es ist.** Drei Server
+   haben denselben Fehler in drei Gestalten getragen: `swiss-snb-mcp` gab
+   Total, Inland und Ausland als drei identisch beschriftete Zeilen aus (Inland
+   + Ausland ergibt das Total — wer summierte, verdoppelte die Bilanz);
+   `bag-health-mcp` reichte eine Verteilung in % durch, wo eine standardisierte
+   Rate erwartet wurde; `register-mcp` legte zwei Zahlenspalten nebeneinander,
+   von denen nur eine die richtige ist. In allen drei Fällen ist die Antwort
+   vollständig, plausibel und formatiert — und über etwas anderes.
+
+   Die Regel, die daraus folgt, ist unbequem und billig: **Jede Dimension, die
+   nicht eingegrenzt wurde, gehört benannt in die Ausgabe.** Eine Dimension,
+   die weder gefiltert noch angezeigt wird, ist genau der Weg, auf dem mehrere
+   Messgrössen unter eine Beschriftung geraten. Erfundene Fixtures zeigen das
+   nie, weil sie je Fall eine Zeile führen — die Mehrdeutigkeit entsteht erst
+   in der Menge.
 
 Wo Personendaten im Spiel sind — Amtsblatt-Rubriken wie `SB` und `LS` —, bleibt
 die **Struktur echt und die Werte redigiert**, mit vollständiger Liste in der
