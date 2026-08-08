@@ -102,7 +102,7 @@ These links are context, not authority. The repository remains a private open-so
 
 ## Quality & Audit Tooling
 
-The audit methodology is now linked to the public [`mcp-audit-skill`](https://github.com/malkreide/mcp-audit-skill) repository instead of being described as an internal-only catalogue. It is complemented by [`mcp-continuous-auditor`](https://github.com/malkreide/mcp-continuous-auditor), which runs continuous CI audits against MCP servers using promptfoo as a deterministic source of truth. The skill currently documents **112 checks across twelve categories**, on a dual spec baseline (`2025-11-25` and `2026-07-28`):
+The audit methodology is now linked to the public [`mcp-audit-skill`](https://github.com/malkreide/mcp-audit-skill) repository instead of being described as an internal-only catalogue. It is complemented by [`mcp-continuous-auditor`](https://github.com/malkreide/mcp-continuous-auditor), which runs continuous CI audits against MCP servers using promptfoo as a deterministic source of truth. The skill currently documents **120 checks across twelve categories**, on a dual spec baseline (`2025-11-25` and `2026-07-28`):
 
 | Category | Coverage |
 |---|---|
@@ -140,8 +140,8 @@ audit:
   repo: https://github.com/malkreide/swiss-transport-mcp
   audited_commit: "<commit-sha>"
   audit_skill: https://github.com/malkreide/mcp-audit-skill
-  audit_skill_version: "2.0.0"
-  catalogue_checks: 112
+  audit_skill_version: "2.3.0"
+  catalogue_checks: 120
   mcp_spec_version: "2025-11-25"        # 2025-11-25 | 2026-07-28
   profile:
     transport: "dual"                   # stdio-only | dual | HTTP/SSE
