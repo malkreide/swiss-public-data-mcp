@@ -96,6 +96,40 @@ Two traps, both hit during the portfolio-wide consolidation:
   change, which is what guards are for. They were rewritten to the stronger
   invariant, not deleted.
 
+## This repository's gates
+
+Eight checks run on a pull request, across two workflows. None of them is a
+test suite: there is no `src/`, no `pyproject.toml` and no server here.
+
+`lint.yml` — note the scope is `scripts/` alone (10 files), not the
+`src/ tests/ scripts/` the servers lint:
+
+```bash
+ruff check scripts/
+ruff format --check scripts/
+```
+
+`readme-sync.yml`:
+
+```bash
+python -c "import json; json.load(open('portfolio.json'))"
+python scripts/coverage_manifest.py --check
+python scripts/generate_readme.py --check
+python scripts/generate_server_json.py --check
+python scripts/generate_install_snippets.py --check
+```
+
+The three `generate_*.py --check` gates print **nothing** and exit 0 when they
+pass. Silence is the success signal here, so an empty log is not evidence the
+step was skipped — read the exit code, not the output. Only
+`coverage_manifest.py --check` says anything (`repositories OK (47; …)`).
+
+A third workflow, `index-presence.yml`, runs on a schedule
+(`cron: "37 4 * * *"`) and asks the package index whether every `pypi_dist`
+in `portfolio.json` really exists. It is this repo's equivalent of the
+servers' live tests — the only check whose input is somebody else's system,
+and therefore the only one a green pull request cannot speak for.
+
 ## Before you open a PR
 
 Read `main`, not just your clone. Of thirty-three pull requests in one
