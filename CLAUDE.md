@@ -49,6 +49,61 @@ Read what CI actually runs before claiming a local pass. `ruff check` and
 `ruff format --check` are two commands; passing the first and reporting "ruff
 clean" is a false statement about the second.
 
+The same trap in documents: a check can answer a narrower question than the
+one you needed and still come back green.
+
+*A sweep verified that every `CLAUDE.md` carried the shared conventions in
+full, and concluded from that the files were correct. The check could not see
+part two — the repo-specific half — which the same sweep had just made wrong.
+Thirteen files went on telling contributors to install a pinned tool by hand
+after the pin had moved. A reviewer found it, not the sweep.*
+
+### Copies that agree still prove nothing if one of them overrides the rest
+
+A guard that compares N places and demands they match reports "clean" the
+moment they match. That says nothing about whether the match matters.
+
+*The ruff version was pinned in `pyproject.toml` and again as an install step
+in CI. The numbers agreed, and a guard checked that they agreed. But the CI
+step ran **after** the dependency install and overwrote it, so a loosened
+range in `pyproject.toml` could never turn CI red — it would only have hurt
+locally, where nobody expects it. The guard was green throughout.*
+
+Where a place must not exist, check for its **absence**, separately, and
+independently of its value. Equality between the survivors is the weaker
+claim, and a returning copy satisfies it while defeating it.
+
+## The ruff pin: one source per repository
+
+In the servers the pin lives in `pyproject.toml`, `dev` extra, `ruff==X.Y.Z`,
+and **no workflow installs ruff itself**. Where a `.pre-commit-config.yaml`
+exists it repeats the number, because pre-commit cannot read `pyproject.toml`;
+those two must agree, and a guard says so.
+
+**This repository is the exception, and deliberately so.** It has no
+`pyproject.toml` — it is the portfolio bracket, not a Python package — so the
+pin lives in `.github/workflows/lint.yml` and only there. That is still one
+source. Do not "align" it with the servers by inventing a package here.
+
+Two traps, both hit during the portfolio-wide consolidation:
+
+- A job whose **only** ruff came from the pin step. Deleting the step without
+  putting an install in its place leaves `ruff: command not found`, exit 127.
+  Seven servers had such a `lint` job. The replacement install is not a
+  duplicate of the one in the test job, and a comment should say so — it looks
+  exactly like something to tidy away.
+- Drift guards that encoded the old shape. Four of them went red on the
+  change, which is what guards are for. They were rewritten to the stronger
+  invariant, not deleted.
+
+## Before you open a PR
+
+Read `main`, not just your clone. Of thirty-three pull requests in one
+portfolio pass, four were duplicates: parallel sessions had already landed the
+same change, in two cases with a guard the newer branch lacked. The conflict
+only surfaces at merge time, and then the question is whose version wins —
+often the other one.
+
 ## The rule underneath all of it
 
 Every report here distinguishes three answers, never two:
