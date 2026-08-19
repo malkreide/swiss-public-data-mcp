@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "last_checked": "2026-07-28",
+  "last_checked": "2026-08-18",
   "owner": "malkreide",
   "portfolio_repository": "https://github.com/malkreide/swiss-public-data-mcp",
   "required_github_topic": "swiss-public-data-mcp",
@@ -34,7 +34,8 @@
       "DRIFT",
       "DEP"
     ],
-    "current_mcp_spec_baseline": "2025-11-25",
+    "mcp_spec_baseline": "per server; see each entry's audit_evidence and the audit tracker",
+    "mcp_spec_baseline_values": ["2025-11-25", "2026-07-28"],
     "required_report_metadata": [
       "server",
       "repo",

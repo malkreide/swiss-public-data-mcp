@@ -140,9 +140,9 @@ audit:
   repo: https://github.com/malkreide/swiss-transport-mcp
   audited_commit: "<commit-sha>"
   audit_skill: https://github.com/malkreide/mcp-audit-skill
-  audit_skill_version: "2.3.0"
+  audit_skill_version: "3.0.0"
   catalogue_checks: 120
-  mcp_spec_version: "2025-11-25"        # 2025-11-25 | 2026-07-28
+  mcp_spec_version: "2026-07-28"        # 2025-11-25 | 2026-07-28
   profile:
     transport: "dual"                   # stdio-only | dual | HTTP/SSE
     sdk_language: "Python"              # Python | TypeScript
