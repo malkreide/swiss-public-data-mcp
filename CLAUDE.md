@@ -138,6 +138,31 @@ same change, in two cases with a guard the newer branch lacked. The conflict
 only surfaces at merge time, and then the question is whose version wins —
 often the other one.
 
+Before creating a branch whose name was handed to you, ask whether it already
+exists:
+
+```bash
+git ls-remote --heads origin claude/<name> | wc -l
+```
+
+`1` means somebody else is on it, with write access to the same ref.
+
+**A pull request with an empty diff gets closed, not merged.** The test is
+`get_files` on the pull request: `[]` means it changes nothing. A green check
+is no evidence against that — CI runs the head, and the head is fine; what is
+empty is the difference to the base.
+
+*In a later pass two sessions ran the same task across forty-five
+repositories, on two branches. Wherever one reached `main` first, `main` was
+merged into the other's branch and the add/add conflict resolved in favour of
+`main`. Fourteen pull requests came out of that: green through every gate, and
+carrying nothing. They were merged and left empty merge commits. With the two
+follow-ups that were moot for the same reason, sixteen of that day's
+fifty-nine pull requests were pure friction.*
+
+Same shape as everything under *How verification works here*: the check ran and
+checked nothing.
+
 ## The rule underneath all of it
 
 Every report here distinguishes three answers, never two:
