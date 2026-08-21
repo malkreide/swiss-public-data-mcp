@@ -1,6 +1,6 @@
-## Was ändert sich
+## Was und warum
 
-<!-- Kurz: was und warum. -->
+<!-- Kurz: was ändert sich, und weshalb. -->
 
 ## Checkliste
 
