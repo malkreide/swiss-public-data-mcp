@@ -10,6 +10,12 @@ on:
   push:
     branches: [main]
   pull_request:
+  # Von Hand startbar, wie in lint.yml. Am 2026-08-22 hat ein Push auf einen
+  # PR-Branch kein `synchronize` erzeugt: Der Ref stand richtig, aber fuer den
+  # neuen Commit lief nichts. `lint.yml` liess sich deshalb gegen den Head
+  # starten, dieser Workflow nicht — und blieb als einziger ungeprueft. Ein
+  # Leer-Commit haette die Anzeige gruen gemacht, ohne etwas zu pruefen.
+  workflow_dispatch: {}
 
 jobs:
   check:
