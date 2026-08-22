@@ -98,15 +98,16 @@ Two traps, both hit during the portfolio-wide consolidation:
 
 ## This repository's gates
 
-Nine checks run on a pull request, across two workflows. None of them is a
+Ten checks run on a pull request, across two workflows. None of them is a
 test suite: there is no `src/`, no `pyproject.toml` and no server here.
 
-`lint.yml` — note the scope is `scripts/` alone (10 files), not the
+`lint.yml` — note the scope is `scripts/` alone (11 files), not the
 `src/ tests/ scripts/` the servers lint:
 
 ```bash
 ruff check scripts/
 ruff format --check scripts/
+python scripts/check_gate_consistency.py
 ```
 
 `readme-sync.yml`:
@@ -123,8 +124,19 @@ python scripts/generate_showcase_card.py --check
 
 The five `generate_*.py --check` gates print **nothing** and exit 0 when they
 pass. Silence is the success signal here, so an empty log is not evidence the
-step was skipped — read the exit code, not the output. Only
-`coverage_manifest.py --check` says anything (`repositories OK (47; …)`).
+step was skipped — read the exit code, not the output. Two gates do speak:
+`coverage_manifest.py --check` (`repositories OK (47; …)`) and
+`check_gate_consistency.py`, which names the numbers it just compared.
+
+That last one holds this very block against the two workflows, in both
+directions, and checks the counts in the prose around it — including the
+file count in the line above. The direction that matters is the second one:
+a gate the workflows run and this block omits. It exists because this block
+quoted five of `readme-sync.yml`'s seven commands and called the total
+eight when it was nine, and nothing held the two together. It runs its own
+counter-check on every invocation — three deliberate mutations that each
+have to be reported — so a green line here means the comparison could still
+have spoken, not merely that it stayed silent.
 
 A third workflow, `index-presence.yml`, runs on a schedule
 (`cron: "37 4 * * *"`) and asks the package index whether every `pypi_dist`
