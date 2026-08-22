@@ -98,7 +98,7 @@ Two traps, both hit during the portfolio-wide consolidation:
 
 ## This repository's gates
 
-Eight checks run on a pull request, across two workflows. None of them is a
+Nine checks run on a pull request, across two workflows. None of them is a
 test suite: there is no `src/`, no `pyproject.toml` and no server here.
 
 `lint.yml` — note the scope is `scripts/` alone (10 files), not the
@@ -117,9 +117,11 @@ python scripts/coverage_manifest.py --check
 python scripts/generate_readme.py --check
 python scripts/generate_server_json.py --check
 python scripts/generate_install_snippets.py --check
+python scripts/generate_promotion.py --check
+python scripts/generate_showcase_card.py --check
 ```
 
-The three `generate_*.py --check` gates print **nothing** and exit 0 when they
+The five `generate_*.py --check` gates print **nothing** and exit 0 when they
 pass. Silence is the success signal here, so an empty log is not evidence the
 step was skipped — read the exit code, not the output. Only
 `coverage_manifest.py --check` says anything (`repositories OK (47; …)`).
