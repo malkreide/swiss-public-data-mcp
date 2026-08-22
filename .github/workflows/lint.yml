@@ -44,7 +44,7 @@ jobs:
       # unberuehrten Code rot. 0.16.1 ist die Version, auf der das Portfolio
       # geschlossen steht.
       - name: Install pinned Ruff
-        run: pip install ruff==0.16.1
+        run: pip install ruff==0.16.3
 
       - name: Lint
         run: ruff check scripts/
