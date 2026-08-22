@@ -54,3 +54,10 @@ jobs:
       # damit im Log steht, welches der beiden ausgeloest hat.
       - name: Format
         run: ruff format --check scripts/
+
+      # Haelt den zitierten Gate-Block in CLAUDE.md gegen genau diese beiden
+      # Workflows — in beiden Richtungen. Steht hier und nicht in
+      # readme-sync.yml, weil das Gepruefte hier die Workflows selbst sind und
+      # nicht portfolio.json.
+      - name: Gate list matches the workflows
+        run: python scripts/check_gate_consistency.py
