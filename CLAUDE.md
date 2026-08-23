@@ -73,6 +73,49 @@ Where a place must not exist, check for its **absence**, separately, and
 independently of its value. Equality between the survivors is the weaker
 claim, and a returning copy satisfies it while defeating it.
 
+### A silent reviewer has four explanations, and only one of them is "clean"
+
+The pull request template carries one line about it: *Codex-Review beantwortet
+oder behoben — kein offener Befund beim Merge*. The line assumes a finding could
+have existed. Silence does not tell you whether it could.
+
+- **It found nothing** — then it reacts with a thumbs-up and writes no text.
+- **The pull request is a draft** — it does not run on those at all.
+- **The account's review quota is spent** — then it writes that, and nothing else.
+- **The repository has no Codex environment** — then it says that instead, and no
+  amount of quota will change it.
+
+From the timeline all four look alike; the difference is in the *form*. A real
+review is a **review object**, the quota notice an ordinary **issue comment**.
+Those are two different queries, and either one alone answers half the question.
+Timing separates them as well — the quota notice came back in ten seconds, a
+real review takes three to five minutes. Twenty seconds of silence is not a
+result.
+
+*Both quota notices on this repository's own pull request arrived exactly that
+way: `get_reviews` returned an empty list while `get_comments` held the refusal.
+The pull request was merged with the template line in its description and nobody
+having read the diff. The same outage ran twenty-three hours across the
+portfolio, and the box was ticked every time.*
+
+A second way to lose the reviewer needs no outage at all: **merging too fast.**
+Marking a draft ready is what triggers the review, and the review needs minutes.
+*Several pull requests in one portfolio pass were merged three to five seconds
+after being marked ready.*
+
+Searching portfolio-wide finds only where the reviewer *commented*. Repositories
+with no pull request activity do not appear at all, and their absence is not
+evidence that anything was checked there.
+
+*The pull request that added this very section drew the fourth answer rather
+than the third: `To use Codex here, create an environment for this repo.` The
+quota had come back by then; the reviewer still could not run. Reading the first
+refusal as the whole story would have kept that hidden — one refusal explains
+one moment, not the arrangement behind it.*
+
+This is the three-way rule again, at the place where it is easiest to skip:
+silence is **not measured**, never **clean**.
+
 ## The ruff pin: one source per repository
 
 In the servers the pin lives in `pyproject.toml`, `dev` extra, `ruff==X.Y.Z`,
