@@ -1,0 +1,26 @@
+# Dependabot — monatliche Update-PRs.
+#
+# In diesem Repo lief bisher gar kein Dependabot: die Datei fehlte. Ein
+# fehlender Scheduler meldet sich nicht, deshalb ist das nie aufgefallen.
+#
+# Nur github-actions: dieses Repo hat weder pyproject.toml noch
+# requirements.txt noch ein Dockerfile — ein pip- oder docker-Eintrag waere
+# tote Konfiguration, die nie etwas findet.
+#
+# Bewusst OHNE `labels:`. Die im Portfolio übliche Zeile `labels: ["dependencies"]`
+# verlangt ein Label, das am 2026-08-28 in 23 von 24 geprüften Repos nicht
+# existierte; Dependabot quittiert das mit einem Kommentar an jedem PR. Sieben
+# Server fahren die Konfiguration deshalb schon ohne. Existiert das Label, kann
+# die Zeile nachgezogen werden.
+version: 2
+updates:
+
+  # Gepinnte Action-Versionen in .github/workflows
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 5
+    groups:
+      github-actions:
+        patterns: ["*"]
