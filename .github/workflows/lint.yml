@@ -41,8 +41,10 @@ jobs:
       # weil der Regelsatz in `select` steht (ruff.toml). Fuer
       # `ruff format --check` unten genuegt sie NICHT: dort ist das Ergebnis
       # selbst das Kriterium, und jede Version, die am Formatter dreht, faerbt
-      # unberuehrten Code rot. 0.16.1 ist die Version, auf der das Portfolio
-      # geschlossen steht.
+      # unberuehrten Code rot. Welche Version das ist, steht ausschliesslich
+      # im Befehl unten und in keinem Kommentar: Hier stand eine zweite,
+      # niedrigere Zahl als die installierte — eine zweite Nennung ist eine
+      # zweite Quelle, und die veraltet still.
       - name: Install pinned Ruff
         run: pip install ruff==0.16.3
 
