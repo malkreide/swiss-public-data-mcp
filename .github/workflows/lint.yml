@@ -46,7 +46,7 @@ jobs:
       # niedrigere Zahl als die installierte — eine zweite Nennung ist eine
       # zweite Quelle, und die veraltet still.
       - name: Install pinned Ruff
-        run: pip install ruff==0.16.3
+        run: pip install ruff==0.16.9
 
       - name: Lint
         run: ruff check scripts/
